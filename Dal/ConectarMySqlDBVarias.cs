@@ -21,38 +21,28 @@ namespace Dal
             
         internal MySqlConectarSqlDBVarias(string v_db)
         {
-            if (v_db == "kardex")
-            {
-
-                connString = "Server=localhost;Database=wi271852_kardex; Uid=wi271852_kardex;Pwd=Quilmes2017;check parameters=false";
-            }
+            
 
             if (v_db == "bestsport")
             {
 
-                connString = "Server=localhost;Database=best; Uid=w230176_best;Pwd=mu11neTEvo;check parameters=false";
+                connString = "Server=localhost;Database=best; Uid=w230176_**;Pwd=****;check parameters=false";
             }
             if (v_db == "best")
             {
             //  string StrCnn = ConfigurationManager.AppSettings.Get("StrCnn").ToString();
-                connString = "Server=localhost;Database=best; Uid=w230176_best;Pwd=mu11neTEvo;check parameters=false";
+                connString = "Server=localhost;Database=best; Uid=w230176_best;Pwd=***;check parameters=false";
 
                // connString = StrCnn;
             }
-            if (v_db == "ORL") 
-            {
-
-                connString = "Server=localhost;Database=wi271852_orl; Uid=wi271852_kardex;Pwd=Quilmes2017;check parameters=false";
-            }
+           
             
         }
         public MySqlConnection MySqlCrearNuevaConexion()
         {
            
 
-
-
-            // ID=WEBDDJJ; Password=WEBDDJJQUILMES2014
+ 
             //declarar e instanciar una nueva instancia de un objeto del tipo MySqlConnection
             MySqlConnection conexion = new MySqlConnection(connString);
             return conexion;
