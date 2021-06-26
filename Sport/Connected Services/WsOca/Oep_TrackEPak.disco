@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<discovery xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://schemas.xmlsoap.org/disco/">
+  <contractRef ref="http://webservice.oca.com.ar/ePak_tracking/Oep_TrackEPak.asmx?wsdl" docRef="http://webservice.oca.com.ar/ePak_tracking/Oep_TrackEPak.asmx" xmlns="http://schemas.xmlsoap.org/disco/scl/" />
+  <soap address="http://webservice.oca.com.ar/ePak_tracking/Oep_TrackEPak.asmx" xmlns:q1="#Oca_e_Pak" binding="q1:Oep_TrackingSoap" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+  <soap address="http://webservice.oca.com.ar/ePak_tracking/Oep_TrackEPak.asmx" xmlns:q2="#Oca_e_Pak" binding="q2:Oep_TrackingSoap12" xmlns="http://schemas.xmlsoap.org/disco/soap/" />
+</discovery>

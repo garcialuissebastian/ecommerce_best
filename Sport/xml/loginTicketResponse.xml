@@ -1,0 +1,14 @@
+﻿<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<loginTicketResponse version="1.0">
+  <header>
+    <source> </source>
+    <destination> </destination>
+    <uniqueId>882869232</uniqueId>
+    <generationTime>2020-09-26T17:20:14.894-03:00</generationTime>
+    <expirationTime>2020-09-27T05:20:14.894-03:00</expirationTime>
+  </header>
+  <credentials>
+    <token>PD94bWwgGLTgiIHN0YW5kYWxvbmU9InllcyI/Pgo8c3NvIHZlcnNpb249IjIuMCI+CiAgICA8aWQgc3JjPSJDTj13c2FhaG9tbywgTz1BRklQLCBDPUFSLCBTRVJJQUxOVU1CRVI9Q1VJVCAzMzY5MzQ1MDIzOSIgZHN0PSJDTj13c2ZlLCBPPUFGSVAsIEM9QVIiIHVuaXF1ZV9pZD0iMTUwMTM5ODk5IiBnZW5fdGltZT0iMTYwMTE1MTU1NCIgZXhwX3RpbWU9IjE2MDExOTQ4MTQiLz4KICAgIDxvcGVyYXRpb24gdHlwZT0ibG9naW4iIHZhbHVlPSJncmFudGVkIj4KICAgICAgICA8bG9naW4gZW50aXR5PSIzMzY5MzQ1MDIzOSIgc2VydmljZT0id3NmZSIgdWlkPSJTRVJJQUxOVU1CRVI9Q1VJVCAyNzEyNzQ3NzM4MywgQ049ZWxvbmNlIiBhdXRobWV0aG9kPSJjbXMiIHJlZ21ldGhvZD0iMjIiPgogICAgICAgICAgICA8cmVsYXRpb25zPgogICAgICAgICAgICAgICAgPHJlbGF0aW9uIGtleT0iMjcxMjc0NzczODMiIHJlbHR5cGU9IjQiLz4KICAgICAgICAgICAgPC9yZWxhdGlvbnM+CiAgICAgICAgPC9sb2dpbj4KICAgIDwvb3BlcmF0aW9uPgo8L3Nzbz4K</token>
+    <sign>U74Xhl5yILqAXeviaBS7vklYTXAgXED1hm6ujCNhZXpvibIWGkwcbWo/2CELvwDu9J+Jrxul5CbwGvFhbEtR3YAPddG2NnKzqPsrsUtjY5gt1DCAPRtXTYoYhhkhFKiSWlqKs4FMyR4=</sign>
+  </credentials>
+</loginTicketResponse>

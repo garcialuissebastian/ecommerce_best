@@ -1,0 +1,521 @@
+﻿
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Master/_sport.cshtml";
+
+
+
+    System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("es-AR");
+    var numberFormatInfo1 = new System.Globalization.NumberFormatInfo();
+    numberFormatInfo1.NumberDecimalSeparator = ".";
+    numberFormatInfo1.CurrencyPositivePattern = 0;
+
+    string urlanterior = "/Articulos/";
+    string ParametroIzq = "";
+    Bll.QueryString mQueryString = new Bll.QueryString(Request.QueryString);
+    mQueryString = Bll.Encriptor.DameInstancia().DecryptQueryString(mQueryString);
+
+    Bll.QueryString obQueryString = new Bll.QueryString();
+
+    int tipo = 0;
+
+    if (mQueryString["vtipo"] != null)
+    {
+        tipo = Convert.ToInt32(mQueryString["vtipo"].Trim());
+    }
+
+    int cat = 0;
+
+    if (mQueryString["vcat"] != null)
+    {
+        cat = Convert.ToInt32(mQueryString["vcat"].Trim());
+    }
+
+    Be.Best_tipos_articulos objTipo = null;
+
+    List<Be.Best_Menu> menu = (List<Be.Best_Menu>)ViewData["menu"];
+
+    if (tipo > 0)
+    {
+        foreach (var item in menu)
+        {
+            if (item.Id == tipo.ToString())
+            {
+                objTipo = item;
+            }
+        }
+
+    }
+    Be.Best_categorias objCat = null;
+
+    if (cat > 0)
+    {
+        foreach (var item in menu)
+        {
+
+            objCat = item.buscarCategoria(cat.ToString());
+
+            if (objCat.Nombre != null)
+            {
+                break;
+            }
+
+        }
+
+    }
+
+
+
+    List<Be.Best_articulos_venta> ArticulosVenta = (List<Be.Best_articulos_venta>)ViewData["articulosventa"];
+
+
+    string colDer = "col-md-9";
+    if (objTipo == null)
+    {
+        colDer = "col-md-12";
+    }
+    string colIzq = "";
+    if (objTipo == null)
+    {
+        colIzq = " d-none";
+    }
+    string content = "container-fluid";
+    if (objTipo == null)
+    {
+        content = "container";
+    }
+}
+
+<style>
+    @@media(max-width:768px) {
+        #Cuerpo {
+            margin-top: 120px !important;
+        }
+        #btnFiltro {
+            background-color: #f7f7f7;
+            padding-top: 5px;
+            margin-top: 6px;
+            border-radius: .25rem;
+        }
+        .tag{
+            display:none;
+        }
+        
+    }
+</style>
+
+
+<div class="@content">
+
+
+
+
+
+    <div class="row">
+
+        @*<%--izq--%>
+            <%--    <div class="d-lg-none">hide on screens wider than lg</div>
+            <div class="d-none d-lg-block">hide on screens smaller than lg</div>--%>*@
+
+
+
+        @*<%--izq--%>*@
+
+        <div class=" col-12 col-md-3   @colIzq  ">
+            <div class="container">
+
+                <div style="font-weight:600;     padding-left: 9px; cursor:pointer
+    " class="row" onclick="ocultarfiltro()" id="btnFiltro">
+
+
+                    <div class="col-8">
+                        FILTRO
+                    </div>
+                    <div class="col-4 tagFiltro Filtro ">
+
+
+                        <ul style="list-style:none;    margin-bottom: 3px;    float: right;">
+
+                            <li><a> </a></li>
+
+                        </ul>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+        @*<%--der--%>*@
+
+        <div class=" col-12 @colDer">
+
+            <div class="row path" style=" border-bottom: 1px solid #eaeaea;">
+
+
+
+                <ul class="breadcrumbs">
+                    <li>
+
+                        <a href="/">Inicio</a>
+
+                    </li>
+
+                    @{
+
+
+
+                        if (objTipo != null)
+                        {
+                            obQueryString = new Bll.QueryString();
+                            obQueryString.Add("vtipo", @objTipo.Id);
+                            ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                            <li>
+                                <a href="/Articulos/@ParametroIzq">@objTipo.Descripcion</a>
+                            </li>
+
+                        }
+
+
+                        if (objCat != null)
+                        {
+                            obQueryString = new Bll.QueryString();
+                            obQueryString.Add("vcat", @objCat.Id);
+                            ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+
+
+                            <li>
+                                <a href="/Articulos/@ParametroIzq">@objCat.Nombre</a>
+
+                            </li>
+
+
+                        }
+
+
+
+                    }
+                </ul>
+
+            </div>
+
+
+        </div>
+
+
+
+        <div class=" col-md-3   @colIzq  ">
+
+
+            <div class="container">
+
+
+
+
+                <div class="MenuIzq tag">
+
+
+                    <ul class="ocultarfiltro">
+
+
+                        @{
+
+
+
+
+                            if (objTipo != null)
+                            {
+
+                                obQueryString.Add("vtipo", @objTipo.Id);
+                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+
+                                <li><a href="@urlanterior"> @objTipo.Descripcion</a></li>
+                                urlanterior += @ParametroIzq;
+
+                            }
+
+
+                            if (objCat != null)
+                            {
+                                <li><a href="@urlanterior">@objCat.Nombre</a></li>
+                                obQueryString = new Bll.QueryString();
+                                obQueryString.Add("vcat", @objCat.Id);
+                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                                urlanterior += @ParametroIzq;
+                            }
+
+
+
+                        }
+
+
+
+
+                    </ul>
+
+
+                </div>
+
+                <div id="accordion" class="accordion ocultarfiltro">
+                    <div class="   mb-0">
+
+                        @{
+                            if (tipo > 0)
+                            {
+
+                                Be.Best_Menu cc = menu[Bll.BllBest.DameInstancia().indiceTipoArticulo(Convert.ToInt32(tipo))];
+                                Be.Best_tipos_categorias genero = @cc.TipoCat[0];
+
+                                <div class="MenuIzq collapsed" data-toggle="collapse" href="#izqgenero" aria-expanded="true">
+                                    <a class="card-title"> @genero.Nombre </a>
+                                </div>
+                                <div id="izqgenero" class=" Miaccordion collapse in" data-parent="#accordion">
+                                    <ul>
+
+                                        @{
+                                            foreach (var mCat in @genero.Categoria)
+                                            {
+                                                obQueryString = new Bll.QueryString();
+                                                obQueryString.Add("vtipo", @cc.Id);
+                                                obQueryString.Add("vcat", @mCat.Id);
+                                                obQueryString.Add("vtipocat", @genero.Id);
+                                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                                                <li><a href="/Articulos/@ParametroIzq">@mCat.Nombre</a></li>
+
+                                            }
+
+                                        }
+                                    </ul>
+
+                                </div>
+
+
+                                Be.Best_tipos_categorias MARCA = @cc.TipoCat[1];
+                                <div class="MenuIzq collapsed" data-toggle="collapse" href="#izqMARCA" aria-expanded="true">
+                                    <a class="card-title"> @MARCA.Nombre </a>
+                                </div>
+                                <div id="izqMARCA" class="Miaccordion collapse in" data-parent="#accordion">
+                                    <ul>
+                                        @{
+                                            foreach (var mCat in @MARCA.Categoria)
+                                            {
+                                                obQueryString = new Bll.QueryString();
+                                                obQueryString.Add("vtipo", @cc.Id);
+                                                obQueryString.Add("vcat", @mCat.Id);
+                                                obQueryString.Add("vtipocat", @MARCA.Id);
+                                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                                                <li><a href="/Articulos/@ParametroIzq">@mCat.Nombre</a></li>
+
+                                            }
+
+                                        }
+
+                                    </ul>
+
+                                </div>
+
+
+
+
+                                Be.Best_tipos_categorias CATEGORIA = @cc.TipoCat[3];
+                                <div class="MenuIzq collapsed" data-toggle="collapse" href="#izqCategoria">
+                                    <a class="card-title"> @CATEGORIA.Nombre </a>
+
+                                </div>
+                                <div id="izqCategoria" class=" Miaccordion collapse" data-parent="#accordion">
+                                    <ul>
+                                        @{
+                                            foreach (var mCat in @CATEGORIA.Categoria)
+                                            {
+                                                obQueryString = new Bll.QueryString();
+                                                obQueryString.Add("vtipo", @cc.Id);
+                                                obQueryString.Add("vcat", @mCat.Id);
+                                                obQueryString.Add("vtipocat", @CATEGORIA.Id);
+                                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                                                <li><a href="/Articulos/@ParametroIzq">@mCat.Nombre</a></li>
+
+                                            }
+
+                                        }
+
+                                    </ul>
+
+                                </div>
+
+
+                                Be.Best_tipos_categorias ACTIVIDAD = @cc.TipoCat[2];
+
+                                <div class="MenuIzq collapsed" data-toggle="collapse" href="#izqACTIVIDAD">
+                                    <a class="card-title "> @ACTIVIDAD.Nombre </a>
+                                </div>
+                                <div id="izqACTIVIDAD" class=" Miaccordion collapse" data-parent="#accordion">
+                                    <ul>
+                                        @{
+                                            foreach (var mCat in @ACTIVIDAD.Categoria)
+                                            {
+                                                obQueryString = new Bll.QueryString();
+                                                obQueryString.Add("vtipo", @cc.Id);
+                                                obQueryString.Add("vcat", @mCat.Id);
+                                                obQueryString.Add("vtipocat", @ACTIVIDAD.Id);
+                                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                                                <li><a href="/Articulos/@ParametroIzq">@mCat.Nombre</a></li>
+
+                                            }
+
+                                        }
+
+                                    </ul>
+
+                                </div>
+
+
+
+                            }
+
+
+                        }
+
+
+
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+        <div class=" col-12 @colDer" id="filtro_der">
+
+
+            <div class="row path" style="margin-top:10px">
+
+                @{
+                    foreach (var art in ArticulosVenta)
+                    {
+                        <div class="col-6 col-md-4  col-sm-3  col-lg-4 col-xl-3 cardArticulo">
+
+                            <div class="articulos
+                                 ">
+                                @{ obQueryString = new Bll.QueryString();
+                                    obQueryString.Add("vart", @art.Id);
+                                    string ParametroCompra = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+                                }
+
+                                <div class="card" onclick="window.location.href='/Articulos/VerArticulo/@ParametroCompra'">
+
+                                    @{ if (@art.etiquetaWeb != "Pagina Principal")
+                                        {
+
+                                            <div class="destacar ">
+                                                <div class="letra @art.etiquetaWeb">@art.etiquetaWeb</div>
+                                            </div>
+                                        }
+                                    }
+
+
+                                    <img src="@art.Imagen1"
+                                         class="card-img-top">
+                                    <div class="card-body card_ventas">
+                                        <div class="card_descrip">
+                                            <div>
+                                                <span style="font-weight:600; font-size:18px"> @art.marca </span>
+                                            </div>
+
+
+                                            <div style="font-size:12px;
+    font-weight: 500;
+    line-height: 1.3; height:24px">@art.Descripcion</div>
+</div>
+
+
+
+
+<div class="precio">
+
+    <div class="precio-online">
+        <p class="precio-text">Precio online</p>
+    </div>
+    <div>
+        @{
+
+            //string.Format("{0:c1}  con c  ,00 me agrega 2 decimenles , c1 1 decimal
+
+            var preciostr = string.Format("{0:c2}", Math.Round(Double.Parse(art.precio.Replace(",", "."), numberFormatInfo1), 2));
+        }
+        <span class="pricio-val">@preciostr</span>
+
+    </div>
+
+    <div>
+        <span class="precio_genero">@art.genero </span>
+    </div>
+
+</div>
+<div class="text-left">
+
+
+    <a href="/Articulos/VerArticulo/@ParametroCompra" class="btn btn-danger" style="width:100%">
+        COMPRAR
+        <span class=" fa fa-cart-plus"></span>
+    </a>
+</div>
+
+</div>
+</div>
+</div>
+</div>
+
+
+}
+
+                }
+
+
+            </div>
+
+        </div>
+
+
+
+    </div>
+
+    <script>
+
+
+
+        $(function () {
+
+
+            var camino = $('ul.breadcrumbs li').last();
+            $(camino).addClass('active');
+
+            var vvtipos = $('ul.breadcrumbs li:eq(1)').text().toUpperCase().trim();
+
+            $('#' + vvtipos).addClass("Rojo2");
+        }
+        );
+    
+    
+    </script>
+</div>
+
+

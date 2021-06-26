@@ -1,0 +1,14 @@
+https://wsaahomo.afip.gov.ar/ws/services/LoginCms?WSDL   /desa
+
+https://wsaa.afip.gov.ar/ws/services/LoginCms?wsdl    //produc
+
+.........................
+Factura electronica  
+ 
+Para visualizar el WSDL en Homologación:
+
+https://wswhomo.afip.gov.ar/wsfev1/service.asmx?WSDL
+
+//produccion
+
+https://servicios1.afip.gov.ar/wsfev1/service.asmx?WSDL

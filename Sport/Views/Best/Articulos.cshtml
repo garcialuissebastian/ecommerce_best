@@ -1,0 +1,1581 @@
+﻿
+@{
+    ViewBag.Title = "Articulos";
+    Layout = "~/Views/Master/_sportOn.cshtml";
+}
+
+
+
+
+<div class='container'>
+
+
+
+    <div class='row'>
+        <div style='text-align:center;   margin-bottom: 3px;' class='MarcoMio'>
+            <div class='row'>
+                <div class='form-group'>
+                    <div style='color:white;text-align:right; padding-top: 5px;' class='col-xs-3'>
+                        Buscar
+                    </div>
+                    <div class='col-xs-3'>
+                        <select id='cmbTipoOp' class='form-control'>
+                            <option value='1'>Código</option>
+                            <option value='2'>SIN IMAGEN</option>
+                            <option value='0'>Nombre</option>
+                            <option value='3'> Id </option>
+                            <option value='4'> CON STOCK </option>
+                            <option value='5'> Disponible Web </option>
+                            <option value='6'> SIN Tipo Articulo </option>
+
+                        </select>
+                    </div>
+                    <div class='col-xs-3'>
+                        <input id="TxtBuscar" type="text" class='form-control' value="" />
+
+
+                    </div>
+                    <div class='col-xs-3' style='text-align:left'>
+                        <button id='btnBuscarFrm' type='button' class='btn  btn-default ' onclick='Buscar_articulos() '>
+                            <span class=' glyphicon glyphicon-search'></span> Buscar
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class='row' style='margin-left:0px; margin-right:0px;   padding:10px;border-radius: 10px 10px 10px 10px;border: 1px solid;box-shadow: 0 4px 5px #555; text-align:center;'>
+            <div class='col-sm-12' style='margin-top:5px; margin-right: 0px;'>
+                <div id='Resultado_articulos' style='overflow: auto;  height: 220px; width: 100%; '>
+                    <div>
+                    </div>
+                    <table id='grillaarticulos'></table>
+                </div>
+            </div>
+        </div>
+        <div style='margin-top:3px;text-align:center;padding-right: 15px; ' class='MarcoMio'>
+
+            <input type="text" id="kwd_search3" value="" placeholder="Filtro" class="form-control" style="width: 150px; float: left" />
+
+            @*<button id='btnAgregar1' type='button' class='btn btn-default ' onclick='PopAlta_articulos()'>
+            <span class=' glyphicon glyphicon-floppy-save'></span> Nuevo
+        </button>*@
+            <button id='btnVolver1' type='button' class='btn  btn-info  ' onclick='window.history.back();'>
+                Volver <span class=' glyphicon glyphicon-log-out'></span>
+            </button>
+            <div style='color:white;text-align:right;width:100px;float:right'>
+                Registros:
+                <span id='span_cantidad'>0</span>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+<div class='modal fade' id='Modalarticulos' role='dialog' style='display:none'>
+    <div class='modal-dialog ' style="width:1100px">
+        <!-- Modal content-->
+        <div class='modal-content'>
+
+
+            <div class='modal-body'>
+
+
+                <div id="tabs" style="text-transform:uppercase">
+                    <ul>
+                        <li><a href="#tabs-1"> Datos</a></li>
+                        <li><a href="#tabs-2">FOTOS</a></li>
+                        
+
+                    </ul>
+
+                    <div id="tabs-3" style="  font-size: 14px; display:none" >
+
+                        <div class="row" style="padding-top:10px;  border-radius: 10px 10px 10px 10px;border: 1px solid;box-shadow: 0 4px 5px #555; text-align:center;background-color: rgb(241, 241, 241);">
+                            <div class="row">
+                                <div class="col-xs-10">
+                                    <div class="form-horizontal">
+
+                                        <div class="form-group">
+                                            <label for="TxtNombre" class="control-label col-xs-4">TAMAÑO PAQUETE ENVIO </label>
+                                            <div class="col-xs-6">
+
+                                                <select id="cmbDimension" class="form-control"></select>
+
+                                            </div>
+                                            <div class="col-xs-2">
+
+                                                <button id="btnAddDome" type="button" class="btn btn-default " onclick="Actualizar_artWeb()">
+
+                                                    <span class=" glyphicon glyphicon-plus-sign"></span>
+                                                   Nueva Dimension
+                                                </button>
+
+                                            </div>
+
+                                            </div>
+
+
+
+
+
+                                        </div>
+                                </div>
+
+                            </div>
+                        </div>
+
+
+                    </div>
+
+                            <div id="tabs-1" style="  font-size: 14px;">
+                                <div class="row" style="padding-top:10px;  border-radius: 10px 10px 10px 10px;border: 1px solid;box-shadow: 0 4px 5px #555; text-align:center;background-color: rgb(241, 241, 241);">
+                                    <div class="row">
+                                        <div class="col-xs-6">
+                                            <div class="form-horizontal">
+
+                                                <div class="form-group">
+                                                    <label for="TxtNombre" class="control-label col-xs-2">CODIGO</label>
+                                                    <div class="col-xs-8">
+
+                                                        <input id="TxtCod" type="text" class="form-control" />
+
+                                                    </div>
+                                                    <div class="col-xs-2"></div>
+
+                                                </div>
+
+
+
+
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-6">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="TxtNombre" class="control-label col-xs-4">TIPO ARTICULO</label>
+                                                    <div class="col-xs-8">
+
+                                                        <select id="cmbTipoArt" class="form-control" onchange="javascript: cambioTipo()"></select>
+
+                                                        <script>
+                                                            function cambioTipo() {
+
+
+                                                                var json = JSON.stringify
+                                                                    ({
+                                                                        "tipo_clasificacion_id": "3",
+                                                                        "tipo_articulo_id": $("#cmbTipoArt").val()
+                                                                    });
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    url: "/Best/WsListaClasificacion",
+                                                                    data: json,
+                                                                    async: false,
+                                                                    contentType: "application/json; charset=utf-8",
+                                                                    dataType: "json",
+                                                                    success: (function (Resultado1) {
+                                                                        cmbDICIPLINA = Resultado1;
+                                                                        var Especialidad = Resultado1;
+                                                                        $('#cmbDICIPLINA1').empty();
+                                                                        $('#cmbDICIPLINA1').append('<option value="0">- -</option>');
+                                                                        $.each(Especialidad, function (index, especialidades) {
+                                                                            $('#cmbDICIPLINA1').append(
+                                                                                $('<option></option>').val(especialidades.valor).html(especialidades.descripcion)
+                                                                            );
+
+                                                                        });
+                                                                    }),
+                                                                    error: errores
+                                                                });
+
+
+                                                                var json = JSON.stringify
+                                                                    ({
+                                                                        "tipo_clasificacion_id": "2",
+                                                                        "tipo_articulo_id": $("#cmbTipoArt").val()
+                                                                    });
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    url: "/Best/WsListaClasificacion",
+                                                                    data: json,
+                                                                    async: false,
+                                                                    contentType: "application/json; charset=utf-8",
+                                                                    dataType: "json",
+                                                                    success: (function (Resultado1) {
+                                                                        cmbCATEGORIA = Resultado1;
+                                                                        var Especialidad = Resultado1;
+                                                                        $('#cmbCategoria1').empty();
+                                                                        $('#cmbCategoria1').append('<option value="0">- -</option>');
+                                                                        $.each(Especialidad, function (index, especialidades) {
+                                                                            $('#cmbCategoria1').append(
+                                                                                $('<option></option>').val(especialidades.valor).html(especialidades.descripcion)
+                                                                            );
+
+                                                                        });
+                                                                    }),
+                                                                    error: errores
+                                                                });
+
+
+                                                                var json = JSON.stringify
+                                                                    ({
+                                                                        "tipo_clasificacion_id": "1",
+                                                                        "tipo_articulo_id": $("#cmbTipoArt").val()
+                                                                    });
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    url: "/Best/WsListaClasificacion",
+                                                                    data: json,
+                                                                    async: false,
+                                                                    contentType: "application/json; charset=utf-8",
+                                                                    dataType: "json",
+                                                                    success: (function (Resultado1) {
+                                                                        cmbGenero = Resultado1;
+
+                                                                        var Especialidad = Resultado1;
+                                                                        $('#cmbGenero1').empty();
+                                                                        $('#cmbGenero1').append("<option value='0'>- -</option>");
+                                                                        $.each(Especialidad, function (index, especialidades) {
+                                                                            $('#cmbGenero1').append(
+                                                                                $('<option></option>').val(especialidades.valor).html(especialidades.descripcion)
+                                                                            );
+
+                                                                        });
+                                                                    }),
+                                                                    error: errores
+                                                                });
+
+                                                                var json = JSON.stringify
+                                                                    ({
+                                                                        "tipo_clasificacion_id": "4",
+                                                                        "tipo_articulo_id": $("#cmbTipoArt").val()
+                                                                    });
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    url: "/Best/WsListaClasificacion",
+                                                                    data: json,
+                                                                    async: false,
+                                                                    contentType: "application/json; charset=utf-8",
+                                                                    dataType: "json",
+                                                                    success: (function (Resultado1) {
+                                                                        cmbMARCA = Resultado1;
+                                                                        var Especialidad = Resultado1;
+                                                                        $('#cmbMARCA1').empty();
+                                                                        $('#cmbMARCA1').append('<option value="0">- -</option>');
+                                                                        $.each(Especialidad, function (index, especialidades) {
+                                                                            $('#cmbMARCA1').append(
+                                                                                $('<option></option>').val(especialidades.valor).html(especialidades.descripcion)
+                                                                            );
+
+                                                                        });
+                                                                    }),
+                                                                    error: errores
+                                                                });
+
+
+                                                            };
+
+                                                        </script>
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-3">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="TxtNombre" class="control-label col-xs-3">Genero</label>
+                                                    <div class="col-xs-7" style="margin-right:-15px">
+
+                                                        <select id="cmbGenero1" class="form-control"></select>
+                                                    </div>  <div class="col-xs-2">
+
+                                                        <button id="BtnDepq2" type="button" class="btn2  btn-default " onclick="ActualizarListaGenero1()">
+                                                            <span class=" glyphicon glyphicon-plus"></span>
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="TxtNombre" class="control-label col-xs-4">CATEGORIA</label>
+                                                    <div class="col-xs-8">
+
+                                                        <select id="cmbCategoria1" class="form-control" onchange="ActualizarCATEGORIA1()"></select>
+
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="TxtNombre" class="control-label col-xs-3" style="
+    margin-right: 4px;
+    margin-left: -4px;
+">DICIPLINA</label>
+                                                    <div class="col-xs-7">
+
+                                                        <select id="cmbDICIPLINA1" class="form-control"></select>
+
+
+                                                    </div>
+                                                    <div class="col-xs-2">
+
+                                                        <button id="BtnDep2" type="button" class="btn2  btn-default " onclick="ActualizarListaDiciplina1()">
+                                                            <span class=" glyphicon glyphicon-plus"></span>
+                                                        </button>
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                        <div class="col-xs-3">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="TxtNombre" class="control-label col-xs-4">MARCA</label>
+                                                    <div class="col-xs-8">
+
+                                                        <select id="cmbMARCA1" class="form-control" onchange="ActualizarMARCA1()"></select>
+
+
+                                                    </div>
+
+                                                </div>
+
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-xs-3">
+
+                                            <div class="row" style="border-radius: 10px 10px 10px 10px; text-align:center; margin-top:5px">
+
+                                                <div>
+                                                    <div id='Resultado_genero' style='overflow: auto;  height:92px; width: 100%; margin-bottom:10px'>
+                                                        <div>
+                                                        </div>
+                                                        <table id='grillagenero'></table>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xs-3"></div>
+                                        <div class="col-xs-3">
+
+                                            <div class="row" style="border-radius: 10px 10px 10px 10px; text-align:center; margin-top:5px">
+
+                                                <div>
+                                                    <div id='Resultado_diciplina' style='overflow: auto;  height:92px; width: 100%; margin-bottom:10px'>
+                                                        <div>
+                                                        </div>
+                                                        <table id='grilladiciplina'></table>
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+
+                                        </div>
+                                        <div class="col-xs-3"></div>
+                                    </div>
+
+                                    <div class="row">
+
+                                        <div class="col-xs-12">
+                                            <div class="form-horizontal">
+                                                <div class="form-group">
+                                                    <label for="TxtNombre" class="control-label col-xs-2" style="text-align:left">DESCRIPCION</label>
+                                                    <div class="col-xs-7">
+
+                                                        <input id="TxtDescripcion" type="text" class="form-control" />
+
+                                                    </div>
+                                                    <div class="col-xs-3">
+                                                        <div>
+                                                            <input id="Ckautomatico" type="checkbox" checked /> AUTOCOMPLETAR
+
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+
+                                </div>
+
+                                <div class="row" style="border-radius: 10px 10px 10px 10px;border: 1px solid;box-shadow: 0 4px 5px #555; text-align:center; margin-top:5px">
+
+                                    <div>
+                                        <div id='Resultado_articulos2' style='overflow: auto;  height: 165px; width: 100%; '>
+                                            <div>
+                                            </div>
+                                            <table id='grillaarticulos2'></table>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+
+                            </div>
+
+                            <div id="tabs-2">
+                                <div class="row">
+                                    <style>
+                                        .CabThumb {
+                                            width: 100%;
+                                            background-color: antiquewhite;
+                                            text-align: center;
+                                            border-radius: 4px 4px;
+                                            font-size: 14px;
+                                        }
+                                    </style>
+
+                                    <div class="col-xs-3">
+                                        <div class="CabThumb "> IMAGEN 1</div>
+                                        <div class="thumbnail">
+
+                                            <img src="/img/subidas/SinImagen.png" id="img1">
+
+                                        </div>
+
+                                        <div>
+
+                                            <input type="file" id="f_UploadImage1" accept="image/x-png,image/gif,image/jpeg" onchange="previewFile(1)" style="     width: 154px;">
+                                        </div>
+                                        <span style="font-size:12px;text-align:center;text-transform:lowercase;color:red"> 500px x 500px</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="CabThumb "> IMAGEN 2</div>
+                                        <div class="thumbnail">
+                                            <img src="/img/subidas/SinImagen.png" id="img2">
+                                        </div>
+                                        <div>
+                                            <input type="file" id="f_UploadImage2" accept="image/x-png,image/gif,image/jpeg" onchange="previewFile(2)" style="    margin-bottom: 5px; width: 154px;">
+                                        </div>
+                                        <span style="font-size:12px;text-align:center;text-transform:lowercase;color:red"> 500px x 500px</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="CabThumb "> IMAGEN 3</div>
+                                        <div class="thumbnail">
+                                            <img src="/img/subidas/SinImagen.png" id="img3">
+                                        </div>
+                                        <div>
+                                            <input type="file" id="f_UploadImage3" accept="image/x-png,image/gif,image/jpeg" onchange="previewFile(3)" style="    margin-bottom: 5px; width: 152px;">
+                                        </div>
+                                        <span style="font-size:12px;text-align:center;text-transform:lowercase;color:red"> 500px x 500px</span>
+                                    </div>
+                                    <div class="col-xs-3">
+                                        <div class="CabThumb "> IMAGEN 4</div>
+                                        <div class="thumbnail">
+                                            <img src="/img/subidas/SinImagen.png" id="img4">
+                                        </div>
+
+                                        <div>
+                                            <input type="file" id="f_UploadImage4" accept="image/x-png,image/gif,image/jpeg" onchange="previewFile(4)" style="    margin-bottom: 5px; width: 153px;">
+                                        </div>
+                                        <span style="font-size:12px;text-align:center;text-transform:lowercase;color:red"> 500px x 500px</span>
+                                    </div>
+
+                                    <div class="col-xs-2" style="padding-top: 25px; display:none">
+                                        <div class="CabThumb "> IMAGEN 5</div>
+                                        <div class="thumbnail">
+                                            <img src="/img/subidas/SinImagen.png" id="img5">
+                                        </div>
+                                        <div>
+                                            <input type="file" id="f_UploadImage5" accept="image/x-png,image/gif,image/jpeg" onchange="previewFile(5)" style="    margin-bottom: 5px; width: 152px;">
+                                        </div>
+                                        <span style="font-size:12px;text-align:center;text-transform:lowercase;color:red"> 500px x 500px</span>
+                                    </div>
+
+                                </div>
+
+
+                                @ViewBag.Message
+                            </div>
+
+                        </div>
+
+                        <div style='margin-top: 5px; text-align: center;' class='MarcoMio'>
+
+                            <button id='btnGuardar1b' type='button' class='btn btn-default ' onclick='Actualizar_artWeb()'>
+
+                                <span class=' glyphicon glyphicon-save'></span>
+                                Guardar
+                            </button>
+
+                            <button type='button' class='btn btn-danger' data-dismiss='modal'>
+
+                                <span class=' glyphicon glyphicon-floppy-remove'></span>
+                                Cerrar
+                            </button>
+
+
+                        </div>
+
+                    </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+ 
+
+<script>
+    // imagenes
+    var dataURL2 = "";
+    function previewFile(ids) {
+
+        if ($("#f_UploadImage").val() != '') {
+
+            resizeAndUpload($('#f_UploadImage' + ids)[0].files[0], ids); // redimenciona y la guarda
+
+
+        } else {
+            $('#wait').hide();
+
+            alert('Adjunte un arhivo.');
+
+        }
+    }
+
+    function resizeAndUpload(file, ids) {
+        var reader = new FileReader();
+        reader.onloadend = function () {
+
+            var tempImg = new Image();
+            tempImg.src = reader.result;
+            tempImg.onload = function () {
+
+                var MAX_WIDTH = 1200;
+                var MAX_HEIGHT = 1200;
+                var tempW = tempImg.width;
+                var tempH = tempImg.height;
+                if (tempW > tempH) {
+                    if (tempW > MAX_WIDTH) {
+                        tempH *= MAX_WIDTH / tempW;
+                        tempW = MAX_WIDTH;
+                    }
+                } else {
+                    if (tempH > MAX_HEIGHT) {
+                        tempW *= MAX_HEIGHT / tempH;
+                        tempH = MAX_HEIGHT;
+                    }
+                }
+
+                var canvas = document.createElement('canvas');
+                canvas.width = tempW;
+                canvas.height = tempH;
+                var ctx = canvas.getContext("2d");
+                ctx.drawImage(this, 0, 0, tempW, tempH);
+                var dataURL = canvas.toDataURL("image/jpeg");
+                // return dataURL;
+
+                var blob = dataURItoBlob(dataURL, ids); // blob la guarda
+                //    return blob;
+            }
+
+        }
+        reader.readAsDataURL(file);// llama a la funcion
+
+    }
+    function dataURItoBlob(dataURI, ids) {
+        // separate out the mime component
+        var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+
+        var binary = atob(dataURI.split(',')[1]);
+        var array = [];
+        for (var i = 0; i < binary.length; i++) {
+            array.push(binary.charCodeAt(i));
+        }
+        var blob = new Blob([new Uint8Array(array)], { type: mimeString });
+
+        var fd = new FormData();
+        fd.append('file', blob, $('#f_UploadImage' + ids)[0].files[0].name);
+
+        var filePath = $("#f_UploadImage" + ids).val();
+        var file_ext = filePath.substr(filePath.lastIndexOf('.') + 1, filePath.length);
+
+        $.ajax({
+            type: 'post',
+            async: true,
+            url: '/Best/Subir_archivo',
+            data: fd,
+            success: function (status) {
+                if (status != 'error') {
+                    var my_path = "/img/subidas/" + status;
+                    $("#img" + ids).attr("src", my_path);
+
+                }
+            },
+            processData: false,
+            contentType: false,
+            error: errores
+        });
+
+        return blob;
+    }
+    /// end imegenes
+    function Actualizar_artWeb() {
+        try {
+
+            var json = JSON.stringify
+                ({
+                    'v_tipo_art': $('#cmbTipoArt').val(),
+                    'v_img1': $("#img1").attr("src"),
+                    'v_img2': $("#img2").attr("src"),
+                    'v_img3': $("#img3").attr("src"),
+                    'v_img4': $("#img4").attr("src"),
+                    'v_img5': $("#img5").attr("src"),
+
+                });
+            $.ajax({
+                type: 'POST',
+                url: '/Best/WsActualizarArticuloWeb',
+                data: json,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: (function (resul) {
+                    alert("Articulo Actualizado.");
+
+                    $("#Modalarticulos").modal('hide');
+                    Buscar_articulos();
+                }
+                ),
+                error: errores
+            });
+
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+    function Buscar_articulos() {
+        try {
+
+            var v_buscar = $('#cmbTipoOp').val();
+            var json = JSON.stringify
+                ({
+                    'v_tipo': $('#cmbTipoOp').val(),
+                    'v_valor': $('#TxtBuscar').val()
+
+                });
+            $.ajax({
+                type: 'POST',
+                url: '/Best/WsListar_articulos',
+                data: json,
+                contentType: 'application/json; charset=utf-8',
+                dataType: 'json',
+                success: resultado_articulos,
+                error: errores
+            });
+
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+    function resultado_articulos(Resultado) {
+        var v_obj = Resultado;
+        var Tabla_Titulo = '';
+        var Tabla_Datos = '';
+        var Tabla_Fin = '';
+        $('#Resultado_articulos').show();
+        $('#Resultado_articulos').empty();
+        Tabla_Titulo = "  <table    id='grillaarticulos' class='table   table-hover table-striped' style='width: 100%;'><thead><tr>   <th>Código</th> <th>Descripción</th> <th>Tipo Articulo</th> <th>POSEE IMAGEN</th>  <th>ETIQUETA</th>  <th>DISPONIBLE WEB</th> <th>peso_Embalaje</th> <th>Alto_embalaje</th> <th>Ancho_embalaje</th><th>Largo_embalaje</th></tr></thead><tbody> ";
+        $.each(v_obj, function (index, obj) {
+
+            var disponiWeb = "NO";
+           
+            if (obj.disponibleWeb=="True") {
+
+                disponiWeb = "SI";
+            }
+            Tabla_Datos = Tabla_Datos + " <tr   onclick='PopMod_articulos(\"" + obj.codigo + "\" ,this);'  style='cursor:pointer;' >        <td>" + obj.codigo + " </td> <td>" + obj.Descripcion + " </td>   <td>" + obj.tipo_articulo + " </td>  <td>" + obj.categoria + " </td> <td>" + obj.etiquetaWeb + " </td> <td>" + disponiWeb + " </td><td>" + obj.peso_embalaje + " </td> <td>" + obj.alto_embalaje + " </td>  <td>" + obj.ancho_embalaje + " </td> <td>" + obj.largo_embalaje + " </td></tr>";
+        });
+        Tabla_Fin = " </tbody></table>";
+        $('#Resultado_articulos').html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+        fn_cantidad_articulos();
+    }
+
+    function fn_cantidad_articulos() {
+        cantidad = $('#grillaarticulos tbody').find('tr').length;
+        $('#span_cantidad').html(cantidad);
+    };
+
+    function llenarCmdDimensiones() {
+        var json = JSON.stringify
+            ({
+                "v_tipo": "",
+                "v_valor":""
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsListarCmbDimensiones",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (Resultado1) {
+                cmbGenero = Resultado1;
+
+                var Especialidad = Resultado1;
+                $('#cmbDimension').empty();
+                $('#cmbDimension').append("<option value='0'>SELECCIONE UNA DIMENSION</option>");
+                $.each(Especialidad, function (index, especialidades) {
+                    $('#cmbDimension').append(
+                        $('<option></option>').val(especialidades.valor).html(especialidades.descripcion)
+                    );
+
+                });
+            }),
+            error: errores
+        });
+    }
+
+    function PopMod_articulos(cod, obj) {
+        try {
+            if ($(obj).hasClass('active')) {
+                $(obj).removeClass('active');
+            } else {
+                $(obj).addClass('active').siblings().removeClass('active');
+            }
+
+            $('#Modalarticulos').modal({
+                backdrop: 'static',
+                keyboard: false
+            })
+
+
+            $("#Ckautomatico").prop("checked", true);
+            $("#cmbTipoArt").val("0");
+
+            try {
+
+                var json = JSON.stringify
+                    ({
+                        "v_valor": cod
+                    });
+
+                $.ajax({
+                    type: "POST",
+                    url: "/Best/WsBsqBest_articulos_admin",
+                    data: json,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: (function (Resultado) {
+                        $("#TxtCod").val(Resultado[0].codigo);
+                        $("#TxtDescripcion").val(Resultado[0].descripcion);
+                        $("#cmbTipoArt").val(Resultado[0].tipo_articulo_id);
+
+                        $("#TxtCod").prop('disabled', true);
+                        $("#TxtDescripcion").prop('disabled', true);
+                        $("#img1").attr("src", "/img/subidas/SinImagen.png");
+                        $("#img2").attr("src", "/img/subidas/SinImagen.png");
+                        $("#img3").attr("src", "/img/subidas/SinImagen.png");
+                        $("#img4").attr("src", "/img/subidas/SinImagen.png");
+                        $("#img5").attr("src", "/img/subidas/SinImagen.png");
+
+                        if (Resultado[0].Imagen1 != "") {
+
+                            $("#img1").attr("src", Resultado[0].Imagen1);
+                        }
+                        if (Resultado[0].Imagen2 != "") {
+                            $("#img2").attr("src", Resultado[0].Imagen2);
+                        }
+                        if (Resultado[0].Imagen3 != "") {
+                            $("#img3").attr("src", Resultado[0].Imagen3);
+                        }
+                        if (Resultado[0].Imagen4 != "") {
+                            $("#img4").attr("src", Resultado[0].Imagen4);
+                        }
+                        if (Resultado[0].Imagen5 != "") {
+                            $("#img5").attr("src", Resultado[0].Imagen5);
+                        }
+
+                        //------------------------------------------------------
+
+                        var Pacientes = Resultado[0].ListaGeneros;
+                        var Tabla_Titulo = "";
+                        var Tabla_Datos = "";
+                        var Tabla_Fin = "";
+
+                        $("#Resultado_genero").show();
+                        $("#Resultado_genero").empty();
+
+                        Tabla_Titulo = "<table   id='grillagenero' class='table   ' style='width: 100%;  font-family: proximanova-regular, sans-serif !important;text-transform: uppercase '><tbody>";
+                        $.each(Pacientes, function (index, pacientes) {
+                            Tabla_Datos = Tabla_Datos + "<tr ><td  style=' '> <a class='tooltips' onclick='gvDel2(" + pacientes.valor + ");' > <img src='/img/boton-eliminar.png' style='background-position:50%; background-repeat:no-repeat;cursor:pointer;height: 19px ' /> <span>Eliminar</span></a></td><td style='display:none'>" + pacientes.valor + " </td ><td>" + pacientes.descripcion + " </td ></tr>";
+                        });
+                        Tabla_Fin = "</tbody></table>";
+                        $("#Resultado_genero").html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+
+                        //------------------------------------------------------
+
+
+                        //------------------------------------------------------
+
+                        var Pacientes = Resultado[0].ListaDiciplina;
+                        var Tabla_Titulo = "";
+                        var Tabla_Datos = "";
+                        var Tabla_Fin = "";
+
+                        $("#Resultado_diciplina").show();
+                        $("#Resultado_diciplina").empty();
+
+                        Tabla_Titulo = "<table   id='grilladiciplina' class='table   ' style='width: 100%;  font-family: proximanova-regular, sans-serif !important;text-transform: uppercase '><tbody>";
+                        $.each(Pacientes, function (index, pacientes) {
+                            Tabla_Datos = Tabla_Datos + "<tr ><td  style=' '> <a class='tooltips' onclick='gvDel3(" + pacientes.valor + ");' > <img src='/img/boton-eliminar.png' style='background-position:50%; background-repeat:no-repeat;cursor:pointer;height: 19px ' /> <span>Eliminar</span></a></td><td style='display:none'>" + pacientes.valor + " </td ><td>" + pacientes.descripcion + " </td ></tr>";
+                        });
+                        Tabla_Fin = "</tbody></table>";
+                        $("#Resultado_diciplina").html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+
+                        //------------------------------------------------------
+                        var v_obj = Resultado;
+                        var Tabla_Titulo = '';
+                        var Tabla_Datos = '';
+                        var Tabla_Fin = '';
+                        var elPrimero = "1";
+                        var cmbEtiquetas = "";
+                        var cmbGenero = "";
+                        $.ajax({
+                            type: "POST",
+                            url: "/Best/WsListarEtiquetas",
+                            data: '',
+                            async: false,
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: (function (Resultado1) {
+                                cmbEtiquetas = Resultado1;
+                            }),
+                            error: errores
+                        });
+
+                        var cmbCATEGORIA = "";
+                        var json = JSON.stringify
+                            ({
+                                "tipo_clasificacion_id": "2",
+                                "tipo_articulo_id": $("#cmbTipoArt").val()
+                            });
+                        $.ajax({
+                            type: "POST",
+                            url: "/Best/WsListaClasificacion",
+                            data: json,
+                            async: false,
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: (function (Resultado1) {
+                                cmbCATEGORIA = Resultado1;
+                                var Especialidad = Resultado1;
+                                $('#cmbCategoria1').empty();
+                                $('#cmbCategoria1').append('<option value="0">- -</option>');
+                                $.each(Especialidad, function (index, especialidades) {
+                                    $('#cmbCategoria1').append(
+                                        $('<option></option>').val(especialidades.valor).html(especialidades.descripcion)
+                                    );
+
+                                });
+                            }),
+                            error: errores
+                        });
+                        $("#cmbCategoria1").val(Resultado[0].categoria);
+                        var cmbDICIPLINA = "";
+                        var json = JSON.stringify
+                            ({
+                                "tipo_clasificacion_id": "3",
+                                "tipo_articulo_id": $("#cmbTipoArt").val()
+                            });
+                        $.ajax({
+                            type: "POST",
+                            url: "/Best/WsListaClasificacion",
+                            data: json,
+                            async: false,
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: (function (Resultado1) {
+                                cmbDICIPLINA = Resultado1;
+                                var Especialidad = Resultado1;
+                                $('#cmbDICIPLINA1').empty();
+                                $('#cmbDICIPLINA1').append('<option value="0">- -</option>');
+                                $.each(Especialidad, function (index, especialidades) {
+                                    $('#cmbDICIPLINA1').append(
+                                        $('<option></option>').val(especialidades.valor).html(especialidades.descripcion)
+                                    );
+
+                                });
+                            }),
+                            error: errores
+                        });
+                        //  $("#cmbDICIPLINA1").val(Resultado[0].diciplina);
+                        var cmbMARCA = "";
+                        var json = JSON.stringify
+                            ({
+                                "tipo_clasificacion_id": "4",
+                                "tipo_articulo_id": $("#cmbTipoArt").val()
+                            });
+                        $.ajax({
+                            type: "POST",
+                            url: "/Best/WsListaClasificacion",
+                            data: json,
+                            async: false,
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: (function (Resultado1) {
+                                cmbMARCA = Resultado1;
+                                var Especialidad = Resultado1;
+                                $('#cmbMARCA1').empty();
+                                $('#cmbMARCA1').append('<option value="0">- -</option>');
+                                $.each(Especialidad, function (index, especialidades) {
+                                    $('#cmbMARCA1').append(
+                                        $('<option></option>').val(especialidades.valor).html(especialidades.descripcion)
+                                    );
+
+                                });
+                            }),
+                            error: errores
+                        });
+                        $("#cmbMARCA1").val(Resultado[0].marca);
+                        var json = JSON.stringify
+                            ({
+                                "tipo_clasificacion_id": "1",
+                                "tipo_articulo_id": $("#cmbTipoArt").val()
+                            });
+                        $.ajax({
+                            type: "POST",
+                            url: "/Best/WsListaClasificacion",
+                            data: json,
+                            async: false,
+                            contentType: "application/json; charset=utf-8",
+                            dataType: "json",
+                            success: (function (Resultado1) {
+                                cmbGenero = Resultado1;
+
+                                var Especialidad = Resultado1;
+                                $('#cmbGenero1').empty();
+                                $('#cmbGenero1').append("<option value='0'>- -</option>");
+                                $.each(Especialidad, function (index, especialidades) {
+                                    $('#cmbGenero1').append(
+                                        $('<option></option>').val(especialidades.valor).html(especialidades.descripcion)
+                                    );
+
+                                });
+                            }),
+                            error: errores
+                        });
+                        //    $("#cmbGenero1").val(Resultado[0].genero);
+
+                        $('#Resultado_articulos2').show();
+                        $('#Resultado_articulos2').empty();
+                        Tabla_Titulo = "  <table    id='grillaarticulos2' class='table   table-hover table-striped' style='width: 100%;'><thead><tr> <td style='display:none'> </th>  <th>Codigo</th> <th>Talle</th> <th>Precio $</th><th>Disponible Web</th> <th>Etiqueta Web</th>  <th style='display:none'>Genero</th> <th style='display:none'>Categoria</th> <th style='display:none'>Diciplina</th> <th style='display:none'>Marca</th> <th>Stock</th>   </tr></thead><tbody> ";
+                        $.each(v_obj, function (index, obj) {
+
+                            var disponibleweb = '<div style="width: 40px;text-align: left;margin: auto;"> <input class="ck_grid" onchange="ActualizarDisponible(' + obj.Id + ' )"     type="radio"  checked   name="group1' + obj.Id + '" value="True" id="TrabSI' + obj.Id + '"    "> Si<input   id="TrabNO' + obj.Id + '" onchange="ActualizarDisponible(' + obj.Id + ')"       name="group1' + obj.Id + '"  value="False" class="ck_grid"    type="radio" > No </div>';
+
+                            if (obj.disponibleWeb == 'False') {
+                                disponibleweb = '<div style="width: 40px;text-align: left;margin: auto;"> <input class="ck_grid" onchange="ActualizarDisponible(' + obj.Id + ')"   type="radio"    name="group1' + obj.Id + '" value="True" id="TrabSI' + obj.Id + '"    "> Si<input   id="TrabNO' + obj.Id + '"  onchange="ActualizarDisponible(' + obj.Id + ')"     name="group1' + obj.Id + '"  value="False" class="ck_grid"    type="radio" checked> No </div>';
+                            }
+
+                            var v_strcmdEtiquetas = "<option value='0'>- -</option>";
+                            $.each(cmbEtiquetas, function (index, p_cmbEtiquetas) {
+                                if (obj.etiquetaWeb != p_cmbEtiquetas.valor) {
+                                    v_strcmdEtiquetas += '<option value=' + p_cmbEtiquetas.valor + ' >' + p_cmbEtiquetas.descripcion + '</option>';
+                                } else {
+                                    v_strcmdEtiquetas += '<option value=' + p_cmbEtiquetas.valor + '   selected>' + p_cmbEtiquetas.descripcion + '</option>';
+                                }
+                            });
+                            var cmbEtiq = '<select required id="cmbEtiq' + obj.Id + '"    class="form-control " onchange="ActualizarEtiqueta(' + obj.Id + ')"    > ' + v_strcmdEtiquetas + '</select>';
+
+
+
+                            var v_strcmdCATEGORIA = "<option value='0'>- -</option>";
+                            $.each(cmbCATEGORIA, function (index, p_cmbCATEGORIA) {
+                                if (obj.categoria != p_cmbCATEGORIA.valor) {
+                                    v_strcmdCATEGORIA += '<option value=' + p_cmbCATEGORIA.valor + ' >' + p_cmbCATEGORIA.descripcion + '</option>';
+                                } else {
+                                    v_strcmdCATEGORIA += '<option value=' + p_cmbCATEGORIA.valor + '   selected>' + p_cmbCATEGORIA.descripcion + '</option>';
+                                }
+                            });
+                            var cmbCat = '<select required id="cmbCATEGORIA' + obj.Id + '"    class="form-control " onchange="ActualizarCATEGORIA(' + obj.Id + ')"    > ' + v_strcmdCATEGORIA + '</select>';
+
+
+                            var v_strcmdDICIPLINA = "<option value='0'>- -</option>";
+                            $.each(cmbDICIPLINA, function (index, p_cmbDICIPLINA) {
+                                if (obj.diciplina != p_cmbDICIPLINA.valor) {
+                                    v_strcmdDICIPLINA += '<option value=' + p_cmbDICIPLINA.valor + ' >' + p_cmbDICIPLINA.descripcion + '</option>';
+                                } else {
+                                    v_strcmdDICIPLINA += '<option value=' + p_cmbDICIPLINA.valor + '   selected>' + p_cmbDICIPLINA.descripcion + '</option>';
+                                }
+                            });
+                            var cmbDic = '<select required id="cmbDICIPLINA' + obj.Id + '"    class="form-control " onchange="ActualizarDICIPLINA(' + obj.Id + ')"    > ' + v_strcmdDICIPLINA + '</select>';
+
+
+
+                            var v_strcmdMARCA = "<option value='0'>- -</option>";
+                            $.each(cmbMARCA, function (index, p_cmbMARCA) {
+                                if (obj.marca != p_cmbMARCA.valor) {
+                                    v_strcmdMARCA += '<option value=' + p_cmbMARCA.valor + ' >' + p_cmbMARCA.descripcion + '</option>';
+                                } else {
+                                    v_strcmdMARCA += '<option value=' + p_cmbMARCA.valor + '   selected>' + p_cmbMARCA.descripcion + '</option>';
+                                }
+                            });
+                            var cmbMar = '<select required id="cmbMARCA' + obj.Id + '"    class="form-control " onchange="ActualizarMARCA(' + obj.Id + ')"    > ' + v_strcmdMARCA + '</select>';
+
+                            var stock = "<span class='contador'>  " + obj.stock + " </span>";
+
+                            Tabla_Datos = Tabla_Datos + " <tr >   <td style='display:none'>" + obj.Id + " </td>    <td>" + obj.codigo + " </td>   <td>" + obj.talle + " </td> <td>" + obj.precio + " </td>  <td>" + disponibleweb + " </td>  <td>" + cmbEtiq + " </td>   <td style='display:none'>" + cmbCat + " </td> <td style='display:none'>" + cmbDic + " </td> <td style='display:none'>" + cmbMar + " </td>   <td  >   " + stock + "   </td> </tr>";
+
+                        });
+                        Tabla_Fin = " </tbody></table>";
+                        $('#Resultado_articulos2').html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+                    }
+                    ),
+                    error: errores
+                });
+
+
+            } catch (e) {
+                alert(e.message);
+            }
+
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+    var listRow = [];
+    var table = document.getElementById("grillaarticulos2");
+    function ActualizarDisponible(ids) {
+        table = document.getElementById("grillaarticulos2");
+        var valGrupo = $("input:radio[name ='group1" + ids + "']:checked").val();
+        var todos = "NO";
+        if ($("#Ckautomatico").is(':checked')) {
+            todos = "SI";
+            for (var i = 1; i < table.rows.length; i++) {
+                var rr = table.rows[i];
+                var idx = parseInt(rr.cells[0].innerHTML);
+                $("input[name='group1" + idx + "'][value=" + valGrupo + "]").prop('checked', true);
+            }
+        }
+
+
+ 
+      
+      
+
+        var json = JSON.stringify
+            ({
+                "Id": ids,
+                "v_valor": valGrupo,
+                "v_todos": todos
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarDisponible",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (Resultado1) {
+
+            }),
+            error: errores
+        });
+
+
+    }
+
+    function ActualizarEtiqueta(ids) {
+        table = document.getElementById("grillaarticulos2");
+        var valGrupo = $("input:radio[name ='group1" + ids + "']:checked").val();
+        var todos = "NO";
+        if ($("#Ckautomatico").is(':checked')) {
+            todos = "SI";
+            for (var i = 1; i < table.rows.length; i++) {
+                var rr = table.rows[i];
+                var idx = parseInt(rr.cells[0].innerHTML);
+
+                $("#cmbEtiq" + idx).val($("#cmbEtiq" + ids).val());
+
+            }
+        }
+        var json = JSON.stringify
+            ({
+                "Id": ids,
+                "v_valor": $("#cmbEtiq" + ids).val(),
+                "v_todos": todos
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarEtiquetas",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (Resultado1) {
+
+            }),
+            error: errores
+        });
+
+
+    }
+
+
+    $("#kwd_search3").keyup(function () {
+
+        // When value of the input is not blank
+        if ($(this).val() != "") {
+            // Show only matching TR, hide rest of them
+            $("#grillaarticulos tbody>tr").hide();
+            $("#grillaarticulos td:contains-ci('" + $(this).val() + "')").parent("tr").show();
+        }
+        else {
+            // When there is no input or clean again, show everything back
+            $("#grillaarticulos tbody>tr").show();
+        }
+    });
+
+    // jQuery expression for case-insensitive filter
+    $.extend($.expr[":"],
+        {
+            "contains-ci": function (elem, i, match, array) {
+                return (elem.textContent || elem.innerText || $(elem).text() || "").toLowerCase().indexOf((match[3] || "").toLowerCase()) >= 0;
+            }
+
+        });
+
+
+
+    function grillaDiciplina(Resultado) {
+        var Pacientes = Resultado[0].ListaDiciplina;
+        var Tabla_Titulo = "";
+        var Tabla_Datos = "";
+        var Tabla_Fin = "";
+
+        $("#Resultado_diciplina").show();
+        $("#Resultado_diciplina").empty();
+
+        Tabla_Titulo = "<table   id='grilladiciplina' class='table   ' style='width: 100%;  font-family: proximanova-regular, sans-serif !important;text-transform: uppercase '><tbody>";
+        $.each(Pacientes, function (index, pacientes) {
+            Tabla_Datos = Tabla_Datos + "<tr ><td  style=' '> <a class='tooltips' onclick='gvDel3(" + pacientes.valor + ");' > <img src='/img/boton-eliminar.png' style='background-position:50%; background-repeat:no-repeat;cursor:pointer;height: 19px ' /> <span>Eliminar</span></a></td><td style='display:none'>" + pacientes.valor + " </td ><td>" + pacientes.descripcion + " </td ></tr>";
+        });
+        Tabla_Fin = "</tbody></table>";
+        $("#Resultado_diciplina").html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+    }
+
+    function grillaGeneros(Resultado) {
+        var Pacientes = Resultado[0].ListaGeneros;
+        var Tabla_Titulo = "";
+        var Tabla_Datos = "";
+        var Tabla_Fin = "";
+
+        $("#Resultado_genero").show();
+        $("#Resultado_genero").empty();
+
+        Tabla_Titulo = "<table   id='grillagenero' class='table   ' style='width: 100%;  font-family: proximanova-regular, sans-serif !important;text-transform: uppercase '><tbody>";
+        $.each(Pacientes, function (index, pacientes) {
+            Tabla_Datos = Tabla_Datos + "<tr ><td  style=' '> <a class='tooltips' onclick='gvDel2(" + pacientes.valor + ");' > <img src='/img/boton-eliminar.png' style='background-position:50%; background-repeat:no-repeat;cursor:pointer;height: 19px ' /> <span>Eliminar</span></a></td><td style='display:none'>" + pacientes.valor + " </td ><td>" + pacientes.descripcion + " </td ></tr>";
+        });
+        Tabla_Fin = "</tbody></table>";
+        $("#Resultado_genero").html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+    }
+
+    function ActualizarListaDiciplina1() {
+
+        if ($("#cmbDICIPLINA1").val() == "0") {
+            return;
+        }
+
+        var json = JSON.stringify
+            ({
+                "Id": $("#cmbDICIPLINA1").val(),
+                "v_valor": $("#cmbDICIPLINA1 option:selected").text()
+
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarListaDiciplina",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: grillaDiciplina,
+            error: errores
+        });
+    }
+    function ActualizarListaGenero1() {
+
+        if ($("#cmbGenero1").val() == "0") {
+            return;
+        }
+
+        var json = JSON.stringify
+            ({
+                "Id": $("#cmbGenero1").val(),
+                "v_valor": $("#cmbGenero1 option:selected").text()
+
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarListaGenero",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: grillaGeneros,
+            error: errores
+        });
+    } function gvDel3(ids) {
+
+        var json = JSON.stringify
+            ({
+                "Id": ids
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsEliminarListaDiciplina",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: grillaDiciplina,
+            error: errores
+        });
+    }
+
+    function gvDel2(ids) {
+
+        var json = JSON.stringify
+            ({
+                "Id": ids
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsEliminarListaGenero",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: grillaGeneros,
+            error: errores
+        });
+    }
+
+    function ActualizarGenero1() {
+
+        var json = JSON.stringify
+            ({
+                "Id": "",
+                "v_valor": $("#cmbGenero1").val(),
+                "v_todos": 'SI'
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarGenero",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (Resultado1) {
+
+            }),
+            error: errores
+        });
+    }
+
+    function ActualizarGenero(ids) {
+        table = document.getElementById("grillaarticulos2");
+        var valGrupo = $("input:radio[name ='group1" + ids + "']:checked").val();
+        var todos = "NO";
+        if ($("#Ckautomatico").is(':checked')) {
+            todos = "SI";
+            for (var i = 1; i < table.rows.length; i++) {
+                var rr = table.rows[i];
+                var idx = parseInt(rr.cells[0].innerHTML);
+
+                $("#cmbGenero" + idx).val($("#cmbGenero" + ids).val());
+
+            }
+        }
+        var json = JSON.stringify
+            ({
+                "Id": ids,
+                "v_valor": $("#cmbGenero" + ids).val(),
+                "v_todos": todos
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarGenero",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (Resultado1) {
+
+            }),
+            error: errores
+        });
+    }
+
+    function ActualizarCATEGORIA(ids) {
+        table = document.getElementById("grillaarticulos2");
+        var valGrupo = $("input:radio[name ='group1" + ids + "']:checked").val();
+        var todos = "NO";
+        if ($("#Ckautomatico").is(':checked')) {
+            todos = "SI";
+            for (var i = 1; i < table.rows.length; i++) {
+                var rr = table.rows[i];
+                var idx = parseInt(rr.cells[0].innerHTML);
+
+                $("#cmbCATEGORIA" + idx).val($("#cmbCATEGORIA" + ids).val());
+
+            }
+        }
+        var json = JSON.stringify
+            ({
+                "Id": ids,
+                "v_valor": $("#cmbCATEGORIA" + ids).val(),
+                "v_todos": todos
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarCATEGORIA",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (Resultado1) {
+
+            }),
+            error: errores
+        });
+
+
+    }
+
+    function ActualizarCATEGORIA1() {
+
+        var json = JSON.stringify
+            ({
+                "Id": "",
+                "v_valor": $("#cmbCategoria1").val(),
+                "v_todos": "SI"
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarCATEGORIA",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (Resultado1) {
+
+            }),
+            error: errores
+        });
+
+
+    }
+
+    function ActualizarDICIPLINA(ids) {
+        table = document.getElementById("grillaarticulos2");
+        var valGrupo = $("input:radio[name ='group1" + ids + "']:checked").val();
+        var todos = "NO";
+        if ($("#Ckautomatico").is(':checked')) {
+            todos = "SI";
+            for (var i = 1; i < table.rows.length; i++) {
+                var rr = table.rows[i];
+                var idx = parseInt(rr.cells[0].innerHTML);
+
+                $("#cmbDICIPLINA" + idx).val($("#cmbDICIPLINA" + ids).val());
+
+            }
+        }
+        var json = JSON.stringify
+            ({
+                "Id": ids,
+                "v_valor": $("#cmbDICIPLINA" + ids).val(),
+                "v_todos": todos
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarDICIPLINA",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (Resultado1) {
+
+            }),
+            error: errores
+        });
+
+
+    }
+    function ActualizarDICIPLINA1() {
+
+        var json = JSON.stringify
+            ({
+                "Id": "",
+                "v_valor": $("#cmbDICIPLINA1").val(),
+                "v_todos": "SI"
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarDICIPLINA",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (Resultado1) {
+
+            }),
+            error: errores
+        });
+
+
+    }
+
+    function ActualizarMARCA(ids) {
+        table = document.getElementById("grillaarticulos2");
+        var valGrupo = $("input:radio[name ='group1" + ids + "']:checked").val();
+        var todos = "NO";
+        if ($("#Ckautomatico").is(':checked')) {
+            todos = "SI";
+            for (var i = 1; i < table.rows.length; i++) {
+                var rr = table.rows[i];
+                var idx = parseInt(rr.cells[0].innerHTML);
+
+                $("#cmbMARCA" + idx).val($("#cmbMARCA" + ids).val());
+
+            }
+        }
+        var json = JSON.stringify
+            ({
+                "Id": ids,
+                "v_valor": $("#cmbMARCA" + ids).val(),
+                "v_todos": todos
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarMARCA",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (Resultado1) {
+
+            }),
+            error: errores
+        });
+
+
+    }
+    function ActualizarMARCA1() {
+
+        var json = JSON.stringify
+            ({
+                "Id": "",
+                "v_valor": $("#cmbMARCA1").val(),
+                "v_todos": "SI"
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Best/WsActualizarMARCA",
+            data: json,
+            async: false,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (Resultado1) {
+
+            }),
+            error: errores
+        });
+
+
+    }
+
+
+    function ListarTipoArticulos() {
+        try {
+
+            var json = JSON.stringify
+                ({
+                    "v_valor": ""
+                });
+
+            $.ajax({
+                type: "POST",
+                url: "/Best/WsListarTipoArticulos",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: CargarTipoArt,
+                error: errores
+            });
+
+
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+    function CargarTipoArt(Resultado) {
+
+        var Especialidad = Resultado;
+
+        $('#cmbTipoArt').empty();
+
+        $('#cmbTipoArt').append('<option value="0">- -</option>');
+
+
+        $.each(Especialidad, function (index, especialidades) {
+
+            $('#cmbTipoArt').append(
+                $('<option></option>').val(especialidades.valor).html(especialidades.descripcion)
+            );
+
+        });
+
+
+        //select un item  para select2
+        //  $("#cmbProv").val(1).change();
+    }
+    $(function () {
+      //  llenarCmdDimensiones();
+        ListarTipoArticulos();
+        $('#tabs').tabs();
+    });
+</script>
+
+
+
+

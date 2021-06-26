@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2011/08/nuspec.xsd">
+  <metadata>
+    <id>Microsoft.VisualStudio.Services.NuGet.AuthHelper</id>
+    <version>0.37.0</version>
+    <title>Microsoft Visual Studio Team Services Auth Helper for NuGet</title>
+    <authors>Microsoft</authors>
+    <owners>Microsoft</owners>
+    <licenseUrl>http://go.microsoft.com/fwlink/?LinkId=329770</licenseUrl>
+    <projectUrl>http://go.microsoft.com/fwlink/?LinkId=623217</projectUrl>
+    <iconUrl>http://go.microsoft.com/fwlink/?LinkId=615568</iconUrl>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <description>The Auth Helper tool enables NuGet clients to connect to Visual Studio Team Services Package Management NuGet feeds by acquiring and securely storing Personal Access Tokens for each VSTS package source in a nuget.config file.</description>
+    <summary />
+    <copyright>© Microsoft Corporation. All rights reserved.</copyright>
+    <tags>Microsoft Visual Studio Team Services VSTS VSO VisualStudio Package Management NuGet</tags>
+  </metadata>
+</package>

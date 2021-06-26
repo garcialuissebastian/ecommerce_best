@@ -1,0 +1,2251 @@
+﻿<!DOCTYPE html>
+
+<html lang="es-ar" translate="no">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Best Sport</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+
+    <script type="text/javascript" src="/js/jquery.js"></script>
+
+
+    <link href="/css/bootstrap.min.css?ds=dks" rel="stylesheet" />
+    <script src="/css/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="/css/preloader1.css?ds=dees" />
+
+    <script type="text/javascript" src="/js/preloader.js"></script>
+
+    @*<%-- para lo iconos--%>*@
+    <link href="/css/font-awesome.min.css" rel="stylesheet">
+
+
+
+    <link href="/css/select2.css" rel="stylesheet" />
+    <link href="/css/select2-bootstrap.css" rel="stylesheet" />
+    <script src="/js/select2.js"></script>
+
+    <script type="text/javascript" src="/js/easing.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.timers.js"></script>
+
+    <link href="/css/jquery-ui.css" rel="stylesheet" />
+    <script src="/css/jquery-ui.js"></script>
+
+
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="shortcut icon" href="/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="/img/favicon.ico" type="image/x-icon">
+
+
+    <style>
+
+        .modal-backdrop {
+            /* bug fix - no overlay */
+            display: none;
+        }
+
+        /*.modal-backdrop {
+            position: fixed;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            z-index: -1;
+        }*/
+
+        @@font-face {
+            font-family: "proximanova-regular";
+            src: url("/fonts/proximanova-regular.otf");
+        }
+        /*param los icono en css*/
+        @@font-face {
+            font-family: "fontawesome-webfont";
+            src: url("/fonts/fontawesome-webfont.ttf");
+        }
+
+
+        .contador {
+            color: #fff;
+            vertical-align: middle;
+            line-height: 1em;
+            padding: 3px 5px 3px 5px;
+            margin: 0 4px;
+            border-radius: 4px;
+            background: #ff0a15;
+            /* float: right; */
+            display: inline-block;
+        }
+
+        .MarcoMio {
+            margin-top: 5px;
+            background-color: #333;
+            padding: 5px;
+            border-radius: 10px 10px 10px 10px;
+            border: 1px solid;
+            box-shadow: 0 4px 5px #555;
+            color: white;
+            padding-left: 15px;
+        }
+
+        .grillaarticulos > tbody > tr:hover td {
+            background: #fff8f8 !important;
+        }
+
+        .table-hover > tbody > tr.active:hover > td, .table-hover > tbody > tr.active:hover > th, .table-hover > tbody > tr:hover > .active, .table-hover > tbody > tr > td.active:hover, .table-hover > tbody > tr > th.active:hover {
+            background-color: #fbced7 !important;
+        }
+
+        .table {
+            font-size: 12px;
+        }
+
+            .table > tbody > tr.active > td, .table > tbody > tr.active > th, .table > tbody > tr > td.active, .table > tbody > tr > th.active, .table > tfoot > tr.active > td, .table > tfoot > tr.active > th, .table > tfoot > tr > td.active, .table > tfoot > tr > th.active, .table > thead > tr.active > td, .table > thead > tr.active > th, .table > thead > tr > td.active, .table > thead > tr > th.active {
+                background-color: #fbced7;
+            }
+
+
+        label {
+            font-weight: 500;
+        }
+
+
+        body {
+            font-family: 'proximanova-regular', sans-serif !important;
+            font-size: 14px !important;
+        }
+
+        .form-horizontal {
+            font-family: 'proximanova-regular', sans-serif !important;
+        }
+
+        #pie {
+            color: white !important;
+            font-family: 'proximanova-regular', sans-serif !important;
+            min-height: 40px;
+            margin-top: 15px;
+            margin-left: -5px;
+            margin-right: -20px;
+            box-shadow: 1px 1px 5px 0px rgba(25, 24, 24, 0.64);
+            background-color: #060606;
+            padding: 0px !important;
+        }
+
+            #pie a {
+                color: white !important;
+                font-family: 'proximanova-regular', sans-serif !important;
+            }
+
+            #pie h4 {
+                color: #c7302e;
+            }
+
+            #pie ul {
+                list-style: none;
+                text-decoration: none;
+                font-family: 'proximanova-regular', sans-serif !important;
+            }
+
+                #pie ul li {
+                    text-decoration: none;
+                    font-family: 'proximanova-regular', sans-serif !important;
+                }
+
+        .container-fluid {
+            width: 100%;
+            padding-left: 0px;
+            margin-right: auto;
+            /* margin-left: auto; */
+        }
+
+        .Mialert {
+            color: white;
+            border-color: #d8d8d8;
+            text-transform: uppercase;
+            box-shadow: 1px 1px 5px 0px rgba(25, 24, 24, 0.64);
+            background-color: #060606;
+            font-family: 'proximanova-regular', sans-serif !important;
+        }
+
+        #cabecera {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            display: block;
+            width: 100%;
+            height: 80px;
+            z-index: 1000;
+            background: #fff;
+        }
+
+            #cabecera #divlogo {
+                font-size: 0;
+            }
+
+                #cabecera #divlogo #cablogo {
+                    margin-left: 20px;
+                }
+
+        #divMenu {
+            width: 100%;
+            /*display: block;*/
+            box-shadow: 1px 1px 5px 0px rgba(25, 24, 24, 0.64);
+            /*text-align: center;*/
+            background-color: #060606;
+            position: relative;
+            top: 0px;
+        }
+
+
+            #divMenu ul {
+                display: inline-block;
+                width: auto;
+                height: 33px;
+                padding: 0px 0px;
+                margin: 0px;
+                text-align: center;
+            }
+
+                #divMenu ul li {
+                    top: 0px;
+                    display: inline-block;
+                    height: auto;
+                    margin: 0px 0px;
+                    cursor: pointer;
+                    text-align: center;
+                    z-index: 110;
+                    vertical-align: middle;
+                }
+
+
+                    #divMenu ul li a {
+                        padding: 9px 10px;
+                        font-size: 14px;
+                        display: block;
+                        color: #fff;
+                        font-weight: 600;
+                        text-transform: uppercase;
+                        font-family: 'proximanova-regular', sans-serif !important;
+                    }
+
+                    #divMenu ul li:hover a {
+                        color: red;
+                        text-decoration: none;
+                    }
+
+                    #divMenu ul li .divItem {
+                        min-height: 180px;
+                        padding: 10px 10px 10px 10px;
+                        background: #151515f2;
+                        z-index: 110;
+                        position: absolute;
+                        display: none;
+                        /*width: 153%;*/
+                        height: auto;
+                        box-shadow: 0px 3px 3px rgba(0,0,0,.2);
+                        top: 35px;
+                        /*left: -17px;*/
+                    }
+
+                    #divMenu ul li:hover .divItem {
+                        display: -webkit-flex;
+                        flex-wrap: wrap;
+                        flex-direction: row;
+                        /*justify-content: center;*/
+                    }
+
+                #divMenu ul .divItem ul {
+                    position: relative;
+                    display: block;
+                    height: auto;
+                    text-align: left;
+                    flex: 0 0 auto;
+                    padding: 0px;
+                    margin-left: 25px;
+                    margin-top: 20px;
+                    margin-right: 15px;
+                }
+
+                    #divMenu ul .divItem ul li {
+                        top: 0px;
+                        display: block;
+                        height: auto;
+                        margin: 0px 0px;
+                        padding: 2px;
+                        cursor: pointer;
+                        text-align: left;
+                    }
+
+                    #divMenu ul .divItem ul h4 {
+                        margin: 0px;
+                        font-size: 15px;
+                        font-weight: 600;
+                        color: #c52127;
+                        text-transform: uppercase;
+                        font-family: 'proximanova-regular', sans-serif !important;
+                    }
+
+                    #divMenu ul .divItem ul li .DivItem2 {
+                        color: rgb(255, 255, 255);
+                        font-size: 14px;
+                        text-transform: uppercase;
+                        padding: 3px 0px;
+                        margin: 0px;
+                        line-height: 12px;
+                    }
+
+        .MenuIzq {
+            /*text-transform: uppercase;*/
+            position: relative;
+            color: #6d6d6d;
+            font-weight: 200;
+            padding: 12px;
+            border-top: 1px solid #eaeaea;
+            cursor: pointer;
+            margin-right: 2px;
+            font-family: 'proximanova-regular', sans-serif !important;
+            font-size: 15px;
+        }
+
+        .tag ul {
+            margin: 0;
+            display: block;
+            padding: 0;
+        }
+
+        .tag li {
+            width: auto;
+            margin: 1px;
+            display: inline-block;
+            height: auto;
+        }
+
+
+            .tag li a {
+                padding: 2px 8px;
+                min-height: 16px;
+                min-width: 24px;
+                font-size: 11px;
+                padding: 2px 18px 2px 8px !important;
+                background-image: url(/img/cruz.png) !important;
+                background-position: right 5px center !important;
+                text-transform: uppercase;
+                display: inline-block;
+                width: auto;
+                height: auto;
+                text-align: center;
+                background: #FFF;
+                background-size: 8px !important;
+                background-repeat: no-repeat !important;
+                border: 1px solid #ddd;
+                border-radius: 3px;
+                color: #000;
+                font-family: 'proximanova-regular', sans-serif !important;
+            }
+
+
+        .tag2 ul li {
+            display: inline-block;
+            width: auto;
+            height: auto;
+            margin: 1px;
+        }
+
+        .tag2 li a {
+            display: inline-block !important;
+            width: auto;
+            min-height: 16px;
+            min-width: 30px;
+            font-size: 11px;
+            text-align: center;
+            background: #FFF;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            color: #000;
+        }
+
+        .accordion .MenuIzq:after {
+            color: red;
+            font-size: small;
+            font-family: 'fontawesome-webfont';
+            content: "\f068";
+            float: right;
+        }
+
+        .accordion .MenuIzq.collapsed:after {
+            /* symbol for "collapsed" panels */
+            content: "\f067";
+        }
+
+        .Ul_menu_login li {
+            line-height: 8px;
+            color: #333333;
+        }
+
+            .Ul_menu_login li a {
+                color: #333333 !important;
+            }
+
+        .Miaccordion ul {
+            display: block;
+            padding: 0px 14px 0px 10px;
+            margin: 0;
+            /* max-height: 90px; */
+            list-style: none;
+            overflow: hidden;
+            font-family: 'proximanova-regular', sans-serif !important;
+            margin-left: 20px;
+            margin-bottom: 15px;
+            margin-top: 5px;
+        }
+
+        .Miaccordion li a {
+            display: block;
+            text-transform: uppercase;
+            color: #212529;
+            font-size: 14px;
+            font-family: 'proximanova-regular', sans-serif !important;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        /*mi cuenta*/
+        .miCuenta a {
+            color: white;
+            text-decoration: none;
+            font-family: 'proximanova-regular', sans-serif !important;
+        }
+
+        .miCuenta:hover {
+            background-color: black !important;
+        }
+
+        .header-rdw__user-links {
+            padding-bottom: 164px;
+            max-height: 214px;
+        }
+
+        .header-rdw__user-links {
+            background-color: #f5f5f5;
+            border-radius: 0 0 3px 3px;
+            font-size: 14px;
+            padding: 6px 16px 147px;
+            text-align: left;
+        }
+
+        .header-rdw__user-links_a, .header-rdw__user-links_a:visited {
+            color: #787878;
+            font-family: ''proximanova-regular', sans-serif !important;', sans-serif !important;
+            font-size: 15px;
+        }
+
+        .open .empr-rool, .open .prof-rool {
+            z-index: 0;
+        }
+
+        .box-rool-shadows.open {
+            filter: alpha(opacity=100);
+            max-height: 470px;
+            max-width: 10000px;
+            opacity: 1;
+            padding: 8px;
+            transition: max-height .2s ease-in 0s,opacity .2s ease-out .02s;
+        }
+
+        .box-rool-shadows__shadow-container {
+            -webki-box-shadow: 0 1px 5px #ddd;
+            -moz-box-shadow: 0 1px 5px #ddd;
+            -o-box-shadow: 0 1px 5px #ddd;
+            box-shadow: 0 1px 5px #ddd;
+            box-shadow: 0 1px 5px rgba(0,0,0,.15);
+            overflow: hidden;
+        }
+
+        .prof-rool.active, .empr-rool.active {
+            background: #fff;
+            box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+            position: relative;
+        }
+
+        empr-rool.active, .prof-rool.active {
+            bottom: auto;
+            top: 0;
+            z-index: 0;
+        }
+
+        .profile-type, .profile-efficency {
+            color: #666;
+            display: block;
+            font-size: 14px;
+            text-align: left;
+            line-height: 18px;
+        }
+
+        .txt-perfil {
+            float: left;
+            margin: 16px 14px 5px 1px;
+            max-width: 170px;
+        }
+
+        #miCuenta {
+            position: absolute;
+            background-position: right center;
+            background-color: rgba(239, 239, 239, 0.9);
+            color: black;
+            display: none;
+            border-radius: 0px 0px 20px 20px;
+            z-index: 999;
+        }
+
+        .active .pic-ins-shadow {
+            height: 76px;
+            width: 76px;
+        }
+
+        .box-rool-shadows::before {
+            border: solid 8px transparent;
+            border-bottom-color: #fff;
+            content: '';
+            display: block;
+            height: 0;
+            left: 70px; /*cambi el triangulito de lugar*/
+            position: absolute;
+            top: -6px;
+            width: 0;
+        }
+
+        .list-unstyled {
+            padding-left: 0;
+            list-style: none;
+        }
+
+        .pic-ins-shadow {
+            border: solid 1px #eee;
+            margin: 16px 18px 16px 15px;
+            position: relative;
+            width: 44px;
+            border-radius: 3px;
+            background-position: center center;
+            background-size: cover;
+            display: block;
+            float: left;
+            height: 44px;
+        }
+
+        .prof-rool, .empr-rool {
+            min-height: 96px;
+        }
+
+
+
+        .breadcrumbs {
+            margin: 0;
+            font-size: 14px;
+            padding-top: 4px;
+            padding-left: 4px;
+            padding: 0;
+            list-style: none;
+            display: inline-block;
+            vertical-align: middle;
+            margin-top: 4px;
+        }
+
+            .breadcrumbs li {
+                font-weight: 200;
+                opacity: .4;
+                display: inline-block;
+            }
+
+                .breadcrumbs li a {
+                    display: inline-block; /*sino no anda first letter*/
+                    text-transform: lowercase;
+                }
+
+                    .breadcrumbs li a::first-letter {
+                        text-transform: uppercase;
+                    }
+
+                    .breadcrumbs li a:hover {
+                        opacity: 3;
+                        color: #e6090b;
+                    }
+
+
+            .breadcrumbs .active {
+                opacity: 1 !important;
+            }
+
+            .breadcrumbs li > * {
+                padding: 0 2px;
+                color: inherit;
+            }
+
+            .breadcrumbs li.home i {
+                display: none;
+            }
+
+            .breadcrumbs li:first-child > * {
+                padding-left: 0px;
+            }
+
+        * {
+            padding: 0 2px;
+            color: inherit;
+        }
+
+        .fa {
+            text-rendering: auto;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            display: inline-block;
+            font: normal normal normal 14px/1 FontAwesome;
+            font-size: inherit;
+        }
+
+        .breadcrumbs li:before {
+            content: '\f178';
+            display: inline-block;
+            font-family: FontAwesome;
+            font-style: normal;
+            font-weight: normal;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            width: 15px;
+            height: 15px;
+            text-align: center;
+            line-height: 15px;
+            font-size: 13px;
+            position: relative;
+            top: 1px;
+        }
+
+        .breadcrumbs li:last-child span {
+            font-weight: 200;
+        }
+
+        #contador {
+            color: #fff;
+            font-size: .8em;
+            line-height: 1em;
+            padding: 3px 5px 3px 5px;
+            margin: 0 4px;
+            border-radius: 4px;
+            background: #ff0a15;
+            /* float: right; */
+            display: inline-block;
+        }
+
+
+
+
+
+
+
+        .precio {
+            margin-top: 5px;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+        }
+
+            .precio .precio-online {
+                line-height: 1;
+                margin-top: 10px;
+            }
+
+        .precio-online .precio-text {
+            color: #e94446;
+            text-transform: uppercase;
+            font-size: 13px;
+            margin-bottom: 0;
+            font-family: 'proximanova-regular', sans-serif !important;
+            font-weight: 600;
+        }
+
+        .pricio-val {
+            font-weight: 600;
+            font-size: 28px;
+        }
+
+        .precio_genero {
+            font-size: 12px;
+            text-transform: uppercase;
+            font-weight: 600;
+            color: #000000;
+            position: relative;
+            top: -8px;
+        }
+
+        .card_ventas {
+            padding-top: 8px;
+        }
+
+            .card_ventas .card_descrip {
+                line-height: 20px;
+            }
+
+        .card {
+            border: none !important;
+        }
+
+        .articulos:hover .card {
+            box-shadow: 0px 0px 10px rgba(0,0,0,.6);
+            background: #fff;
+            transform: scale(1);
+            display: block;
+            width: 100%;
+            padding: 2px;
+            z-index: 999;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+
+
+
+        .carousel-inner {
+            position: relative;
+            width: 100%;
+            max-height: 350px;
+        }
+
+
+        .carousel-control.right {
+            right: 0;
+            left: auto;
+            background-image: none !important;
+            background-repeat: repeat-x;
+        }
+
+        .carousel-control.left {
+            left: 0;
+            right: auto;
+            background-image: none !important;
+            background-repeat: repeat-x;
+        }
+
+        #carousel-example-generic {
+            margin: 20px auto;
+            width: 100%;
+        }
+
+        #carousel-custom {
+            margin: 6px auto;
+            width: 420px;
+        }
+
+            #carousel-custom .carousel-indicators {
+                margin: 10px 0 0;
+                overflow: auto;
+                position: static;
+                text-align: left;
+                white-space: nowrap;
+                width: 100%;
+                overflow: hidden;
+            }
+
+                #carousel-custom .carousel-indicators li {
+                    background-color: transparent;
+                    -webkit-border-radius: 0;
+                    border-radius: 0;
+                    display: inline-block;
+                    height: auto;
+                    margin: 0 !important;
+                    width: auto;
+                }
+
+                    #carousel-custom .carousel-indicators li img {
+                        display: block;
+                        opacity: 0.5;
+                    }
+
+                    #carousel-custom .carousel-indicators li.active img {
+                        opacity: 1;
+                    }
+
+                    #carousel-custom .carousel-indicators li:hover img {
+                        opacity: 0.75;
+                    }
+
+            #carousel-custom .carousel-outer {
+                position: relative;
+            }
+
+        .carousel-indicators li img {
+            /*height: 66px;*/
+            width: 90px;
+        }
+
+        .zoom {
+            display: inline-block;
+            position: relative;
+        }
+
+
+            .zoom img {
+                display: block;
+            }
+
+                .zoom img::selection {
+                    background-color: transparent;
+                }
+
+
+        .articulo_talle .tag2 li a {
+            display: inline-block !important;
+            width: auto;
+            min-width: 39px;
+            font-size: 16px;
+            text-align: center;
+            background: #FFF;
+            border: 1px solid #ddd;
+            border-radius: 3px;
+            color: #000;
+            font-family: 'proximanova-regular', sans-serif;
+        }
+
+
+        .articulo_talle .tag2 li:hover a {
+            background-color: #ef6f70;
+            font-weight: 800;
+            text-decoration: none;
+            font-family: 'proximanova-regular', sans-serif;
+        }
+
+
+        .articulo_talle .tallecomprar .active {
+            background-color: #ef6f70;
+            font-weight: 800;
+            text-decoration: none;
+            font-family: 'proximanova-regular', sans-serif;
+            display: inline-block !important;
+            width: auto;
+            min-width: 39px;
+            font-size: 16px;
+            text-align: center;
+            border-radius: 3px;
+            border: 1px solid #d20c0c;
+        }
+
+        a.tooltips {
+            position: relative;
+            display: inline;
+        }
+
+            a.tooltips span {
+                position: absolute;
+                width: 140px;
+                color: #FFFFFF;
+                background: #000000;
+                height: 30px;
+                line-height: 30px;
+                text-align: center;
+                visibility: hidden;
+                border-radius: 6px;
+            }
+
+                a.tooltips span:after {
+                    content: '';
+                    position: absolute;
+                    top: 50%;
+                    right: 100%;
+                    margin-top: -8px;
+                    width: 0;
+                    height: 0;
+                    border-right: 8px solid #000000;
+                    border-top: 8px solid transparent;
+                    border-bottom: 8px solid transparent;
+                }
+
+        a:hover.tooltips span {
+            visibility: visible;
+            opacity: 0.8;
+            left: 100%;
+            top: 50%;
+            margin-top: -23px;
+            margin-left: 44px;
+            z-index: 999;
+        }
+
+
+        .sin_foco {
+            -webkit-filter: blur(5px);
+            -moz-filter: blur(5px);
+            -o-filter: blur(5px);
+            -ms-filter: blur(5px);
+            filter: blur(5px);
+        }
+
+        /*input:invalid {
+            background-color: #ffdddd;
+        }*/
+
+        /*form:invalid {
+            border: 5px solid #ffdddd;
+        }*/
+
+        .valid {
+            background-color: #ddffdd;
+            border: red 2px solid;
+        }
+
+        form:valid {
+            border: 5px solid #ddffdd;
+        }
+
+
+        .card .destacar {
+            display: block;
+            color: #fff;
+            width: 170px;
+            font-style: italic;
+            font-weight: 600;
+            text-transform: uppercase;
+            position: absolute;
+            height: 42px;
+            top: 0px;
+            left: 0px;
+        }
+
+            .card .destacar .letra {
+                position: relative;
+                top: 10px;
+                left: -2px;
+                float: left;
+                clear: both;
+                font-size: 14px;
+                text-align: center;
+                box-shadow: 2px 2px 3px rgba(0,0,0,.5);
+                border-radius: 8px;
+                min-width: 85px;
+                font-family: 'proximanova-regular', sans-serif !important;
+            }
+    </style>
+
+
+
+
+
+
+</head>
+
+<body style="margin:0px !important">
+
+
+
+
+    <form id="form1" runat="server">
+
+        <div class="container-fluid">
+
+            <div id="miLoader">
+                <div class="spinner-wrapper">
+                    <div class="loader">Cargando...</div>
+                </div>
+            </div>
+
+            <div id="cabecera" class="">
+                <div id="divlogo">
+                    <div id="cablogo">
+                        <img src="/img/logoBest.png" />
+                    </div>
+
+                </div>
+
+                <div id="divMenu" class="row" style="margin-right: 0px;  margin-left: 0px;">
+
+                    <div id="divMenu" class="row" style="margin-right: 0px;  margin-left: 0px;">
+
+                        <div class=" col-md-3"> </div>
+                        <div class="   col-md-6">
+                            <ul>
+
+                                <li>
+                                    <a href="/Best/Articulos/">ARTICULOS</a>
+                                </li>
+
+
+                                <li>
+                                    <a href="/Best/VerCompras/">COMPRAS</a>
+                                </li>
+                                <li>
+                                    <a href="/Log/Log.txt">VER LOG</a>
+                                </li>
+                                @*<li>
+
+            <a href="/Articulos/?AB4CE8DECD9202F8F248852349525818=B17ABF59CAC5C1205A8C85139CCA73FB">CALZADO</a>
+            <div class="divItem">
+                <ul>
+                    <h4>GENERO </h4>
+                    <li><a class="DivItem2" href="/Articulos/?AB4CE8DECD9202F8F248852349525818=B17ABF59CAC5C1205A8C85139CCA73FB&amp;E9C981F5DB50508C456D01553241003E=B17ABF59CAC5C1205A8C85139CCA73FB&amp;9B32ECFFDA79C66D9A06B0322D335BD3=B17ABF59CAC5C1205A8C85139CCA73FB">HOMBRE</a></li>
+                    <li><a class="DivItem2" href="/Articulos/?AB4CE8DECD9202F8F248852349525818=B17ABF59CAC5C1205A8C85139CCA73FB&amp;E9C981F5DB50508C456D01553241003E=567D38F311CA57B7B3C4DA65AEFEE162&amp;9B32ECFFDA79C66D9A06B0322D335BD3=B17ABF59CAC5C1205A8C85139CCA73FB">MUJER</a></li>
+                    <li><a class="DivItem2" href="/Articulos/?AB4CE8DECD9202F8F248852349525818=B17ABF59CAC5C1205A8C85139CCA73FB&amp;E9C981F5DB50508C456D01553241003E=0E63403C43C67149FC594D25CFD8A7E5&amp;9B32ECFFDA79C66D9A06B0322D335BD3=B17ABF59CAC5C1205A8C85139CCA73FB">NIÑO</a></li>
+                    <li><a class="DivItem2" href="/Articulos/?AB4CE8DECD9202F8F248852349525818=B17ABF59CAC5C1205A8C85139CCA73FB&amp;E9C981F5DB50508C456D01553241003E=84010B3114F839B61BC4FB2982CAFF2C&amp;9B32ECFFDA79C66D9A06B0322D335BD3=B17ABF59CAC5C1205A8C85139CCA73FB">BEBE</a></li>
+                    <li><a class="DivItem2" href="/Articulos/?AB4CE8DECD9202F8F248852349525818=B17ABF59CAC5C1205A8C85139CCA73FB&amp;E9C981F5DB50508C456D01553241003E=C0E6843189C673298326DF0618248FE3&amp;9B32ECFFDA79C66D9A06B0322D335BD3=B17ABF59CAC5C1205A8C85139CCA73FB">NIÑA</a></li>
+                    <li><a class="DivItem2" href="/Articulos/?AB4CE8DECD9202F8F248852349525818=B17ABF59CAC5C1205A8C85139CCA73FB&amp;E9C981F5DB50508C456D01553241003E=C79356F0F2290B364407A2893B8ADB15&amp;9B32ECFFDA79C66D9A06B0322D335BD3=B17ABF59CAC5C1205A8C85139CCA73FB">UNISEX</a></li>
+
+                </ul>
+
+
+
+
+            </div>
+
+        </li>
+        <li>
+
+            <a href="/Articulos/?AB4CE8DECD9202F8F248852349525818=567D38F311CA57B7B3C4DA65AEFEE162">INDUMENTARIA</a>
+            <div class="divItem">
+                <ul>
+                    <h4>GENERO </h4>
+                    <li><a class="DivItem2" href="/Articulos/?AB4CE8DECD9202F8F248852349525818=567D38F311CA57B7B3C4DA65AEFEE162&amp;E9C981F5DB50508C456D01553241003E=962BD2A5500C09F510FA02ABA94F2285&amp;9B32ECFFDA79C66D9A06B0322D335BD3=B17ABF59CAC5C1205A8C85139CCA73FB">HOMBRE</a></li>
+                    <li><a class="DivItem2" href="/Articulos/?AB4CE8DECD9202F8F248852349525818=567D38F311CA57B7B3C4DA65AEFEE162&amp;E9C981F5DB50508C456D01553241003E=D397F07CF3053476D2FB60901DFD7D34&amp;9B32ECFFDA79C66D9A06B0322D335BD3=B17ABF59CAC5C1205A8C85139CCA73FB">MUJER</a></li>
+                    <li><a class="DivItem2" href="/Articulos/?AB4CE8DECD9202F8F248852349525818=567D38F311CA57B7B3C4DA65AEFEE162&amp;E9C981F5DB50508C456D01553241003E=597384DCFD9BB19FFB94D27C71085407&amp;9B32ECFFDA79C66D9A06B0322D335BD3=B17ABF59CAC5C1205A8C85139CCA73FB">NIÑO</a></li>
+                    <li><a class="DivItem2" href="/Articulos/?AB4CE8DECD9202F8F248852349525818=567D38F311CA57B7B3C4DA65AEFEE162&amp;E9C981F5DB50508C456D01553241003E=B4B86EA0F43B2D02D2F182F03928BA60&amp;9B32ECFFDA79C66D9A06B0322D335BD3=B17ABF59CAC5C1205A8C85139CCA73FB">BEBE</a></li>
+                    <li><a class="DivItem2" href="/Articulos/?AB4CE8DECD9202F8F248852349525818=567D38F311CA57B7B3C4DA65AEFEE162&amp;E9C981F5DB50508C456D01553241003E=9B778E1F5F13AB3348D849FED9F983D0&amp;9B32ECFFDA79C66D9A06B0322D335BD3=B17ABF59CAC5C1205A8C85139CCA73FB">UNISEX</a></li>
+
+                </ul>
+
+
+
+
+            </div>
+
+        </li>*@
+
+
+                            </ul>
+                        </div>
+
+                        <div class="col-md-3">
+                            <div class="container">
+                                <div class="miCuenta">
+                                    <table>
+                                        <tbody>
+                                            <tr>
+                                                <td>
+
+                                                    @{
+                                                        Be.Best_UsuariosWeb user = new Be.Best_UsuariosWeb();
+                                                        user.mail = "xxxxxxxxx@xxxxxxxxxxxxxxxx";
+                                                        user.nombre = "xxx";
+                                                        user.apellido = "xxx";
+                                                        string txtLogin = "Mi Cuenta";
+                                                        string txtLoginlink = "javascript:miCuenta();";
+                                                        string txtLoginIco = " fa fa-user ";
+                                                        if (Session["UsuarioWeb"] != null)
+                                                        {
+
+                                                            user = (Be.Best_UsuariosWeb)Session["UsuarioWeb"];
+                                                        }
+                                                        else
+                                                        {
+                                                            txtLoginlink = "javascript:Login();";
+                                                            txtLogin = "Iniciá sesión";
+                                                            txtLoginIco = " fa  fa-sign-in ";
+                                                        }
+
+                                                    }
+
+                                                    <div class="titulos-session" style=" ">
+                                                        <div>
+
+                                                            <a href="@txtLoginlink" id="mUser" style="font-weight:500;font-family: 'proximanova-regular', sans-serif !important;">
+
+                                                                <span class=" @txtLoginIco" style="margin-right:5px"></span>
+
+
+                                                                @txtLogin.Trim()
+                                                            </a>
+                                                        </div>
+                                                        <div id="miCuenta" style="    text-align: left; width:327px">
+
+
+                                                            <div class="box-rool-shadows open">
+
+                                                                <div class="box-rool-shadows__shadow-container">
+                                                                    <div class="prof-rool active header-rwd__user--professional">
+
+
+                                                                        <span class="pic-ins-shadow" style="background-image: url('/img/personal.png');"></span>
+                                                                        <span class="txt-perfil">
+
+                                                                            <span class="profile-type">
+                                                                                @user.mail.Substring(0, 19)...
+                                                                            </span>
+                                                                            <div style="font-size: 14px;   font-weight: 600; margin-top:5px">
+                                                                                @user.nombre
+                                                                            </div>
+
+                                                                            <div style="font-size: 14px;   font-weight: 600;">
+                                                                                @user.apellido
+                                                                            </div>
+
+                                                                            @*<span class="name-profile-type"> CUIT:
+                                                                                <asp:Label ID="lblCuit" runat="server">CUIT</asp:Label>
+                                                                                </span>*@
+
+
+                                                                        </span>
+                                                                    </div>
+
+
+                                                                    <div id="miCuenta-container">
+
+
+                                                                        <div id="footer-accesos" class="header-rdw__user-links">
+
+
+
+
+                                                                            <ul class="list-unstyled Ul_menu_login" style="margin-top:8px; text-align:left">
+
+                                                                                <li>
+                                                                                    <a href="/App/Registro/ModificarPwdIntranet.aspx">
+                                                                                        <span class=" fa fa-lock
+"></span> Cambiar contraseña
+                                                                                    </a>
+                                                                                </li>
+
+                                                                            </ul>
+                                                                        </div>
+
+
+                                                                        <div align="center" style=" background:#333;
+bottom: 8px;
+ padding:5px;
+width: 300px;
+position: absolute;border-bottom-right-radius: 10px;
+border-bottom-left-radius: 10px;">
+
+
+
+
+                                                                            <button id="btnEliminar1" type="button" class="btn btn-primary   " onclick="salir()">
+                                                                                <span class=" fa   fa-sign-out "></span>  Cerrar Sesión
+                                                                            </button>
+
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+
+
+
+
+                                                            </div>
+                                                        </div>
+
+
+
+                                                    </div>
+
+                                                </td>
+
+                                                <td>
+                                                    <div style="  ">
+                                                        <a href="#">
+
+
+                                                            <ul style="    display: inline-block;
+    font-size: 14px;
+    /* padding-top: 5px; */
+    margin: 0px !important;
+    padding-top: 5px;
+    font-family: 'proximanova-regular', sans-serif !important;
+    ">
+                                                                <li>  </li>
+                                                                <li> </li>
+
+
+                                                                <li>    </li>
+                                                            </ul>
+
+
+
+
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+
+
+
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+            </div>
+            <div id="Cuerpo" style="margin-top:120px;min-height:440px">
+
+                @RenderBody()
+
+
+
+            </div>
+            <div id="pie">
+
+
+                <div class="container">
+                    <div class="row" style="    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 1px solid;
+     border-bottom: 1px solid;
+    border-color:  #333333;
+    padding-top: 10px;
+   ">
+                        <div class="col-xs-3 footer-para">
+
+                            <div>
+                                <h4>ATENCIÓN AL CLIENTE</h4>
+                                <ul>
+                                    <li><a href="tel:+5401162090046">011 6209-0046</a></li>
+                                    <li>Lun. a Vie. de 9 a 20hs.</li>
+                                    <li>Sábados de 9 a 14hs.</li>
+                                </ul>
+                            </div>
+                        </div>
+
+                        <div class="col-xs-3">
+
+
+
+
+
+                        </div>
+
+
+                        <div class="col-xs-5 text-right">
+
+
+                            <ul class="list-inline" style=" margin-top: 14px;">
+                                <span>SEGUINOS</span>
+                                <li>
+                                    <a href="https://www.facebook.com/BESTDEPORTESBARRIOMARITIMO" target="_Blank" style="font-size:24px">
+                                        <i class="fa fa-facebook"></i>
+                                    </a>
+                                </li>
+
+                                <!--<li><a href="" target="_Blank"><i class="fa fa-twitter"></i></a></li>-->
+
+                                <li><a href="#" target="_Blank" style="font-size:24px"><i class="fa fa-instagram"></i></a></li>
+
+                                <li><a href="tel:+5401162090046" target="_Blank" style="font-size:24px"><i class="fa fa-whatsapp"></i></a></li>
+
+                            </ul>
+
+
+
+                            <p style="font-size: 13px;">© Best Deportes All right reserved</p>
+
+                        </div>
+
+                        <div class="col-xs-1 text-right " style="    padding-top: 11px;">
+
+                            <img src="~/img/afipData.png" class="img-responsive" />
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal manual re envio mail-->
+            <div class="modal fade" id="Modalreenviomail" role="dialog" style="display:none">
+                <div class="modal-dialog  modal-md">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+
+                        </div>
+
+                        <div class="modal-body">
+
+
+
+                            <div class="alert  Mialert">
+                                Envio de clave de acceso
+                            </div>
+
+                            <div> Sr. Usuario, ingrese la casilla de mail que utiliza como usuario web y le enviaremos su clave de acceso por mail a la brevedad.</div>
+
+                            <div class="row" style="margin-top: -10px;">
+
+                                <div class="col-12">
+                                    <div class="form-horizontal" style="margin-top: 25px;">
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <input type="text" id="txtMailRe" class="form-control" onblur="BlurformReg(this)" placeholder="E-mail" required>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-xs-8">
+
+
+                                                <button type="button" class="btn btn-danger" style="width:100%" id="btnRenviar" onclick="RenviarMail()">
+                                                    INGRESAR
+                                                    <span class=" fa  fa-sign-in "></span>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                        </div>
+
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <span id="TxtMsjRe" class=" alert" style="color:red">  </span>
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+
+            </div>
+
+            <!-- Modal fin re envio mail-->
+            <!-- Modal manual login-->
+            <div class="modal fade" id="Modallogin" role="dialog" style="display:none">
+                <div class="modal-dialog  modal-md">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+
+
+                        </div>
+
+                        <div class="modal-body">
+
+                            <div style="display:none">
+                                <input type="text" id="txtOplogin">
+                            </div>
+                            <div class="alert  Mialert">
+                                INGRESO
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-horizontal" style="margin-top: 25px;">
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <input name="txtMail" type="text" id="txtMailIni" class="form-control" onblur="BlurformReg(this)" placeholder="E-mail" required>
+
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                        </div>
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-xs-8">
+
+                                                <input type="password" id="txtPassIni" class="form-control" onblur="BlurformReg(this)" placeholder="Contraseña" required>
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-xs-8">
+
+
+                                                <button type="button" class="btn btn-danger" style="width:100%" id="btnIngresar">
+                                                    INGRESAR
+                                                    <span class=" fa  fa-sign-in "></span>
+                                                </button>
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                        </div>
+
+
+
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <a id="lnkolvidar" onclick="reenviarMail()" style="font-weight:500 ;cursor:pointer">Olvide mi contraseña</a>
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group">
+                                            <div class="col-md-2">
+                                            </div>
+                                            <div class="col-xs-8">
+                                                <span id="TxtMsjIni" class=" alert">  </span>
+                                            </div>
+                                            <div class="col-md-2">
+                                            </div>
+                                        </div>
+
+
+                                    </div>
+
+
+
+
+
+                                </div>
+                            </div>
+
+
+
+
+
+                        </div>
+
+
+
+                    </div>
+
+
+
+
+                </div>
+
+
+            </div>
+
+            <!-- Modal fin login-->
+            <!-- Modal manual envio un mal-->
+
+            <div class="modal fade" id="ModalMail" role="dialog" style="display:none">
+                <div class="modal-dialog  modal-md">
+
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+
+                            <button type="button" class="close" data-dismiss="modal">×</button>
+
+                        </div>
+
+                        <div class="modal-body">
+                            <div class="alert alert-info" id="popAlert">
+
+
+
+                            </div>
+
+                        </div>
+                        <div class="modal-footer">
+
+                            <button type="button" class="btn btn-danger" data-dismiss="modal">Cerrar</button>
+
+                        </div>
+
+                    </div>
+
+
+
+
+                </div>
+
+
+            </div>
+
+        </div>
+
+
+    </form>
+
+
+
+
+</body>
+
+<script>
+
+
+    Number.prototype.format = function (n, x, s, c) {
+        var re = '\\d(?=(\\d{' + (x || 3) + '})+' + (n > 0 ? '\\D' : '$') + ')',
+            num = this.toFixed(Math.max(0, ~~n));
+
+        return (c ? num.replace('.', c) : num).replace(new RegExp(re, 'g'), '$&' + (s || ','));
+    };
+
+
+    function getCurenUrl() {
+        var pagePathName = document.URL;
+        return pagePathName;
+    }
+
+    function RenviarMail() {
+
+        if (!validarEmail($("#txtMailRe").val())) {
+            $("#TxtMsjRe").text("La dirección de email es incorrecta!.");
+            return;
+        }
+
+        var json = JSON.stringify
+            ({
+                dni: $("#txtDoc").val()
+
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Articulos/WsTieneUser",
+            data: json,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (result) {
+                if (result) {
+                    alert("El DNI INGRESADO YA POSEE UN USUARIO REGISTRADO.");
+                    $("#txtDoc").val('');
+                    $("#txtDoc").addClass("valid");
+                    $("#txtDoc").focus();
+                }
+            }),
+            error: errores
+        });
+    }
+
+    function tieneUsuario(elem) {
+
+        if ($(elem).val()) {
+            $(elem).removeClass("valid");
+        }
+
+        var json = JSON.stringify
+            ({
+                dni: $("#txtDoc").val()
+
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Articulos/WsTieneUser",
+            data: json,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (result) {
+                if (result) {
+                    alert("El DNI INGRESADO YA POSEE UN USUARIO REGISTRADO.");
+                    $("#txtDoc").val('');
+                    $("#txtDoc").addClass("valid");
+                    $("#txtDoc").focus();
+                }
+            }),
+            error: errores
+        });
+
+
+
+    }
+
+    function tieneUsuarioMail(elem) {
+
+        if ($(elem).val()) {
+            $(elem).removeClass("valid");
+        }
+
+        var json = JSON.stringify
+            ({
+                mail: $("#txtMailR").val()
+
+            });
+        $.ajax({
+            type: "POST",
+            url: "/Articulos/WsTieneUserMail",
+            data: json,
+            contentType: "application/json; charset=utf-8",
+            dataType: "json",
+            success: (function (result) {
+                if (result) {
+                    alert("El MAIL INGRESADO YA POSEE UN USUARIO REGISTRADO.");
+                    $("#txtMailR").val('');
+                    $("#txtMailR").addClass("valid");
+                    $("#txtMailR").focus();
+                }
+            }),
+            error: errores
+        });
+
+
+
+    }
+
+
+    function BlurformReg(elem) {
+
+        if ($(elem).val()) {
+            $(elem).removeClass("valid");
+        }
+    }
+
+    function reenviarMail() {
+        $("#Modallogin").modal('hide');
+        $("#Modalreenviomail").modal();
+    }
+
+    function altauser() {
+
+        try {
+
+
+            $("#TxtMsjR").text("");
+            $("#TxtMsjR").removeClass("alert-danger");
+
+            var isValid = true;
+            $('#ModalRegistrarme').find('select, textarea, input').each(function () {
+
+                if ($(this).prop('required')) {
+
+                    if (!$(this).val()) {
+
+                        $(this).addClass("valid");
+                        isValid = false;
+                    } else {
+                        $(this).removeClass("valid");;
+                    }
+
+                }
+            });
+
+            if (!isValid) { return; }
+            $("#TxtMsjR").addClass("alert-danger");
+
+            if (!validarEmail($("#txtMailR").val())) {
+                $("#TxtMsjR").text("La dirección de email es incorrecta!.");
+                return;
+            }
+
+            var pass = "";
+            var tipo = document.getElementById("txtPassNew");
+            if (tipo.type == "password") {
+                tipo.type = "text";
+                pass = $("#txtPassNew").val();
+                if (!checkPassword($("#txtPassNew").val())) {
+
+                    $("#TxtMsjR").text("contraseña con formato invalido. ");
+                    tipo.type = "password";
+                    return;
+                }
+
+                tipo.type = "password";
+            }
+            $("#TxtMsjR").text("");
+            $("#TxtMsjR").removeClass("alert-danger");
+            var Op = "";
+            if ($("#txtOplogin").text() == 'buy') {
+
+                var fds = window.location.search;
+                Op = "&36E7BFBB24530796FD79A36E462E31BD=B17ABF59CAC5C1205A8C85139CCA73FB";
+                if (fds == '') {
+                    Op = "?36E7BFBB24530796FD79A36E462E31BD=B17ABF59CAC5C1205A8C85139CCA73FB";
+                }
+
+            }
+            $("#txtOplogin").text();
+            var json = JSON.stringify
+                ({
+                    nombre: $("#txtNombre").val(),
+                    apellido: $("#txtApellido").val(),
+                    fecha_nac: $("#txtFechaNac").val(),
+                    dni: $("#txtDoc").val(),
+                    mail: $("#txtMailR").val(),
+                    password: pass,
+                    tel: $("#txtTel").val(),
+                    url: getCurenUrl() + Op
+                });
+            $.ajax({
+                type: "POST",
+
+                url: "/Articulos/WsRegistrarcion",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: (function (result) {
+                    if (result) {
+                        $("#popAlert").text('TE ENVIAMOS UN MAIL PARA LA CONFIRMACIÓN DE LA REGISTRACIÓN.');
+                        $("#ModalMail").modal();
+                        $("#ModalRegistrarme").modal('hide');
+
+                        $("#txtNombre").val('');
+                        $("#txtApellido").val('');
+                        $("#txtFechaNac").val('');
+                        $("#txtDoc").val('');
+                        $("#txtMailR").val('');
+                        $("#txtTel").val('');
+                    }
+                }),
+                error: errores
+            });
+
+
+
+        } catch (e) {
+            alert(e);
+        }
+
+
+    }
+
+
+    function FormatearFecha(today) {
+        var date = new Date(today);
+        var dd = date.getDate();
+        var mm = date.getMonth() + 1; //January is 0!
+
+        var yyyy = date.getFullYear();
+        if (dd < 10) {
+            dd = '0' + dd;
+        }
+        if (mm < 10) {
+            mm = '0' + mm;
+        }
+        var today = dd + '/' + mm + '/' + yyyy;
+
+        day = date.getDate();
+        month = date.getMonth() + 1;
+        year = date.getFullYear();
+        alert([day, month, year].join('/'));
+        return today;
+
+    }
+    function validarEmail(valor) {
+        if (valor != '') {
+            if (/^(([^<>()[\]\.,;:\s@@\"]+(\.[^<>()[\]\.,;:\s@@\"]+)*)|(\".+\"))@@(([^<>()[\]\.,;:\s@@\"]+\.)+[^<>()[\]\.,;:\s@@\"]{2,})$/i.test(valor)) {
+                //   $("#TxtMsjR").text('');
+                return true;
+            } else {
+                //   $("#TxtMsjR").text("La dirección de email es incorrecta!.");
+                return false;
+            }
+        }
+
+    }
+
+
+
+    function checkPassword(str) {
+
+        var re = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])\w{6,}$/;
+        return re.test(str);
+    }
+    function registrarme() {
+
+        $("#ModalRegistrarme").modal();
+        $("#Modallogin").modal('hide');
+        $("#ModalCarrito").modal('hide');
+
+    }
+
+    function Login() {
+        $("#Modallogin").modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+    }
+    function IniciarUser() {
+        try {
+
+            $("#TxtMsjIni").text("");
+            $("#TxtMsjIni").removeClass("alert-danger");
+
+            var isValid = true;
+            $('#Modallogin').find('select, textarea, input').each(function () {
+
+                if ($(this).prop('required')) {
+
+                    if (!$(this).val()) {
+
+                        $(this).addClass("valid");
+                        isValid = false;
+                    } else {
+                        $(this).removeClass("valid");;
+                    }
+
+                }
+            });
+
+            if (!isValid) { return; }
+            $("#TxtMsjIni").addClass("alert-danger");
+
+            if (!validarEmail($("#txtMailIni").val())) {
+                $("#TxtMsjIni").text("E-mail / Contraseña invalido. ");
+                return;
+            }
+
+            var pass = "";
+            var tipo = document.getElementById("txtPassIni");
+            if (tipo.type == "password") {
+                tipo.type = "text";
+                pass = $("#txtPassIni").val();
+                if (!checkPassword($("#txtPassIni").val())) {
+
+                    $("#TxtMsjIni").text("E-mail / Contraseña invalido. ");
+                    tipo.type = "password";
+                    return;
+                }
+
+                tipo.type = "password";
+            }
+            $("#TxtMsjIni").text("");
+            $("#TxtMsjIni").removeClass("alert-danger");
+
+
+            var json = JSON.stringify
+                ({
+                    nombre: $("#txtMailIni").val(),
+                    pass: pass
+                });
+            $.ajax({
+                type: "POST",
+                url: "/Best/WsIniciar",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: (function (result) {
+                    if (result) {
+
+                        window.location.href = '/Best/';
+
+                    } else {
+                        $("#TxtMsjIni").addClass("alert-danger");
+                        $("#TxtMsjIni").text("E-mail / Contraseña invalido. ");
+                    }
+                }),
+                error: errores
+            });
+
+
+        } catch (e) {
+            alert(e);
+        }
+
+    }
+
+    $("#txtPassIni").keyup(function (e) {
+        if (e.keyCode == 13) {
+            $("#btnIngresar").click();
+
+        }
+    });
+
+
+    function fincarrito() {
+        if ($("#mUser").text().trim() != "Mi Cuenta") {
+            $("#txtOplogin").text('buy');
+            Login();
+        } else {
+            $("#txtOplogin").text('');
+
+            $.ajax({
+                type: "POST",
+                url: "/Articulos/MercadoLIbre",
+                data: '',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: (function (result) {
+                    if (result != "") {
+                        window.location.href = result;
+                    }
+                }),
+                error: errores
+            });
+        }
+
+        $("#ModalCarrito").modal('hide');
+        $("#ModalRegistrarme").modal('hide');
+    }
+    function gvDel(ids) {
+
+        try {
+
+
+            $('#btnComprar').prop('disabled', false);
+            $("#VerstCant").hide();
+
+            var json = JSON.stringify
+                ({
+                    ids: ids
+                });
+            $.ajax({
+                type: "POST",
+
+                url: "/Articulos/WscarritoDel",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: resultadoL,
+                error: errores
+            });
+
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+    function addcarrito() {
+
+        try {
+
+            if (parseInt($("#cant").val()) < 1) {
+                return;
+            }
+            cantSt();
+            if ($("#btnComprar").prop('disabled')) {
+
+                return;
+            }
+            var json = JSON.stringify
+                ({
+                    vCant: $("#cant").val()
+                });
+            $.ajax({
+                type: "POST",
+                url: "/Articulos/Wsaddcarrito",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: resultadoL,
+                error: errores
+            });
+
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+    function cantSt() {
+        try {
+
+            var stkCarrito = 0;
+            var json = JSON.stringify
+                ({
+                    ids: $("#IdArt").text()
+                });
+            $.ajax({
+                type: "POST",
+                async: false,
+                url: "/Articulos/WscarritoCant",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: (function (result) {
+
+                    stkCarrito = result;
+                }),
+                error: errores
+            });
+
+            var stfinal = parseInt($("#cant").val()) + parseInt(stkCarrito); // lo q tiene en el carro y lo nuevo
+            if (stfinal > parseInt($("#stCant").text())) {
+                // no hay stock
+                $('#btnComprar').prop('disabled', true);
+                $("#VerstCant").show('fast');
+
+                return;
+            } else {
+                $('#btnComprar').prop('disabled', false);
+                $("#VerstCant").hide();
+            }
+
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+    function vercarrito() {
+
+        try {
+            $("#ModalCarrito").modal();
+            var json = JSON.stringify
+                ({
+                });
+            $.ajax({
+                type: "POST",
+                url: "/Articulos/Wscarrito",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: resultadoL,
+                error: errores
+            });
+
+        } catch (e) {
+            alert(e.message);
+        }
+    }
+
+    function cerrarcarrito() {
+
+        $("#ModalCarrito").modal('hide');
+    }
+    function resultadoL(Resultado) {
+        var Pacientes = Resultado;
+        var Tabla_Titulo = "";
+        var Tabla_Datos = "";
+        var Tabla_Fin = "";
+        $("#ModalCarrito").modal();
+        $("#ResultadoCar").show();
+        $("#ResultadoCar").empty();
+        var vtotalprecio = 0;
+        Tabla_Titulo = "<table   id='grilla1' class='table  ' style='width: 100%;  font-family: proximanova-regular, sans-serif !important;text-transform: uppercase '><thead style=' background-color:#cc0505 ;  color: white'><tr><th></th>   <th>Descripción</th><th>Imagen</th><th>Cantidad</th> <th>Precio</th> </tr></thead><tbody>";
+        $.each(Pacientes, function (index, pacientes) {
+            var vprecio = parseFloat(pacientes.precio.replace(',', '.')).toFixed(2) * parseFloat(pacientes.cant.replace(',', '.')).toFixed(2);
+            vtotalprecio = parseFloat(vtotalprecio) + parseFloat(vprecio);
+            //console.log(vtotalprecio);
+            // var vprecio = parseFloat(pacientes.precio.replace(',', '.')).toFixed(2);
+            Tabla_Datos = Tabla_Datos + "<tr ><td  style='width:30px'> <a class='tooltips' onclick='gvDel(" + pacientes.Id + ");' > <img src='/img/boton-eliminar.png' style='background-position:50%; background-repeat:no-repeat;cursor:pointer' /> <span>Eliminar</span></a></td><td>" + pacientes.Descripcion + " </td > <td style='width: 120px;'>   <img src='https://www.digitalsport.com.ar/files/products/5e5e54237dcf9-493267-280x280.jpg' class='img img-responsive'>  </td><td style=' text-align: center;'>" + pacientes.cant + "</td><td style=' text-align: center;'>$ " + vprecio.format(0, 3, '.', ',') + "</td></tr>";
+        });
+
+        var vpreciott = parseFloat(vtotalprecio);
+        $("#tt").text(vpreciott.format(0, 3, '.', ','));
+
+        Tabla_Fin = "</tbody></table>";
+        $("#ResultadoCar").html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+
+        if ($("#grilla1 tbody").find("tr").length < 1) {
+            $("#ResultadoCar").html("<div class='alert alert-info'> NO HAY ITEMS AGREGADOS  </div>");
+        }
+        fn_contador();
+
+    }
+
+    function salir() {
+        try {
+            $.ajax({
+                type: "POST",
+                url: "/Articulos/WsCerrar",
+                data: '',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: (function (result) {
+                    window.location.href = "/";
+                }),
+                error: errores
+            });
+
+        } catch (e) {
+
+        }
+
+    }
+
+    function fn_contador() {
+        cantidad = $("#grilla1 tbody").find("tr").length;
+        $("#contador").html(cantidad);
+    };
+    function errores(msg) {
+        var sal = " SE PRODUJO UNA EXCEPTION NO CONTROLADA.!!";
+        try {
+            console.log(msg);
+            var jsonObj = JSON.parse(msg.responseText);
+            sal = jsonObj.Message;
+        } catch (e) {
+
+        } finally {
+            alert('** Error: ' + sal);
+        }
+
+
+    }
+
+
+
+
+    $("#btnIngresar").click(function () {
+        IniciarUser();
+    });
+
+    jQuery(function ($) {
+
+        if (getUrlParameter('36E7BFBB24530796FD79A36E462E31BD') == 'B17ABF59CAC5C1205A8C85139CCA73FB') {
+            if (parseInt($("#contador").text()) > 0) {
+                vercarrito();
+            }
+
+        }
+
+
+        /////////////////////
+
+        var outerHeight = $('#content').outerHeight(true);
+        var wHeight = $(window).height();
+        var fTop = wHeight - 150;
+        $('#content').css({ 'height': (outerHeight < fTop) ? fTop : outerHeight });
+
+        $(window).resize(function () {
+            var wHeight = $(window).height();
+            var fTop = wHeight - 150;
+            $('#content').css({ 'height': (outerHeight < fTop) ? fTop : outerHeight });
+            var position = $('.miCuenta').position();
+            var mLeft = position.left - 30;
+            $('#miCuenta').css({ 'left': mLeft });
+
+
+        });
+    });
+
+
+    function miCuenta() {
+        var position = $('.miCuenta').position();
+        var mLeft = position.left - 30;
+        var mTop = position.top + 40;
+
+        $('#miCuenta').css({ 'left': mLeft, 'top': mTop });
+        $('#miCuenta-container').hide();
+
+        $('#miCuenta').toggle('slow', function () {
+            $('#miCuenta-container').show();
+        });
+    }
+
+
+    function encontruccion() {
+
+        alert("En contrucción.");
+
+
+
+    }
+
+
+
+    $(document).ready(function () {
+
+
+
+        $(this).everyTime(25000, function () {
+
+            $("#miLoader").css("display", "none");
+            $.ajax({
+                type: "POST",
+                url: "/Best/KeepActiveSession",
+                data: {},
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: true,
+                success: VerifySessionState,
+                error: function (xhr, textStatus, errorThrown) {
+
+                   // window.location.href = "/";
+                }
+            });
+
+
+        });
+
+
+
+
+        function VerifySessionState(result) {
+            $("#miLoader").css("display", "block");
+
+
+            if (!result) {
+                window.location.href = "/";
+            }
+        }
+
+        //fin de ready
+
+    });
+    function acceptNum(e) {
+        var tecla = document.all ? tecla = e.keyCode : tecla = e.which;
+        return ((tecla > 47 && tecla < 58) || tecla == 8);
+    }
+
+
+    var getUrlParameter = function getUrlParameter(sParam) {
+        //obtiene parametros desde la url ?ss=ds
+        var sPageURL = decodeURIComponent(window.location.search.substring(1)),
+            sURLVariables = sPageURL.split('&'),
+            sParameterName,
+            i;
+
+        for (i = 0; i < sURLVariables.length; i++) {
+            sParameterName = sURLVariables[i].split('=');
+
+            if (sParameterName[0] === sParam) {
+                return sParameterName[1] === undefined ? true : sParameterName[1];
+            }
+        }
+    };
+
+
+    $(document).ajaxStart(function () {
+        $(".spinner-wrapper").css("display", "block");
+        $(".loader").css("display", "block");
+
+    });
+
+    $(document).ajaxComplete(function () {
+        $(".spinner-wrapper").css("display", "none");
+        $(".loader").css("display", "none");
+
+
+    });
+
+
+
+
+</script>
+
+
+
+
+
+
+
+</html>

@@ -1,0 +1,215 @@
+﻿@{
+    Layout = "~/Views/Master/_sport.cshtml";
+
+    List<Be.mercadopagos> ListaMp = (List<Be.mercadopagos>)ViewData["listaMp"];
+
+    System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("es-AR");
+    var numberFormatInfo = new System.Globalization.NumberFormatInfo();
+    numberFormatInfo.NumberDecimalSeparator = ".";
+    numberFormatInfo.CurrencyPositivePattern = 0;
+}
+
+
+
+<div class="container">
+
+
+    <style>
+        @@media(max-width:768px) {
+            #grillaArt1 {
+                font-size: 12px !important;
+            }
+        }
+    </style>
+
+
+    <div class="well well-sm"> MIS PAGOS</div>
+
+    <div class="row">
+
+        <table id="grilla1" class="table table-hover table-striped " style="width: 100%;  font-family: proximanova-regular, sans-serif !important;text-transform: uppercase ">
+            <thead style=" background-color:#cc0505 ;  color: white">
+                <tr>
+                    <th> </th>
+                    <th style=" text-align: center;">Monto</th>
+                    <th style=" text-align: center;">Tarjeta</th>
+                    <th style=" text-align: center;">Coutas</th>
+                    <th style=" text-align: center;">Compra</th>
+                    <th style=" text-align: center;">Articulos</th>
+                </tr>
+            </thead>
+
+            <tbody>
+                @foreach (var item in ListaMp)
+                {
+
+                    string pp = string.Format("{0:c2}", Math.Round(Double.Parse(item.TransactionAmount.Replace(",", "."), numberFormatInfo), 2));
+
+                    Bll.QueryString obQueryString = new Bll.QueryString();
+                    obQueryString.Add("mp", item.id);
+                    obQueryString.Add("tipo", "0");
+
+                    string Purl = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+
+                    <tr>
+                        <td style="width:25px"> <a class="tooltips" href="/Articulos/procesarPago/@Purl"> <img src="/img/factura.png" style="background-position:50%; background-repeat:no-repeat;cursor:pointer"> <span>Ver Cbte</span></a></td>
+
+                        <td style=" text-align: center;">@pp</td>
+                        <td style=" text-align: center;"> @item.Card_FirstSixDigits xxxxxx  </td>
+
+                        <td style=" text-align: center;">@item.installments</td>
+                        <td style=" text-align: center;">@item.date_approved</td>
+
+                        <td style="width:25px"> <a class="tooltips" onclick="vercarrito1(@item.id)"> <img src="/img/stock.png" style="background-position:50%; background-repeat:no-repeat;cursor:pointer"> <span class="hidden-xs">Ver Articulos</span></a></td>
+
+
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+
+    <!-- Modal manual carrito-->
+    <div class="modal fade" id="ModalArticulos" role="dialog" style="display:none">
+        <div class="modal-dialog  modal-lg">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+
+                    <button type="button" class="close" data-dismiss="modal">×</button>
+
+                </div>
+
+                <div class="modal-body">
+
+                    <div class="row">
+                        <div class="col-sm-12" style="margin-top:5px; margin-right: 0px;">
+                            <div id='ResultadoArt1' style="overflow: auto;min-height  : 150px; width: 100%; ">
+
+                                <div>
+
+                                </div>
+
+
+
+                            </div>
+
+                            <div class="row" style=" font-weight: 700; font-size: 20px">
+                                <div class=" col-2 col-sm-3 col-md-3"></div>
+                                <div class="col-4   col-sm-6 col-md-6" style="text-align:center">
+
+
+                                    <button type="button" class="btn btn-danger" id="btnfincarrito" onclick="cerrart()">
+                                        Cerrar
+
+                                    </button>
+                                </div>
+                                <div class="col-6 col-sm-3 col-md-3">
+                                    <div style=" text-align:right;  margin-right:5px; background-color: white; padding-top:2px ; padding-bottom:2px; padding-right:10px;padding-left:2px;   border-radius: 6px 6px 6px 6px; box-shadow: 0 4px 5px #555; margin-bottom: 10px; padding-left: 5px; font-family: 'proximanova-regular', sans-serif;font-size: 15px;">
+                                        Sub Total: $   <span id="tt">0</span> <br/>
+                                        Envio: $   <span id="tt2">0</span>
+
+
+
+                                    </div>
+                                </div>
+
+
+                            </div>
+
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+
+
+
+
+
+
+            </div>
+
+
+
+
+        </div>
+
+
+    </div>
+
+
+
+    <script>
+        function vercarrito1(ids) {
+
+            try {
+                $("#ModalArticulos").modal();
+                var json = JSON.stringify
+                    ({
+                        "mp": ids
+                    });
+                $.ajax({
+                    type: "POST",
+                    url: "/Articulos/WsArtCarrito",
+                    data: json,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: resultadoL1,
+                    error: errores
+                });
+
+            } catch (e) {
+                alert(e.message);
+            }
+        }
+        function resultadoL1(Resultado) {
+            var Pacientes = Resultado;
+            var Tabla_Titulo = "";
+            var Tabla_Datos = "";
+            var Tabla_Fin = "";
+            $("#ModalArticulos").modal();
+            $("#ResultadoArt1").show();
+            $("#ResultadoArt1").empty();
+            var vtotalprecio = 0;
+            var venvio = 0;
+            Tabla_Titulo = "<table   id='grillaArt1' class='table  ' style='  font-family: proximanova-regular, sans-serif !important;text-transform: uppercase '><thead style=' background-color:#cc0505 ;  color: white'><tr>    <th>Descripción</th><th>Imagen</th><th>Cantidad</th> <th>Precio</th> </tr></thead><tbody>";
+            $.each(Pacientes, function (index, pacientes) {
+                var vprecio = parseFloat(pacientes.precio.replace(',', '.')).toFixed(2) * parseFloat(pacientes.cant.replace(',', '.')).toFixed(2);
+                vtotalprecio = parseFloat(vtotalprecio) + parseFloat(vprecio);
+                venvio = parseFloat(pacientes.VolumenTotal.replace(',', '.')).toFixed(2);
+                //console.log(vtotalprecio);
+                // var vprecio = parseFloat(pacientes.precio.replace(',', '.')).toFixed(2);
+                Tabla_Datos = Tabla_Datos + "<tr ><td>" + pacientes.Descripcion + " </td > <td style='width: 120px;'>   <img src='" + pacientes.imagen + "' class='img img-responsive'>  </td><td style=' text-align: center;'>" + pacientes.cant + "</td><td style=' text-align: center;'>$ " + vprecio.format(2, 3, '.', ',') + "</td></tr>";
+            });
+
+            var vpreciott = parseFloat(vtotalprecio);
+            $("#tt").text(vpreciott.format(2, 3, '.', ','));
+            $("#tt2").text(parseFloat(venvio).format(2, 3, '.', ','));
+
+            Tabla_Fin = "</tbody></table>";
+            $("#ResultadoArt1").html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+
+            if ($("#grilla1 tbody").find("tr").length < 1) {
+                $("#ResultadoArt1").html("<div class='alert alert-info'> NO HAY ITEMS AGREGADOS  </div>");
+            }
+
+
+        }
+        function cerrart() {
+
+            $("#ModalArticulos").modal('hide');
+        }
+
+    </script>
+
+</div>

@@ -1,0 +1,8 @@
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Dal\bin\Release\Dal.dll
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Dal\bin\Release\Dal.pdb
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Dal\bin\Release\Be.dll
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Dal\bin\Release\Be.pdb
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Dal\obj\Release\Dal.csprojResolveAssemblyReference.cache
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Dal\obj\Release\Dal.dll
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Dal\obj\Release\Dal.pdb
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Dal\bin\Release\MySql.Data.dll

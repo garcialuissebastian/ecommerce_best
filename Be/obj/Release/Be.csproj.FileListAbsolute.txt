@@ -1,0 +1,5 @@
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Be\bin\Release\Be.dll
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Be\bin\Release\Be.pdb
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Be\obj\Release\Be.dll
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Be\obj\Release\Be.pdb
+C:\Users\seba\Documents\factura_Electronica\HardSoft\Be\obj\Release\Be.csprojResolveAssemblyReference.cache

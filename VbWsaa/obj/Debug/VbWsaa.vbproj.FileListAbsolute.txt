@@ -1,0 +1,46 @@
+C:\Users\seba\Documents\factura_Electronica\factElectForm\VbWsaa\bin\Debug\VbWsaa.dll.config
+C:\Users\seba\Documents\factura_Electronica\factElectForm\VbWsaa\bin\Debug\VbWsaa.dll
+C:\Users\seba\Documents\factura_Electronica\factElectForm\VbWsaa\bin\Debug\VbWsaa.pdb
+C:\Users\seba\Documents\factura_Electronica\factElectForm\VbWsaa\bin\Debug\VbWsaa.xml
+C:\Users\seba\Documents\factura_Electronica\factElectForm\VbWsaa\obj\Debug\VbWsaa.Resources.resources
+C:\Users\seba\Documents\factura_Electronica\factElectForm\VbWsaa\obj\Debug\VbWsaa.vbproj.GenerateResource.Cache
+C:\Users\seba\Documents\factura_Electronica\factElectForm\VbWsaa\obj\Debug\VbWsaa.dll
+C:\Users\seba\Documents\factura_Electronica\factElectForm\VbWsaa\obj\Debug\VbWsaa.xml
+C:\Users\seba\Documents\factura_Electronica\factElectForm\VbWsaa\obj\Debug\VbWsaa.pdb
+C:\Users\seba\Documents\factura_Electronica\factElectForm\VbWsaa\obj\Debug\VbWsaa.vbprojResolveAssemblyReference.cache
+C:\Users\user\Desktop\nico\Factura Electronica Ultima version\factElectForm\VbWsaa\bin\Debug\VbWsaa.dll.config
+C:\Users\user\Desktop\nico\Factura Electronica Ultima version\factElectForm\VbWsaa\bin\Debug\VbWsaa.dll
+C:\Users\user\Desktop\nico\Factura Electronica Ultima version\factElectForm\VbWsaa\bin\Debug\VbWsaa.pdb
+C:\Users\user\Desktop\nico\Factura Electronica Ultima version\factElectForm\VbWsaa\bin\Debug\VbWsaa.xml
+C:\Users\user\Desktop\nico\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.vbprojAssemblyReference.cache
+C:\Users\user\Desktop\nico\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.Resources.resources
+C:\Users\user\Desktop\nico\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.vbproj.GenerateResource.cache
+C:\Users\user\Desktop\nico\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.vbproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\nico\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.dll
+C:\Users\user\Desktop\nico\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.xml
+C:\Users\user\Desktop\nico\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.pdb
+C:\Users\user\Desktop\Mana\Factura Electronica Ultima version\factElectForm\VbWsaa\bin\Debug\VbWsaa.dll.config
+C:\Users\user\Desktop\Mana\Factura Electronica Ultima version\factElectForm\VbWsaa\bin\Debug\VbWsaa.dll
+C:\Users\user\Desktop\Mana\Factura Electronica Ultima version\factElectForm\VbWsaa\bin\Debug\VbWsaa.pdb
+C:\Users\user\Desktop\Mana\Factura Electronica Ultima version\factElectForm\VbWsaa\bin\Debug\VbWsaa.xml
+C:\Users\user\Desktop\Mana\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.vbprojAssemblyReference.cache
+C:\Users\user\Desktop\Mana\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.Resources.resources
+C:\Users\user\Desktop\Mana\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.vbproj.GenerateResource.cache
+C:\Users\user\Desktop\Mana\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.vbproj.CoreCompileInputs.cache
+C:\Users\user\Desktop\Mana\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.dll
+C:\Users\user\Desktop\Mana\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.xml
+C:\Users\user\Desktop\Mana\Factura Electronica Ultima version\factElectForm\VbWsaa\obj\Debug\VbWsaa.pdb
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\bin\Debug\VbWsaa.dll.config
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\bin\Debug\VbWsaa.dll
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\bin\Debug\VbWsaa.pdb
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\bin\Debug\VbWsaa.xml
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\obj\Debug\VbWsaa.vbprojAssemblyReference.cache
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\obj\Debug\VbWsaa.Resources.resources
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\obj\Debug\VbWsaa.vbproj.GenerateResource.cache
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\obj\Debug\VbWsaa.vbproj.CoreCompileInputs.cache
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\obj\Debug\VbWsaa.dll
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\obj\Debug\VbWsaa.xml
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\obj\Debug\VbWsaa.pdb
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\bin\Debug\System.Web.dll
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\bin\Debug\System.Web.Services.dll
+C:\Users\user\Documents\Git_repositorios\Sport\HardSoft\VbWsaa\obj\Debug\VbWsaa.vbproj.CopyComplete

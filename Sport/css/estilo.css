@@ -1,0 +1,56 @@
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,300,100,700,100italic,300italic,400italic,700italic);
+/*
+Template Name: Color
+Version: 1.0
+Author: 
+Author URL: 
+*/
+/*************************
+*******Typography******
+**************************/
+body {
+  padding-top: 60px;
+  background: #fff;
+  font-family: 'Roboto', sans-serif;
+  font-weight: 400;
+  color: #64686d;
+  line-height: 26px;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 600;
+  font-family: 'Roboto', sans-serif;
+  color: #272727;
+}
+p {
+    font-size: 14px;
+    line-height: 24px;
+    font-weight: 300;
+}
+a {
+  color: #72C05B;
+  -webkit-transition: color 400ms, background-color 400ms;
+  -moz-transition: color 400ms, background-color 400ms;
+  -o-transition: color 400ms, background-color 400ms;
+  transition: color 400ms, background-color 400ms;
+}
+a:hover,
+a:focus {
+  text-decoration: none;
+  color: #72C05B;
+}
+hr {
+  border-top: 1px solid #e5e5e5;
+  border-bottom: 1px solid #fff;
+}
+
+
+.icon-bullet-grande {
+    font: normal 18px/27px  ;
+    max-width: 700px;
+    margin: 0 0 20px 80px;
+}

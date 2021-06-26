@@ -1,0 +1,189 @@
+﻿
+@{
+    ViewBag.Title = "rechazoPago";
+    Layout = "~/Views/Master/_sport.cshtml";
+}
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/easing.min.js"></script>
+<script type="text/javascript" src="/js/jquery.timers.js"></script>
+<style>
+    .form_label {
+        /*display: block;
+            width: 100%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;*/
+    }
+
+
+    @@media(max-width:768px) {
+        .control-label {
+            text-align: left;
+        }
+    }
+</style>
+<div class="container" id="seleccionCbate">
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div style="margin-top: 5px;
+background-color: #e1e1e1;
+padding: 10px;
+border-radius: 10px 10px 10px 10px;
+border: 1px solid;
+box-shadow: 0 4px 5px #555;
+text-align: center;
+color:white
+">
+
+
+
+
+                <script>
+
+                    function acceptNum(e) {
+                        var tecla = document.all ? tecla = e.keyCode : tecla = e.which;
+
+                        return ((tecla > 47 && tecla < 58) || tecla == 8);
+                    }
+                </script>
+                <script>
+                    if (history.forward(1)) { location.replace(history.forward(1)) }
+                </script>
+
+                @{
+
+                    Be.mercadopagos mp = (Be.mercadopagos)Session["mp"];
+                }
+                <strong style="text-transform:uppercase;color:#333">Pago con Tarjeta - Transacción exitosa</strong>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-md-6 col-sm-6  col-xs-6" style="padding:30px;max-width:550px;
+
+margin-top:15px;
+color: #333;
+border-radius: 10px 10px 10px 10px;
+border: 1px solid;
+box-shadow: 0 4px 5px #555;margin-bottom:10px">
+            <div class="row">
+                <div class="col-md-6 col-xs-5">
+                    <img src="~/img/mercadoPago.png" />
+
+                </div>
+                <div class="col-md-6 col-xs-7" style="text-align:right">
+                    <img src="/img/logoBest.png" />
+                </div>
+            </div>
+            <div style="    border-radius: 10px 10px 10px 10px;
+    border: 1px solid;
+    box-shadow: 0 4px 5px #555;
+    text-align: center;
+    background-color: rgb(241, 241, 241);
+    margin-top: 10PX;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 15px;">Pago con Tarjeta - Error en la Transacción</div>
+
+            <div>
+                <div class="alert alert-danger">
+
+                    **  Lo sentimos, su pago no se ha completado. Compruebe que su tarjeta este operativa y los datos ingresados sean correctos.
+
+                </div>
+
+
+                <div style="    border-radius: 10px 10px 10px 10px;
+    border: 1px solid;
+    box-shadow: 0 4px 5px #555;
+    text-align: center;
+    background-color: rgb(241, 241, 241);
+    margin-top: 10PX;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 15px;">Error en el pago</div>
+
+
+                <hr />
+
+
+                <div class="alert alert-danger">
+
+                    @mp.StatusDetail
+                </div>
+                <div class="form-group">
+
+                    <div class="col-xs-12" style="text-align:center">
+                        <br /> <br />
+                        <button id="btnVolver1" type="button" class="btn  btn-info  " onclick="aceptar()">
+                            Volver <span class=" glyphicon glyphicon-log-out"></span>
+                        </button>
+                        <button id="btnImp" type="button" class="btn  btn-danger  " onclick="imprSelec('seleccionCbate')">
+                            Imprimir <span class="  glyphicon glyphicon-print "></span>
+                        </button>
+
+
+
+
+
+
+                    </div>
+
+                </div>
+
+                <div class="col-md-3"></div>
+            </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div style="margin:auto;text-align:center; margin-bottom:10px">
+                        <asp:Label ID="lblmsg" runat="server" Text="" CssClass="alert-warning"></asp:Label>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+    </div>
+
+    <script type="text/javascript" src="/js/jquery.js"></script>
+
+
+    <link href="/css/bootstrap.min.css?ds=ds" rel="stylesheet" />
+    <script src="/css/bootstrap.min.js"></script>
+
+</div>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/easing.min.js"></script>
+<script type="text/javascript" src="/js/jquery.timers.js"></script>
+
+<script>
+    function imprimicbte(ids) {
+        window.open('/Articulos/RpCbte/?cbate=' + ids, '_blank');
+
+    }
+    function aceptar() {
+
+        window.location.href = '/';
+    }
+
+
+
+</script>
+
+
+
+

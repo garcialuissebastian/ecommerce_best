@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<configuracion>
+  <certificado>
+    <DEFAULT_URLWSAAWSDL>usa la instancia del obj ws</DEFAULT_URLWSAAWSDL>
+    <DEFAULT_SERVICIO>wsfe</DEFAULT_SERVICIO>
+    <DEFAULT_CERTSIGNER>certificados /DEFAULT_CERTSIGNER>
+    <DEFAULT_CERTIFICADO_PASSWORD> </DEFAULT_CERTIFICADO_PASSWORD>
+    <CUIT>
+</CUIT>
+  </certificado> 
+</configuracion>

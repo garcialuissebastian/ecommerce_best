@@ -1,0 +1,1223 @@
+﻿
+@{
+    ViewBag.Title = "VerArticulo";
+    Layout = "~/Views/Master/_sport.cshtml";
+
+    Bll.QueryString obQueryString = new Bll.QueryString();
+
+    string urlanterior = "/Articulos/";
+    string ParametroIzq = "";
+}
+
+
+<style>
+
+    @@media(max-width:768px) {
+        #Cuerpo {
+            margin-top: 50px !important;
+        }
+
+        #infoArt {
+            padding-top: 0px !important;
+        }
+    }
+</style>
+
+<div class="container-fluid">
+
+    <div class="row">
+
+        @*<%--izq--%>
+        <%--    <div class="d-lg-none">hide on screens wider than lg</div>
+        <div class="d-none d-lg-block">hide on screens smaller than lg</div>--%>*@
+
+
+        @{
+            System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("es-AR");
+            var numberFormatInfo = new System.Globalization.NumberFormatInfo();
+            numberFormatInfo.NumberDecimalSeparator = ".";
+            numberFormatInfo.CurrencyPositivePattern = 0;
+
+            Be.Best_articulos_ventaId articulo = (Be.Best_articulos_ventaId)ViewData["articulo"];
+            Int32 tipo1 = 0;
+
+
+            tipo1 = Convert.ToInt32(articulo.tipo_articulo_id);
+
+
+            string cat = "";
+
+
+            cat = articulo.clasificacion_id;
+
+
+            Be.Best_tipos_articulos objTipo = null;
+
+            List<Be.Best_Menu> menu = (List<Be.Best_Menu>)ViewData["menu"];
+
+            if (tipo1 > 0)
+            {
+                foreach (var item in menu)
+                {
+                    if (item.Id == tipo1.ToString())
+                    {
+                        objTipo = item;
+                    }
+                }
+
+            }
+            Be.Best_categorias objCat = null;
+
+            if (!string.IsNullOrEmpty(cat))
+            {
+                foreach (var item in menu)
+                {
+
+                    objCat = item.buscarCategoria(cat);
+
+                    if (objCat.Nombre != null)
+                    {
+                        break;
+                    }
+
+                }
+
+            }
+
+        }
+
+        <div class=" col-md-3  d-none d-md-block hidden-xs">
+            <div class="container">
+
+                <div style="font-weight:600;     padding-left: 9px; cursor:pointer
+    " class="row" onclick="ocultarfiltro()" id="btnFiltro">
+
+
+                    <div class="col-8">
+                        FILTRO
+                    </div>
+                    <div class="col-4 tagFiltro Filtro ">
+
+
+                        <ul style="list-style:none;    margin-bottom: 3px;    float: right;">
+
+                            <li><a> </a></li>
+
+                        </ul>
+
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        </div>
+
+
+
+        <div class=" col-12 col-md-9">
+
+            <div class="row" style=" border-bottom: 1px solid #eaeaea;">
+
+
+
+                <ul class="breadcrumbs">
+                    <li>
+
+                        <a href="/">Inicio</a>
+
+                    </li>
+
+                    @{
+
+
+
+
+                        if (objTipo != null)
+                        {
+                            obQueryString = new Bll.QueryString();
+                            obQueryString.Add("vtipo", @objTipo.Id);
+                            ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                            <li>
+                                <a href="/Articulos/@ParametroIzq">@objTipo.Descripcion</a>
+                            </li>
+
+                        }
+
+
+                        if (objCat != null)
+                        {
+                            obQueryString = new Bll.QueryString();
+                            obQueryString.Add("vcat", @objCat.Id);
+                            ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+
+                            <li>
+                                <a href="/Articulos/@ParametroIzq">@objCat.Nombre</a>
+
+                            </li>
+
+
+                        }
+
+                        if (objCat != null)
+                        {
+
+                            <li>
+                                <a href="#">@articulo.Descripcion</a>
+
+                            </li>
+
+
+                        }
+
+
+                    }
+                </ul>
+
+            </div>
+
+        </div>
+        @*<%--der--%>*@
+
+        <div class=" col-md-3  d-none d-md-block hidden-xs">
+
+
+            <div class="container">
+
+
+
+                <div class="MenuIzq tag">
+
+
+                    <ul class="ocultarfiltro">
+
+
+                        @{
+
+
+                            if (objTipo != null)
+                            {
+
+                                obQueryString.Add("vtipo", @objTipo.Id);
+                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+
+                                <li><a href="@urlanterior"> @objTipo.Descripcion</a></li>
+                                urlanterior += @ParametroIzq;
+
+                            }
+
+
+                            if (objCat != null)
+                            {
+                                <li><a href="@urlanterior">@objCat.Nombre</a></li>
+                                obQueryString = new Bll.QueryString();
+                                obQueryString.Add("vcat", @objCat.Id);
+                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                                urlanterior += @ParametroIzq;
+                            }
+
+
+
+                        }
+
+
+
+
+                    </ul>
+
+
+                </div>
+
+
+                <div id="accordion" class="accordion ocultarfiltro">
+                    <div class="   mb-0">
+
+                        @{
+                            if (tipo1 > 0)
+                            {
+
+                                Be.Best_Menu cc = menu[Bll.BllBest.DameInstancia().indiceTipoArticulo(Convert.ToInt32(tipo1))];
+                                Be.Best_tipos_categorias genero = @cc.TipoCat[0];
+
+                                <div class="MenuIzq collapsed" data-toggle="collapse" href="#izqgenero" aria-expanded="true">
+                                    <a class="card-title"> @genero.Nombre </a>
+                                </div>
+                                <div id="izqgenero" class=" Miaccordion collapse in" data-parent="#accordion">
+                                    <ul>
+
+                                        @{
+                                            foreach (var mCat in @genero.Categoria)
+                                            {
+                                                obQueryString = new Bll.QueryString();
+                                                obQueryString.Add("vtipo", @cc.Id);
+                                                obQueryString.Add("vcat", @mCat.Id);
+                                                obQueryString.Add("vtipocat", @genero.Id);
+                                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                                                <li><a href="/Articulos/@ParametroIzq">@mCat.Nombre</a></li>
+
+                                            }
+
+                                        }
+                                    </ul>
+
+                                </div>
+
+
+                                Be.Best_tipos_categorias MARCA = @cc.TipoCat[1];
+                                <div class="MenuIzq collapsed" data-toggle="collapse" href="#izqMARCA" aria-expanded="true">
+                                    <a class="card-title"> @MARCA.Nombre </a>
+                                </div>
+                                <div id="izqMARCA" class="Miaccordion collapse in" data-parent="#accordion">
+                                    <ul>
+                                        @{
+                                            foreach (var mCat in @MARCA.Categoria)
+                                            {
+                                                obQueryString = new Bll.QueryString();
+                                                obQueryString.Add("vtipo", @cc.Id);
+                                                obQueryString.Add("vcat", @mCat.Id);
+                                                obQueryString.Add("vtipocat", @MARCA.Id);
+                                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                                                <li><a href="/Articulos/@ParametroIzq">@mCat.Nombre</a></li>
+
+                                            }
+
+                                        }
+
+                                    </ul>
+
+                                </div>
+
+
+
+
+                                Be.Best_tipos_categorias CATEGORIA = @cc.TipoCat[3];
+                                <div class="MenuIzq collapsed" data-toggle="collapse" href="#izqCategoria">
+                                    <a class="card-title"> @CATEGORIA.Nombre </a>
+                                </div>
+                                <div id="izqCategoria" class=" Miaccordion collapse" data-parent="#accordion">
+                                    <ul>
+                                        @{
+                                            foreach (var mCat in @CATEGORIA.Categoria)
+                                            {
+                                                obQueryString = new Bll.QueryString();
+                                                obQueryString.Add("vtipo", @cc.Id);
+                                                obQueryString.Add("vcat", @mCat.Id);
+                                                obQueryString.Add("vtipocat", @CATEGORIA.Id);
+                                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                                                <li><a href="/Articulos/@ParametroIzq">@mCat.Nombre</a></li>
+
+                                            }
+
+                                        }
+
+                                    </ul>
+
+                                </div>
+
+
+                                Be.Best_tipos_categorias ACTIVIDAD = @cc.TipoCat[2];
+
+                                <div class="MenuIzq collapsed" data-toggle="collapse" href="#izqACTIVIDAD">
+                                    <a class="card-title "> @ACTIVIDAD.Nombre </a>
+                                </div>
+                                <div id="izqACTIVIDAD" class=" Miaccordion collapse" data-parent="#accordion">
+                                    <ul>
+                                        @{
+                                            foreach (var mCat in @ACTIVIDAD.Categoria)
+                                            {
+                                                obQueryString = new Bll.QueryString();
+                                                obQueryString.Add("vtipo", @cc.Id);
+                                                obQueryString.Add("vcat", @mCat.Id);
+                                                obQueryString.Add("vtipocat", @ACTIVIDAD.Id);
+                                                ParametroIzq = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                                                <li><a href="/Articulos/@ParametroIzq">@mCat.Nombre</a></li>
+
+                                            }
+
+                                        }
+
+                                    </ul>
+
+                                </div>
+
+
+
+
+                            }
+
+
+                        }
+
+
+
+
+
+
+
+                    </div>
+                </div>
+
+
+
+            </div>
+
+        </div>
+
+
+
+        <div class=" col-12 col-md-9" id="filtro_der">
+
+            <div>
+
+
+                <div class="row">
+                    @{
+                        <div class="col-12 col-md-7 col-lg-7  col-xl-6" style="text-align: center;">
+                            <div id='carousel-custom' class='carousel slide  zoom' data-ride='carousel'>
+                                <div class='carousel-outer   '>
+
+                                    <div class='carousel-inner  '>
+                                        <div class='item  active'>
+                                            <img src='@articulo.Imagen1' alt='' />
+                                        </div>
+                                        <div class='item '>
+                                            <img src='@articulo.Imagen2' alt='' />
+                                        </div>
+                                        <div class='item'>
+                                            <img src='@articulo.Imagen3' alt='' />
+                                        </div>
+                                        <div class='item'>
+                                            <img src='@articulo.Imagen4' alt='' />
+                                        </div>
+
+
+
+
+                                    </div>
+
+                                    <!-- sag sol -->
+                                    @*<%--     <a class='left carousel-control' href='#carousel-custom' data-slide='prev'>
+                                        <span class='glyphicon glyphicon-chevron-left'></span>
+                                    </a>
+                                    <a class='right carousel-control' href='#carousel-custom' data-slide='next'>
+                                        <span class='glyphicon glyphicon-chevron-right'></span>
+                                    </a>--%>*@
+                                </div>
+
+                                <!-- thumb -->
+                                <ol class='carousel-indicators mCustomScrollbar meartlab'>
+                                    <li data-target='#carousel-custom' data-slide-to='0' class='active'><img src='@articulo.Imagen1' alt='' /></li>
+                                    <li data-target='#carousel-custom' data-slide-to='1'><img src='@articulo.Imagen2' alt='' /></li>
+                                    <li data-target='#carousel-custom' data-slide-to='2'><img src='@articulo.Imagen3' alt='' /></li>
+                                    <li data-target='#carousel-custom' data-slide-to='3'><img src='@articulo.Imagen4' alt='' /></li>
+
+
+                                </ol>
+                            </div>
+
+                        </div>
+                    }
+                    <div class="col-12 col-md-6 col-lg-5 col-xl-6">
+
+
+
+                        <div id="infoArt" style="padding-top:10px">
+                            <div class="articulo_marca" style="
+
+    color: #2b2b2b;
+        font-family: 'proximanova-regular', sans-serif;
+    font-weight: 700;
+    letter-spacing: 1px;">
+                                @{
+                                    @articulo.marca
+                                }
+
+                            </div>
+
+                            <div class="articulo_nombre">
+                                @{
+                                    @articulo.Descripcion
+                                }
+
+                            </div>
+
+                            <div class="articulo_precio">
+
+                                @{
+
+                                    //string.Format("{0:c1}  con c  ,00 me agrega 2 decimenles , c1 1 decimal
+
+                                    var preciostr1 = string.Format("{0:c2}", Math.Round(Double.Parse(articulo.precio.Replace(",", "."), numberFormatInfo), 2));
+
+                                    @preciostr1
+                                }
+
+
+
+
+
+                            </div>
+
+                            <div class="articulo_cod">
+                                @{
+                                    @articulo.codigo
+                                }
+                            </div>
+                            <div class="articulo_talle">
+
+                                <span>TALLES DISPONIBLES</span>
+                                <div class=" tag2" style="margin-top:7px">
+                                    <ul class="tallecomprar">
+
+
+
+                                        @{
+
+                                            string tieneStock = "no";
+
+                                            foreach (var item in @articulo.Talles)
+                                            {
+                                                obQueryString = new Bll.QueryString();
+
+                                                Bll.QueryString.FromCurrent();
+                                                obQueryString.Add("vart", item.id_art);
+
+                                                string ParametroCompra = Bll.Encriptor.DameInstancia().EncryptQueryString(obQueryString).ToString();
+
+                                                string tallever = string.IsNullOrEmpty(item.ARG) ? item.talle : item.ARG;
+
+                                                if (Convert.ToInt32(item.stock) > 0)
+                                                {
+                                                    tieneStock = "si";
+
+                                                    if (item.id_art != articulo.Id)
+                                                    {
+
+                                                        <li    onmouseover="overTalle(this)" onmouseout="outTalle()" data-STK="@item.stock" data-UK="@item.UK" data-US="@item.US" data-CM="@item.CM" data-ARG="@item.ARG" disabled><a href="/Articulos/VerArticulo/@ParametroCompra"> @tallever</a></li>
+
+                                                    }
+                                                    else // SI JUSTO EL ID DEL ARTICULO/TALLE SELECCIONADO
+                                                    {
+
+                                                        <li   onmouseover="overTalle(this)" onmouseout="outTalle()" data-STK="@item.stock" data-UK="@item.UK" data-US="@item.US" data-CM="@item.CM" data-ARG="@item.ARG" disabled><a href="/Articulos/VerArticulo/@ParametroCompra" class="active tallecomprar_li">@tallever</a></li>
+
+                                                    }
+
+                                                }
+                                                else // SIN STOCK
+                                                {
+                                                    <li class="sinStock"><a href="#">@tallever</a></li>
+
+                                                }
+
+                                            }
+                                        }
+
+
+                                    </ul>
+                                </div>
+
+                                <style>
+
+                                    .sinStock {
+                                        pointer-events: none;
+                                    }
+
+                                        .sinStock a {
+                                            background-color: #cdcdcd !important;
+                                            pointer-events: none;
+                                            color: rgba(38,38,39,0.5) !important;
+                                        }
+                                </style>
+                                <script>
+
+                                    $('.tallecomprar li').click(function () {
+                                        $(this).toggleClass('active').siblings().removeClass('active');
+                                    });
+                                </script>
+
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-6 col-sm-4  col-md-4 col-lg-4 ">
+                                    @{
+                                        if (@articulo.Talles.Count == 0)
+                                        {
+                                            <div class="alert alert-info"> SIN TALLES DISPONIBLES </div>
+
+
+                                        }
+                                        else if (tieneStock != "si")
+                                        {
+                                            <div class="alert alert-danger"> SIN STOCK </div>
+                                        }
+                                        else
+                                        {
+                                            <button type="button" class="btn btn-danger" style="width:100%" id="btnComprar" onclick="addcarrito()">
+                                                Comprar
+                                            </button>
+                                        }
+                                    }
+
+
+                                </div>
+                                <div class="col-2">
+
+
+                                    <input type="number" id="cant" name="cant" value="1"
+                                           style="width: auto;
+    min-width: 39px;
+    font-size: 17px;
+    text-align: center;
+    background: #FFF;
+    border: 1px solid #ddd;
+    border-radius: 3px;
+    height: 35px;
+    font-weight:700;
+    margin-top: 0px;"
+                                           min="1" max="100" onchange="cantSt()">
+
+                                </div>
+                                <div class="col-4   col-sm-6  col-md-6 col-lg-6">
+                                    <div id="CalEnvio" style=" cursor:pointer;   MARGIN: 9px;
+    color:#585757;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    font-size: 14px;
+    font-weight: 500;">
+                                        <span class=" fa fa-truck"></span>
+                                        CALCULAR ENVIO
+
+
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-6">
+                                    <div style="display:none " id="IdArt">@articulo.Id  </div>
+
+                                    <div style="display:none " id="VerstCant">
+
+                                        <div class="alert alert-info">
+                                            EL STOCK DISPONIBLE ES:
+
+                                            <span id="stCant">
+                                                @{
+                                                    @articulo.Stock();
+                                                }
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-6">
+
+                                </div>
+                            </div>
+
+
+
+                        </div>
+
+                    </div>
+
+                    <!-- Modal manual envio un mal-->
+
+                    <div class="modal fade" id="ModalEnvioCalc" role="dialog" style="display:none">
+                        <div class="modal-dialog  modal-md">
+
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+
+                                    <button type="button" class="close" data-dismiss="modal">×</button>
+
+                                </div>
+
+                                <div class="modal-body">
+                                    <div class="alert  Mialert  cpEnvio">
+                                        INGRESAR EL CÓDIGO POSTAL DESTINO
+                                    </div>
+
+                                    <style>
+                                        .well {
+                                            margin-bottom: 11px;
+                                        }
+                                    </style>
+                                    <div class="row">
+                                        <div class="col-12">
+                                            <div class="form-horizontal" style="margin-top: 25px;">
+
+
+                                                <div class="cpEnvio">
+                                                    <div class="form-group">
+                                                        <div class="col-md-2 hidden-xs">
+                                                        </div>
+                                                        <div class="col-12  col-md-4">
+                                                            <input type="text" onkeypress="return acceptNum(event, this.value)" id="txtCodPostal" style="  text-align:center; margin-bottom: 5px;" class="form-control" placeholder="COD POSTAL" required>
+
+                                                        </div>
+                                                        <div class="col-12  col-md-4">
+
+                                                            <button type="button" class="btn btn-danger" style="width:100%" id="btnVerMontoEnvio">
+                                                                <span class=" fa  fa-truck "></span>
+                                                                CALCULAR
+
+                                                            </button>
+                                                        </div>
+                                                        <div class="col-md-2 hidden-xs">
+                                                        </div>
+
+                                                    </div>
+
+
+                                                    <div class="form-group">
+
+                                                        <div class="col-md-12">
+
+                                                            <div id="msgEnvio" style="text-align:left" class="alert "></div>
+                                                        </div>
+
+
+                                                    </div>
+
+
+                                                </div>
+
+                                                <div id="cpEnvioCuerpo" style="display:none">
+                                                    <div class="col-md-12 well well-sm">
+
+                                                        <span style="    margin-left: -12px;"> OPCIONES DE ENVÍO</span>
+                                                    </div>
+
+                                                    <div class="form-group">
+
+                                                        <div class="col-md-6">
+
+                                                            DOMICILIO <span style="color: #0663a5;  font-weight: 800;"> </span>
+                                                        </div>
+                                                        <div class="col-md-6" style="text-align:right">
+                                                            <span class="otrosdomi">$ 0.00</span> <br />
+                                                            <span class="otrosdomi1" style="color: #7d7d7d;    font-weight: 500;
+    font-size: 13px;">Plazo de entrega: 0 días.</span>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                    <hr />
+                                                    <div id="a_sucursal">
+
+                                                        <div class="col-md-12 well well-sm">
+
+                                                            <span style="    margin-left: -12px;">OPCIONES DE RETIRO</span>
+                                                        </div>
+
+
+                                                        <div class="form-group">
+
+                                                            <div class="col-md-6" style="cursor:pointer;" onclick="BuscarCentros()">
+
+                                                                CORREO Y OTROS PUNTOS <span style="color: #0663a5;  font-weight: 800;">  Lugares disponibles</span>
+                                                            </div>
+                                                            <div class="col-md-6" style="text-align:right">
+                                                                <span class="otrospuntos">$ 0.00</span> <br />
+                                                                <span class="otrospuntos1" style="color: #7d7d7d;    font-weight: 500;
+    font-size: 13px;">Plazo de entrega: 0 días.</span>
+
+                                                            </div>
+
+
+                                                        </div>
+
+                                                        <div id="verLugares">
+
+                                                        </div>
+
+                                                        <hr />
+                                                    </div>
+
+                                                    <script>
+
+                                                        function BuscarCentros() {
+
+                                                            try {
+                                                                if ($('#txtCodPostal').val() == "") {
+                                                                    return;
+
+                                                                }
+
+                                                                var json = JSON.stringify
+                                                                    ({
+
+                                                                        "v_cp": parseInt($('#txtCodPostal').val())
+
+                                                                    });
+                                                                $.ajax({
+                                                                    type: "POST",
+                                                                    url: "/Articulos/verCentros",
+                                                                    data: json,
+                                                                    contentType: "application/json; charset=utf-8",
+                                                                    dataType: "json",
+                                                                    success: resultadoL2,
+                                                                    error: errores
+                                                                });
+
+                                                            } catch (e) {
+                                                                alert(e.message);
+                                                            }
+                                                        }
+
+                                                        function resultadoL2(Resultado) {
+                                                            var Pacientes = Resultado;
+                                                            var Tabla_Titulo = "";
+                                                            var Tabla_Datos = "";
+                                                            var Tabla_Fin = "";
+                                                            $("#verLugares").show();
+                                                            $("#verLugares").empty();
+                                                            Tabla_Titulo = "<table   id='grilla1' class='table   alert alert-info' style='width: 100%;    font-size: 12px;'> <tbody>";
+                                                            $.each(Pacientes, function (index, pacientes) {
+                                                                Tabla_Datos = Tabla_Datos + "<tr ><td style='font-weight: 600;'> " + pacientes.Sucursal + '<br/>' + pacientes.TipoAgencia + " </td> <td>" + pacientes.Calle + ' N° ' + pacientes.Numero + ', ' + pacientes.Localidad + '. ' + pacientes.Provincia + ' ' + pacientes.Telefono + " </td></tr>";
+                                                            });
+
+                                                            Tabla_Fin = "</tbody></table>";
+                                                            $("#verLugares").html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+
+
+                                                        }
+
+                                                    </script>
+
+                                                    <div class="form-group">
+
+                                                        <div class="col-md-6">
+
+                                                            NUESTRO LOCAL DE VENTAS  <span style="color: #7d7d7d;
+    font-weight: 500;
+    font-size: 13px;">Calle 131 Nro:524.<br />Hubson, Berazategui</span>
+                                                        </div>
+                                                        <div class="col-md-6" style="text-align:right">
+                                                            <span style="color:green">GRATIS</span>
+
+                                                        </div>
+
+
+                                                    </div>
+                                                </div>
+
+
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                </div>
+                                <div class="modal-footer">
+
+                                    <button type="button" class="btn btn-danger  " data-dismiss="modal">Cerrar</button>
+
+                                </div>
+
+                            </div>
+
+
+
+
+                        </div>
+
+
+                    </div>
+
+
+
+
+                    <script src="/js/jquery.zoom.js"></script>
+                    <script>
+                        $("#CalEnvio").click(function () {
+                            $("#msgEnvio").removeClass("alert-danger");
+                            $("#msgEnvio").text("");
+                            $("#txtCodPostal").val("");
+                            $(".cpEnvio").show();
+                            $("#cpEnvioCuerpo").hide();
+                            verEnvio();
+                        });
+
+                        $("#btnVerMontoEnvio").click(function () {
+                            $("#msgEnvio").removeClass("alert-danger");
+
+                            if ($("#txtCodPostal").val() == "" || $("#txtCodPostal").val() == "0") {
+                                $("#msgEnvio").addClass("alert-danger");
+                                $("#msgEnvio").text("Ingrese el codigo postal donde le enviaremos la compra.");
+                                $("#txtCodPostal").focus();
+                                return;
+                            }
+                            $(".cpEnvio").hide();
+                            $("#cpEnvioCuerpo").show();
+                            var montb = "";
+                             montb = @Math.Round(Double.Parse(articulo.precio.Replace(",", "."), numberFormatInfo), 2).ToString().Replace(",",".");
+                            var json = JSON.stringify
+                                ({
+                                    v_cp: $("#txtCodPostal").val(),
+                                    CANT: $("#cant").val(),
+                                    v_valor:  montb
+                                });
+                            $.ajax({
+                                type: "POST",
+                                url: "/Articulos/CalEnvio",
+                                data: json,
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: (function (result) {
+                                    console.log(result);
+
+                                    if (result) {
+
+                                        if (result[0].descripcion.substring(0, 11) == "ENVIO LOCAL") {
+                                            $("#a_sucursal").hide();
+                                            $(".otrosdomi").text(result[0].descripcion);
+                                            $(".otrosdomi").css("color", "blue");
+                                            $(".otrosdomi1").text(result[0].valor);
+                                            if (result[0].descripcion == "ENVIO LOCAL: GRATIS") {
+                                                $(".otrosdomi").text("GRATIS");
+                                                $(".otrosdomi").css("color", "green");
+                                                $(".otrosdomi1").text("Envio local.");
+                                                $("#a_sucursal").hide();
+                                            }
+                                        } else {
+
+                                            $(".otrosdomi").css("color", "#454545");
+                                            $("#a_sucursal").show();
+                                        $(".otrosdomi").text(result[0].descripcion);
+                                        $(".otrosdomi1").text(result[0].valor);
+
+                                        $(".otrospuntos").text(result[1].descripcion);
+                                            $(".otrospuntos1").text(result[1].valor);
+                                        }
+
+                                    }
+                                }),
+                                error: errores
+                            });
+
+
+
+                        });
+
+                        function verEnvio() {
+                            $("#ModalEnvioCalc").modal();
+                        }
+                        $(document).ready( function () {
+                            $('.item').zoom();
+
+                        });
+                    </script>
+
+
+                </div>
+            </div>
+        </div>
+
+
+        <script>
+
+            $(".talles_equivalencias_wrapper").click(function () {
+                outTalle();
+            }
+            );
+
+
+            function outTalle() {
+                $(".talles_equivalencias_wrapper").hide();
+                $("#miLoader").css("display", "block");
+            }
+            function overTalle(ids) {
+                $("#miLoader").css("display", "none");
+                var t_top = $(ids).offset().top - 10;
+
+                var t_left = $(ids).offset().left + 2;
+                var ancho = $(ids).width() / 2;
+                var talle = $(ids).text();
+
+
+
+
+                if ($(".t_AR").text() == talle) {
+                    $(".talles_equivalencias_wrapper").fadeIn("300");
+                    return;
+                }
+
+                $(".t_AR").text(talle);
+
+                $("#miLoader").css("display", "none");
+
+
+                //var json = JSON.stringify
+                //    ({
+                //        v_talle: talle
+
+                //    });
+                //$.ajax({
+                //    type: "POST",
+                //    url: "/Articulos/Tipo_Talles",
+                //    data: json,
+                //    contentType: "application/json; charset=utf-8",
+                //    dataType: "json",
+                //    success: (function (result) {
+
+                //        $.each(result, function (i, e) {
+
+                //        $(".t_other_wrapper").show();
+                //            var a = 0;
+
+                //            if (e.descripcion == "UK") {
+                //                if (e.valor != "") {
+                //            $(".t_UK_wrapper .text").text("UK");
+                //                $(".t_UK").text(e.valor);
+                //            }
+                //            else {
+                //            $(".t_UK_wrapper .text").empty();
+                //            $(".t_UK").empty();
+                //            a++;
+                //                }
+                //            }
+
+                //            if (e.descripcion == "US") {
+                //                if (e.valor != "") {
+                //            $(".t_US_wrapper .text").text("US");
+                //                    $(".t_US").text(e.valor);
+                //        } else {
+                //            $(".t_US_wrapper .text").empty();
+                //            $(".t_US").empty();
+                //            a++;
+                //                }
+
+                //            }
+
+                //            if (e.descripcion == "CM") {
+                //                if (e.valor != "") {
+                //            $(".t_CM_wrapper .text").text("CM");
+                //                    $(".t_CM").text(e.valor);
+                //        } else {
+                //            $(".t_CM_wrapper .text").empty();
+                //            $(".t_CM").empty();
+                //            a++;
+                //                }
+                //            }
+                //        if (a == 3) $(".t_other_wrapper").hide();
+
+                //    if ($(".t_CM_wrapper .t_CM").text().match("meses")) {
+                //        $(".t_CM_wrapper .text").text("");
+                //    }
+                //});
+                //    }),
+                //    error: errores
+                //});
+
+
+
+
+
+
+                $(".t_other_wrapper").show();
+                var a = 0;
+
+
+                if ($(ids).attr("data-uk") != "") {
+                    $(".t_UK_wrapper .text").text("UK");
+                    $(".t_UK").text($(ids).attr("data-uk"));
+                }
+                else {
+                    $(".t_UK_wrapper .text").empty();
+                    $(".t_UK").empty();
+                    a++;
+                }
+
+
+                if ($(ids).attr("data-us") != "") {
+                    $(".t_US_wrapper .text").text("US");
+                    $(".t_US").text($(ids).attr("data-us"));
+                } else {
+                    $(".t_US_wrapper .text").empty();
+                    $(".t_US").empty();
+                    a++;
+                }
+
+
+
+
+                if ($(ids).attr("data-cm") != "") {
+                    $(".t_CM_wrapper .text").text("CM");
+                    $(".t_CM").text($(ids).attr("data-cm"));
+                } else {
+                    $(".t_CM_wrapper .text").empty();
+                    $(".t_CM").empty();
+                    a++;
+                }
+
+                if (a == 3) $(".t_other_wrapper").hide();
+
+                if ($(".t_CM_wrapper .t_CM").text().match("meses")) {
+                    $(".t_CM_wrapper .text").text("");
+                }
+
+                var t_width = $(".talles_equivalencias_wrapper").width() / 2;
+                t_pos_left = t_left - t_width + ancho;
+                t_height = $(".talles_equivalencias_wrapper").height();
+                t_pos_top = t_top - t_height;
+
+                $(".talles_equivalencias_wrapper").css({
+                    "left": t_pos_left,
+                    "top": t_pos_top
+                });
+                $(".talles_equivalencias_wrapper").show();
+
+            }
+        </script>
+
+        <style>
+
+            .talles_equivalencias_wrapper {
+                position: absolute;
+                display: none
+            }
+
+                .talles_equivalencias_wrapper .talles_equivalencias {
+                    background-color: rgba(0,0,0,0.77);
+                    border-radius: 2px;
+                    padding: 10px;
+                    float: left
+                }
+
+                    .talles_equivalencias_wrapper .talles_equivalencias:after {
+                        content: "\f0d7";
+                        color: rgba(0,0,0,0.77);
+                        float: left;
+                        line-height: 0px;
+                        font-family: "FontAwesome";
+                        position: absolute;
+                        bottom: -3px;
+                        font-size: 30px;
+                        left: 0;
+                        right: 0;
+                        text-align: center
+                    }
+
+                    .talles_equivalencias_wrapper .talles_equivalencias .t_ar_wrapper {
+                        float: left;
+                        width: 50px;
+                        text-align: center
+                    }
+
+                        .talles_equivalencias_wrapper .talles_equivalencias .t_ar_wrapper span {
+                            color: #fff;
+                            font-family: 'proximanova-regular', sans-serif !important;
+                            font-size: 13px;
+                            font-weight: 600;
+                            line-height: 18px;
+                            text-transform: uppercase;
+                            float: left;
+                            width: 100%
+                        }
+
+                        .talles_equivalencias_wrapper .talles_equivalencias .t_ar_wrapper .t_AR {
+                            float: left;
+                            color: #fff;
+                            font-size: 25px;
+                            font-weight: 400;
+                            width: 100%
+                        }
+
+                    .talles_equivalencias_wrapper .talles_equivalencias .t_other_wrapper {
+                        float: left;
+                        min-width: 50px;
+                        margin-left: 12px
+                    }
+
+                        .talles_equivalencias_wrapper .talles_equivalencias .t_other_wrapper > div {
+                            float: left;
+                            clear: both;
+                            font-size: 11px;
+                            line-height: 15px;
+                            color: #fff;
+                            font-family: 'proximanova-regular', sans-serif !important;
+                            font-weight: 300;
+                            text-transform: uppercase
+                        }
+
+                            .talles_equivalencias_wrapper .talles_equivalencias .t_other_wrapper > div .text {
+                                float: left
+                            }
+
+                            .talles_equivalencias_wrapper .talles_equivalencias .t_other_wrapper > div .t_UK, .talles_equivalencias_wrapper .talles_equivalencias .t_other_wrapper > div .t_US, .talles_equivalencias_wrapper .talles_equivalencias .t_other_wrapper > div .t_CM {
+                                float: right;
+                                margin-left: 5px
+                            }
+        </style>
+
+        <div class="talles_equivalencias_wrapper">
+            <div class="talles_equivalencias">
+                <div class="t_ar_wrapper">
+                    <span>Talle</span>
+                    <div class="t_AR">
+                    </div>
+                </div>
+                <div class="t_other_wrapper">
+                    <div class="t_UK_wrapper">
+                        <div class="text">
+                        </div>
+                        <div class="t_UK"></div>
+                    </div>
+                    <div class="t_US_wrapper">
+                        <div class="text"></div>
+                        <div class="t_US"></div>
+                    </div>
+                    <div class="t_CM_wrapper">
+                        <div class="text"></div>
+                        <div class="t_CM"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+
+
+
+
+        <script>
+
+
+
+
+
+            $(function () {
+
+
+
+                var camino = $('ul.breadcrumbs li').last();
+                $(camino).addClass('active');
+
+                var v_wd = $(window).width();
+                if (v_wd < 1000) {
+                    $('.tallecomprar_li').removeAttr("href");
+                }
+            }
+            );
+        </script>
+    </div>
+
+</div>

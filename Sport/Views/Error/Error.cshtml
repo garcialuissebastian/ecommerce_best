@@ -1,0 +1,21 @@
+﻿
+@{
+    ViewBag.Title = "VerArticulo";
+    Layout = "~/Views/Master/_sport.cshtml";
+}
+
+ 
+        <h1>Se produjo un  Error:</h1>
+        <h2>Por favor intentelo nuevamente, Gracias.</h2>
+  @{ 
+
+
+      if (Session["error"] !=null)
+      {
+          string ss = Session["error"].ToString();
+        <div class="alert alert-danger"> 
+             @ss
+        </div>
+
+      }
+  }

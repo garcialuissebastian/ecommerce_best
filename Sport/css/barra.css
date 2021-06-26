@@ -1,0 +1,710 @@
+@charset "utf-8";
+/* CSS Document */
+
+body{
+	background-attachment: scroll;
+	background-repeat: repeat-x;
+	background-color: #FFF;
+}
+
+
+.titulo_seccion{
+	margin-left: 25px;
+	margin-bottom: 15px;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	color: #2197BE;
+	font-size: 25px;
+}
+
+.titulo_UOM{
+	margin-left: 10px;
+	padding-top: 200px;
+	font-family: "Palatino Linotype", "Book Antiqua", Palatino, serif;
+	color: #2197BE;
+	font-size: 20px;
+}
+
+.content{
+	margin:0px 25px 0px 25px;
+}
+
+
+#barra_sup{
+	height: 20px;
+	min-width: 940px;
+	width: 100%;
+	position: fixed;
+	z-index:999;
+	background-color: #FFF;
+}
+
+#datos_usuario{
+	padding: 5px;
+	background-color: #E2E8EB;
+	color: #00486A;
+	min-height: 42px;
+	vertical-align: middle;
+}
+.logo{
+	
+}
+#menu_principal{
+	height: 35px;
+	padding: 5px 5px 1px 5px;
+	background-color: #EEE;
+}
+
+
+.uom_boton{
+	background-color:rgba(0,128,192,0.7);
+	color: #FFF;
+	font-size: 13px;
+	padding: 5px 10px 5px 10px;
+	height: 20px;
+	width: 220px;
+	cursor: pointer;
+	border-bottom-left-radius: 5px;
+	border-bottom-right-radius: 5px;
+}
+
+.cerrar_sesion{
+	margin-top:5px;
+	margin-left:10px;
+}
+
+.cerrar_sesion:hover{
+	text-decoration: none;
+}
+
+.icon_uom{
+	display:inline-block;	
+	background-image:url(../img/botones.png);
+	background-repeat: no-repeat;
+	height:24px;
+	width:24px;
+	vertical-align:middle;
+	margin-right:5px;
+	padding-bottom:2px;
+}
+
+.ico_inicio{background-position:0px -30px;}
+.ico_farmacia{background-position:-24px -30px;}
+.ico_turnos{background-position:-48px -30px;}
+.ico_bonos{background-position:-72px -30px;}
+.ico_internacion{background-position:-96px -30px;}
+.ico_atconsultorio{background-position:-120px -30px;}
+.ico_guardia{background-position:-144px -30px;}
+.ico_atinternacion{background-position:-168px -30px;}
+.ico_admin{background-position:-192px -30px;}
+
+.nav-pills li:hover .ico_inicio{background-position:0px 0px;}
+.nav-pills li:hover .ico_farmacia{background-position:-24px 0px;}
+.nav-pills li:hover .ico_turnos{background-position:-48px 0px;}
+.nav-pills li:hover .ico_bonos{background-position:-72px 0px;}
+.nav-pills li:hover .ico_internacion{background-position:-96px 0px;}
+.nav-pills li:hover .ico_atconsultorio{background-position:-120px 0px;}
+.nav-pills li:hover .ico_guardia{background-position:-144px 0px;}
+.nav-pills li:hover .ico_atinternacion{background-position:-168px 0px;}
+.nav-pills li:hover .ico_admin{background-position:-192px 0px;}
+
+.nav-pills li a{
+	font-size:12px;
+	padding:5px;
+}
+
+.avatar img{
+	border: 2px solid #fff;
+	margin-right: 10px;
+	width: 35px;
+	height: 35px;
+	border-radius: 5px;
+}
+
+.avatar2{
+	float:left;
+	width: 70px;
+	height: 70px;
+	border-radius:5px;
+}
+
+.barra_dondeestoy{
+	height: 20px;
+	background-color:rgba(0,128,192,0.7);
+	color:#FFF;
+	padding-left:10px;
+}
+
+a{
+	color:black;
+}
+
+.contenedor_1{
+	border-radius: 10px;
+	background-color: #F3F3F3;
+	padding-bottom:15px;
+	padding-top:15px;
+
+}
+
+.contenedor_2{
+	margin-left:25%;
+	margin-top:10px;
+	margin-bottom:10px;
+	padding-top:30px;
+	padding-bottom:30px;
+	display:inline-block;
+	border:solid 1px #CCCCCC;
+	width:450px;
+	height: 350px;
+	border-radius: 10px;
+	background-color: #FFF;
+}
+
+.contenedor_3{
+	position:relative;
+	overflow:hidden;
+	height: 400px;
+	margin-left:12px;
+	width:915px;
+	display:inline-block;
+	border:solid 1px #CCCCCC;
+	margin-top:0px;
+	padding-top:15px;
+	padding-bottom:30px;
+	border-radius: 10px;
+	background-color: #FFF;
+}
+
+
+
+.contenedor_5{
+	min-height:194px;
+	float:left;
+	width:300px;
+	margin:010px 20px 10px 20px;
+	display:inline-block;
+	border-radius: 10px;
+	background-color: #EBEBEB;
+	text-align:left;
+
+}
+
+.bmenu{
+	margin-right:15px;
+}
+
+.form-horizontal .control-label {
+  float: left;
+  width: 140px;
+  padding-top: 5px;
+}
+
+.form-horizontal .controls {
+  margin-left: 150px;
+}
+
+.resumen_datos{
+	padding: 5px;
+	color: #fff;
+	height: 70px;
+	width: 96%;
+	margin-left: auto;
+	margin-right: auto;
+	background-color: #333333;
+	margin-bottom: 15px;
+	margin-top: 15px;
+}
+
+.datos_resumen_paciente{
+	float:left;
+	margin-left:15px;
+}
+
+.opciones_resumen{
+	float:left;
+	padding-top:20px;
+	padding-left:90px;
+	
+}
+
+#hastaaqui{
+	display:none;
+}
+
+.combos{
+	margin-left:25%;
+	padding-top:10px;
+}
+
+.combos_2{padding-top:10px;}
+
+.tabla{overflow:scroll;overflow-x:hidden;margin-top:10px;border:solid 1px #CCC;border-radius:5px;}
+
+.tabla td
+{
+     cursor:pointer;
+    }
+
+.tabla a{
+	margin-right:5px;
+}
+.reff{
+	padding:5px;
+	display:inline-block;
+	border-bottom:solid 3px rgba(255,255,255,1);
+
+}
+
+.reff:hover{
+	border-bottom:solid 3px rgba(0,128,192,1);
+	cursor:pointer;
+}
+
+.reff_activo
+{
+     border-bottom:solid 3px rgba(0,128,192,1);
+    }
+
+.ref_0{
+background-color:#F2F2F2;
+}
+.ref_1{background-color:#DFF0D8;}
+.ref_2{background-color:#F2DEDE;}
+.ref_3{background-color:#D9EDF7;}
+.ref_4{background-color:#FCF8E3;}
+
+.ver_mas_datos{
+	color:#0099CC;
+	font-weight:bold;
+	margin-left:10px;	
+}
+.ver_mas_datos:hover{color:#00CCFF;	
+}
+
+.titulo_contenedor_4{
+	font-size:13px;
+	color:#666666;
+	padding:0px 0px 0px 5px;
+	font-weight:bold;
+}
+
+.titulo_datos{
+	margin:5px 0px 5px 0px;color:#3399CC;font-size:16px;
+}
+.comentario_mini{
+	margin:10px;
+	resize: none; 
+	width:365px;
+
+}
+
+.inline{
+	float:left;
+	display:inline-block;
+
+}
+
+.datos_paciente{
+	width:60%;
+	float:left;
+}
+.datos_medico{
+	width:40%;
+	float:left;
+}
+
+
+
+
+.filtro_datos{
+	height: 80px;
+	width: 70%;
+	padding: 5px;
+	background-color:#FFF;
+	overflow: scroll;
+	overflow-x: hidden;
+	border: 1px solid #CCC;
+	border-radius: 5px;
+	margin-bottom: 10px;
+}
+
+
+#menu_principal li
+{
+    cursor:pointer;
+}
+
+.contenedor_bono{
+	margin-left:25%;
+	margin-top:10px;
+	margin-bottom:10px;
+	padding-top:30px;
+	padding-bottom:30px;
+	display:inline-block;
+	border:solid 1px #CCCCCC;
+	width:450px;
+	height: 370px;
+	border-radius: 10px;
+	background-color: #FFF;
+}
+
+
+#myModal{
+	width:700px;
+	margin-left:-350px;
+}
+
+.modal-backdrop
+{
+ z-index:998;   
+}
+
+.minicontenedor100{
+	margin-left:auto;
+	margin-right:auto;
+	background-color:#F2F2F2; 
+	padding:15px;
+	width:95%;
+	border-radius:5px;
+}
+
+.minicontenedor50{
+	float:left;
+	margin-left:1%;
+	margin-right:1%;
+	background-color:#F2F2F2; 
+	padding:1%;
+	width:46%;
+	border-radius:5px;
+}
+
+
+.contenedor_a{
+	text-align:left;
+	margin-top:10px;
+	margin-bottom:10px;
+	padding-top:15px;
+	padding-bottom:25px;
+	display:inline-block;
+	border:solid 1px #CCCCCC;
+	width:97%;
+	height:470px;
+	overflow:hidden;
+	border-radius: 10px;
+	background-color: #FFF;
+}
+
+.ColorResaltado
+{
+    background-color: #FFFF00;
+}
+
+.contenedor_4{
+	float:left;
+	width:400px;
+	height:100px;
+	margin:0px 20px 10px 20px;
+	display:inline-block;
+	border-radius: 10px;
+	background-color: #EBEBEB;
+	text-align:left;
+}
+
+.titulo_control{width:30%;display:inline-block;text-align:right;padding-right:10px;}
+.pie_gris{
+	position: absolute;
+	padding-top: 5px;
+	padding-right: 2%;
+	height: 35px;
+	width: 98%;
+	background-color: #CCCCCC;
+	bottom: 0;
+	border-bottom-right-radius: 5px;
+	border-bottom-left-radius: 5px;
+}
+
+.check_todos{
+	width: 99%;
+	background-color: #E2E2E2;
+	margin-bottom: 5px;
+	padding: 2px 0px 1px 5px;
+	border-radius: 4px;
+	color:#666;
+	text-align:left;
+}
+.minicontenedor50 .check_todos{width: 99.5%;}
+.minicontenedor100 .check_todos{width: 99%;}
+
+.check_todos:hover{
+	background-color: #C4EAFF;
+}
+
+
+.check_todos:hover{
+	background-color: #C4EAFF
+}
+.texto_inline{padding-top:5px}
+.red{color:#E12200}
+.pie_gris a{margin-left:10px;}
+
+
+.noti_aviso{
+	text-align:center;
+	font-weight:bold;
+	height:20px;
+	background-color:#EF4B43;
+	color:#FFF;
+	margin:10px;
+	padding:10px;
+	text-shadow:2px 0px 5px #000;
+	border-radius:5px;
+	}
+.datos_principales_contenedor{
+	height:140px;
+	position:relative;
+}
+
+.datos_principales{
+	width:95.5%;
+	overflow:hidden;
+	position:absolute;
+	height:100px;
+	background-color:#333333;
+	color:#FFF;
+	margin:10px;
+	padding:10px;
+	-webkit-transition: height 0.2s linear 0s;
+	-moz-transition: height 0.2s linear 0s;
+	-ms-transition: height 0.2s linear 0s;
+	-o-transition: height 0.2s linear 0s;
+	transition: height 0.2s linear 0s;
+	}
+.fdatos_principales:hover{
+	height:350px;
+	}
+
+.foto_afiliado{position:absolute;height:100px;width:100px;}	
+.datos_principales_form{margin-left: 100px;padding-top:10px;}
+.datos_principales_form input{color:#000;}
+.datos_principales_form input:focus{
+	box-shadow: none;
+	-moz-box-shadow: none;
+	-webkit-box-shadow: none;
+	border:1px solid #fff;
+	background-color:#FFF9EC
+	}
+
+.label_top_grupo{margin:10px}
+.label_top{float:left;margin-right:10px}
+
+.editar_avatar{
+	text-shadow:2px 2px 5px #333;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0,102,204,0.8);
+	-webkit-transition: opacity 0.2s linear 0s;
+	-moz-transition: opacity 0.2s linear 0s;
+	-ms-transition: opacity 0.2s linear 0s;
+	-o-transition: opacity 0.2s linear 0s;
+	transition: opacity 0.2s linear 0s;
+	opacity: 0;
+}
+.editar_avatar:hover{opacity:1;}
+.editar_avatar div{text-align:center;margin-bottom:15px;margin-top:15px;color:#FFF;}
+.editar_avatar:hover a{color:#FFF;}
+
+.editar_avatar div a:hover{color:#FFF;text-decoration:none;font-weight:bold;}
+.box_informativo_a
+{
+    min-height: 25px;
+	background-color: #E0E0E0;
+	padding:1px 5px 1px 5px;
+	margin-left:5px;
+	margin-right:5px;
+	font-size:13px;
+	border-radius:5px;
+}
+
+.box_informativo_a img{vertical-align:middle}
+.webcam_box{margin-top:10px;margin-left:45px;}
+.webcam_box_contenedor{
+	position: relative;
+	background-color: #242424;
+	height:350px;
+}
+
+.menu_tomar_foto{padding-top:100px;margin-left:350px;}
+.menu_tomar_foto a{margin-left:20px;margin-right:50px;}
+.label_derecho{
+	font-size:11px;
+	color: #666;
+	background-color: #EFEFEF;
+	min-width: 50px;
+	display: inline-block;
+	height: 24px;
+	border-radius: 5px;
+	padding: 3px 15px 3px 5px;
+}
+.DP .control-group{margin-bottom:5px}
+
+textarea { 
+    resize: none; 
+}
+
+.webcam{width:180px;height:180px;background-color:yellow;position:absolute;margin-left:50px;margin-top:15px}
+
+.btnCorrector
+{
+    margin-top:-10px;
+    }
+
+
+.input_mini{display:inline-block;margin-right:15px;}
+.input_mini{font-size:12px;}
+.input_mini input{display:block;width:25px}
+.td_borrar{width:100px}
+.td_borrar a{opacity:0.5;}
+.td_borrar:hover a{opacity:1}
+
+
+.pie{
+	text-align:center;
+	color:#FFF;
+	height:20px;
+	width:100%;
+	background-color:	rgba(0,128,192,1);
+	position:fixed;
+	bottom:0;
+	z-index:999;
+}
+
+.MensajedeNotificacion
+{
+    position:fixed; 
+    bottom:20px; 
+    right:0; 
+    display:block; 
+    width:200px; 
+    opacity:1; 
+    color:White;
+    z-index:998;
+}
+
+.NotiBoxContenedor{position:fixed;width:220px;bottom:0;right:0;z-index:999;opacity:0.8;display:none;}
+.NotiBoxContenedor:hover{opacity:1}
+
+.NotiBoxHeader{height:20px;background-color:#FF6600;color:#FFF;font-weight:bold;padding:5px;border-radius:5px 5px 0px 0px;text-align:center;}
+
+.NotiBoxBody{color#333;background-color:#CCCCCC;min-height:100px;padding:5px;border:1px solid #C9C9C9;
+background: rgb(255,255,255);
+background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIxMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogICAgPHN0b3Agb2Zmc2V0PSIxMDAlIiBzdG9wLWNvbG9yPSIjZTVlNWU1IiBzdG9wLW9wYWNpdHk9IjEiLz4KICA8L2xpbmVhckdyYWRpZW50PgogIDxyZWN0IHg9IjAiIHk9IjAiIHdpZHRoPSIxIiBoZWlnaHQ9IjEiIGZpbGw9InVybCgjZ3JhZC11Y2dnLWdlbmVyYXRlZCkiIC8+Cjwvc3ZnPg==);
+background: -moz-linear-gradient(top,  rgba(255,255,255,1) 10%, rgba(229,229,229,1) 100%);
+background: -webkit-gradient(linear, left top, left bottom, color-stop(10%,rgba(255,255,255,1)), color-stop(100%,rgba(229,229,229,1)));
+background: -webkit-linear-gradient(top,  rgba(255,255,255,1) 10%,rgba(229,229,229,1) 100%);
+background: -o-linear-gradient(top,  rgba(255,255,255,1) 10%,rgba(229,229,229,1) 100%);
+background: -ms-linear-gradient(top,  rgba(255,255,255,1) 10%,rgba(229,229,229,1) 100%);
+background: linear-gradient(to bottom,  rgba(255,255,255,1) 10%,rgba(229,229,229,1) 100%);
+filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ffffff', endColorstr='#e5e5e5',GradientType=0 );
+}
+.NotiBoxContenedor button{margin-right:8px;margin-top:3px;}
+.NotiAutor{height:30px;background-color:#E1E1E1;padding:5px;border-bottom:3px solid #CCC;color:#666}
+.NotiAvatar{height:30px;width:30px;border-radius:3px;border:1px solid #999999}
+.NotiNombre{display:inline-block;color:#333;margin-left:4px;}
+
+.fancywidth{width:700px;margin-left:auto;margin-right:auto;border-radius:0px}
+.comprimida span{display:block;margin-bottom:10px;margin-right:10px}
+.comprimida input{padding:3px}
+.comprimida input[type="checkbox"]{margin-top:-10px;padding-left:10px;}
+
+
+
+.AUbuscar{background-color:#666666;padding:5px;border-radius:5px 5px 0px 0px;color:#FFF;height:30px}
+.AUbuscar input{margin-left:15px}
+.AUfoto{height:50px;width:50px}
+.AUnombre{font-size:17px;color:#333333}
+.AUnick{color:#666}
+.AUcentrar th, .AUcentrar td{text-align:center}
+.AUcentrar .AUusuario{text-align:left}
+
+.contenedor_1 h3{margin:10px 15px 15px 15px;color:#666666;font-weight:100;border-bottom:1px solid #CCCCCC}
+
+#webcam2contenedor{position:relative;margin-left:10px;height:310px;width:0px;overflow:hidden;}
+.webcam2box{background-color:#333333;width:300px;height:250px}
+#webcam2foto:hover #webcam2contenedor{background-color:#000;}
+.webcam2menu{position:absolute;width:100%;height:40px;background-color:#006699;bottom:0;}
+.webcam2menu a{margin:4px 0px 0px 4px;background-color:#FFFFFF;color:#000;width:130px;display:inline-block;text-align:center;height:20px;padding:6px;}
+.webcam2menu a:hover{text-decoration:none;background-color:#E8E8E8;color:#464646}
+
+.mano {cursor:pointer;}
+.TablaBuscar50{width:50%}
+.TablaBuscar50 .AUbuscar{opacity:0.6}
+.TablaBuscar50:hover .AUbuscar{opacity:1}
+
+.RSSTitulo {font-family:Arial Black; font-size:30px}
+.RSSContenido {font-family:Arial; font-size:30px}
+.sRSSDiv {display:none; height:200px; background-color:Red;}
+
+.cuadroEvoluacion{margin:0px 0px 0px 15px;height:340px;width:400px;position:relative;overflow:auto}
+.cuadroEvoluacion textarea{margin:10px;width:365px;padding:5px}
+.evolucionDato1{font-size:16px}
+.evolucionDato2{color:#666}
+
+.control-labeleo div{margin:5px 0px 0px 10px;display:inline-block;vertical-align:middle;}
+.control-labeleo{margin-left:10px}
+
+#SpanCargando {display:none;}
+#btnVencimiento {display:none;}
+
+.DivNovedades 
+{
+    text-align:center;
+}
+
+.box_gris_novedades{background-image:url(../img/novedades/box_gris.jpg);
+	height:288px;
+	width:303px;
+	text-align:center;
+	display:inline-block;
+	vertical-align:middle;
+	}
+.box_gris_novedades img{padding-top:5px;}	
+.box_gris_novedades div{padding:20px;color:#333;line-height:25px}
+.TituloNov{font-size:20px;color:#777777;margin:20px 0px 5px 0px}
+.BienvenidoUsuario{font-size:35px;color:#777777;margin:0px 0px 30px 0px}
+.BienvenidoUsuario .bNombre{color:#257BDA}
+.TituloLasNovedades{
+	text-align: left;
+	font-size: 30px;
+	border-bottom: 1px solid #CCC;
+	padding-bottom: 5px;
+	margin-top: 20px;
+	margin-bottom: 20px;
+	color: #0083C5
+}
+.FechaNovedad{text-align: left;color: #FFF;padding:5px;background-color:#4F4F4F;border-radius:5px;font-weight:bold;margin-bottom:10px;margin-top:15px}
+
+
+.ContenedorHistoriaClinica{background-color:#FFF;margin-left:10px;width:1500px}
+.MenuHistoriaClinica{
+	height: 400px;
+	width: 300px;
+	float:left;
+	background-color: #F4F4F4;
+	border:1px solid #CCC;
+	opacity: 0.5;
+	margin-left: -250px;
+	box-shadow:5px 5px 5px #999;
+	-webkit-transition: all 0.2s linear 0s;
+	-moz-transition: all 0.2s linear 0s;
+	-ms-transition: all 0.2s linear 0s;
+	-o-transition: all 0.2s linear 0s;
+	transition: all 0.2s linear 0s;
+	}
+.MenuHistoriaClinica:hover{margin-left:0;opacity:1}	
+.ArbolHistoriaClinica{overflow:inherit;overflow-x:hidden;width:100%;height:360px}
+.PieHistoriaClinica{height:30px;background-color:#CCC;padding:5px}	
+.DatoHistoriaClinica{background-color:#39C;padding:5px;color:#FFF;border-radius:3px;}
+
+
+

@@ -1,0 +1,277 @@
+﻿
+@{
+    ViewBag.Title = "procesarPago";
+    Layout = "~/Views/Master/_sport.cshtml";
+}
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/easing.min.js"></script>
+<script type="text/javascript" src="/js/jquery.timers.js"></script>
+<style>
+    .form_label {
+        /*display: block;
+            width: 100%;
+            height: 34px;
+            padding: 6px 12px;
+            font-size: 14px;
+            line-height: 1.42857143;*/
+    }
+
+
+    @@media(max-width:768px) {
+        .control-label {
+            text-align: left;
+        }
+        .tituloProc {
+            margin-top: 15px !important; 
+            padding: 6px; 
+            font-size: 12px;
+        }
+    }
+
+
+    .tituloProc {
+        margin-top: 5px;
+        background-color: #e1e1e1;
+        padding: 10px;
+        border-radius: 10px 10px 10px 10px;
+        border: 1px solid;
+        box-shadow: 0 4px 5px #555;
+        text-align: center;
+        color: white
+    }
+</style>
+<div class="container" id="seleccionCbate" style="padding:10px">
+
+
+
+    <div class="row">
+        <div class="col-md-12">
+            <div style="" class="tituloProc">
+
+
+
+
+                <script>
+
+                    function acceptNum(e) {
+                        var tecla = document.all ? tecla = e.keyCode : tecla = e.which;
+
+                        return ((tecla > 47 && tecla < 58) || tecla == 8);
+                    }
+                </script>
+                <script>
+                    if (history.forward(1)) { location.replace(history.forward(1)) }
+                </script>
+
+                @{
+                    System.Threading.Thread.CurrentThread.CurrentCulture = new System.Globalization.CultureInfo("es-AR");
+                    var numberFormatInfo = new System.Globalization.NumberFormatInfo();
+                    numberFormatInfo.NumberDecimalSeparator = ".";
+                    numberFormatInfo.CurrencyPositivePattern = 0;
+
+                    Be.mercadopagos mp = (Be.mercadopagos)Session["mp"];
+                    string mImporte = string.Format("{0:c2}", Math.Round(Double.Parse(mp.TransactionAmount.Replace(",", "."), numberFormatInfo), 2));
+                }
+                <strong style="text-transform:uppercase;color:#333">Pago con Tarjeta - Transacción exitosa</strong>
+
+
+
+
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+        <div class="col-md-6 col-sm-6  col-12" style="padding:30px;max-width:550px;
+
+margin-top:15px;
+color: #333;
+border-radius: 10px 10px 10px 10px;
+border: 1px solid;
+box-shadow: 0 4px 5px #555;margin:10px">
+            <div class="row">
+                <div class="col-md-6 col-xs-5">
+                    <img src="~/img/mercadoPago.png" />
+
+                </div>
+                <div class="col-md-6 col-xs-7" style="text-align:right">
+                    <img src="/img/logoBest.png" />
+                </div>
+            </div>
+            <div class="form-horizontal">
+                <div style="    border-radius: 10px 10px 10px 10px;
+    border: 1px solid;
+    box-shadow: 0 4px 5px #555;
+    text-align: center;
+    background-color: rgb(241, 241, 241);
+    margin-top: 10PX;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 15px;">Comprobante de pago</div>
+
+             
+
+                    <div class="form-group">
+                        <label for="l" class="control-label col-xs-6 " style="font-weight:800">Identificación:</label>
+
+
+                        <label for="l" class="control-label col-xs-6 " style="font-weight:800;text-align: left;">  @mp.id_mp</label>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="l" class="control-label col-xs-6" style="font-weight:800">Fecha y Hora:</label>
+                        <label for="l" class="control-label col-xs-6 " style="font-weight:800;text-align: left;">  @mp.date_approved</label>
+
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="l" class="control-label col-xs-6" style="font-weight:800">Importe $:</label>
+                        <div class="col-xs-6">
+
+                            <label for="l" class="control-label col-xs-6" style="font-weight:800 ;text-align: left;"> @mImporte.Replace("$", "")</label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="l" class="control-label col-xs-6" style="font-weight:800">Cuotas:</label>
+                        <div class="col-xs-6">
+                            <label for="l" class="control-label col-xs-6" style="font-weight:800 ;text-align: left;"> @mp.installments</label>
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="l" class="control-label col-xs-6" style="font-weight:800">Tarjeta:</label>
+                        <div class="col-xs-6">
+
+                            <label for="l" class="control-label col-xs-6" style="font-weight:800 ;text-align: left;"> @mp.PaymentMethodId.ToUpper() xxxxx @mp.Card_LastFourDigits</label>
+
+
+                        </div>
+
+                    </div>
+
+                    <div class="form-group">
+                        <label for="l" class="control-label col-xs-6" style="font-weight:800">Factura:</label>
+                        <div class="col-xs-3">
+
+
+
+                            <img src="/img/pdf_icon.png" onclick="imprimicbte( @mp.cbte)" style=" cursor:pointer" />
+
+
+                        </div>  <div class="col-xs-3">
+
+
+                        </div>
+                    </div>
+
+
+                      
+
+                        <div style="    border-radius: 10px 10px 10px 10px;
+    border: 1px solid;
+    box-shadow: 0 4px 5px #555;
+    text-align: center;
+    background-color: rgb(241, 241, 241);
+    margin-top: 10PX;
+    font-weight: 800;
+    text-transform: uppercase;
+    margin-bottom: 15px; margin-top:30px">Condición de envio</div>
+
+
+
+                        <div class="form-group">
+                            <label for="l" class="control-label col-xs-6" style="font-weight:800">Tipo de Envio:</label>
+                            <label for="l" class="control-label col-xs-6 " style="font-weight:800;text-align: left;">  @mp.TipoEnvio</label>
+
+                        </div>
+                        @{ string miStilo = " display:block";
+                            if (@mp.TipoEnvio == "LO RETIRA EN LOCAL")
+                            {
+                                miStilo = " display:none";
+                            }
+                        }
+
+                        <div class="form-group" style="@miStilo">
+                            <label for="l" class="control-label col-xs-6" style="font-weight:800">Lugar de envio:</label>
+                            <label for="l" class="control-label col-xs-6 " style="font-weight:800;text-align: left;">  @mp.LugarEnvio</label>
+
+                        </div>
+
+
+                        <div class="form-group" style="@miStilo">
+                            <label for="l" class="control-label col-xs-6" style="font-weight:800">Costo $:</label>
+                            <label for="l" class="control-label col-xs-6 " style="font-weight:800;text-align: left;">  @mp.CostoEnvio</label>
+
+                        </div>
+
+                        <hr />
+                        <div class="form-group">
+
+                            <div class="col-xs-12" style="text-align:center">
+
+                                <button id="btnVolver1" type="button" class="btn  btn-info  " onclick="aceptar()">
+                                    Volver <span class=" glyphicon glyphicon-log-out"></span>
+                                </button>
+                                <button id="btnImp" type="button" class="btn  btn-danger  " onclick="imprSelec('seleccionCbate')">
+                                    Imprimir <span class="  glyphicon glyphicon-print "></span>
+                                </button>
+
+                            </div>
+
+                        </div>
+
+
+
+
+
+                        <div class="col-md-3"></div>
+                    </div>
+
+            <div class="row">
+
+                <div class="col-md-12">
+                    <div style="margin:auto;text-align:center; margin-bottom:10px">
+                        <asp:Label ID="lblmsg" runat="server" Text="" CssClass="alert-warning"></asp:Label>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3 col-sm-3 col-xs-3"></div>
+    </div>
+
+    <script type="text/javascript" src="/js/jquery.js"></script>
+
+
+    <link href="/css/bootstrap.min.css?ds=ds" rel="stylesheet" />
+    <script src="/css/bootstrap.min.js"></script>
+
+</div>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/easing.min.js"></script>
+<script type="text/javascript" src="/js/jquery.timers.js"></script>
+
+<script>
+    function imprimicbte(ids) {
+        window.open('/Articulos/RpCbte/?cbate=' + ids, '_blank');
+
+    }
+    function aceptar() {
+
+        window.location.href = '/';
+    }
+
+ 
+
+</script>
+
+

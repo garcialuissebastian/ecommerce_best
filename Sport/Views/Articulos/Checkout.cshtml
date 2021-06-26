@@ -1,0 +1,932 @@
+﻿
+@{
+    ViewBag.Title = "Checkout";
+    Layout = "~/Views/Master/_sport.cshtml";
+   
+
+
+}
+
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+
+<div class="container">
+    <style>
+        .tituloenvio {
+            font-weight: 600;
+            font-size: 16px;
+        }
+        .gratis {
+            font-size: 20px;
+            color: green;
+        }
+        .layout-close-btn {
+            display: none !important;
+        }
+        .ck_grid {
+            margin-top: 0px !important;
+            zoom: 1.7;
+        }
+        .ck_grid2 {
+            margin-top: 0px !important;
+            zoom: 1.6;
+            margin-left: 6px !important;
+        }
+
+
+        .otrospuntos   {
+            font-size: 20px;
+        }
+
+    .otrosdomi {
+            font-size: 20px;
+        }
+    </style>
+    <div class="well well-sm"> FINALIZAR COMPRA</div>
+
+
+
+
+
+
+
+    <div class="row" style="min-height:400px">
+        <div class="col-sm-12" style="margin-top:5px; margin-right: 0px;">
+            <div id='ResultadoCar' style="overflow-y: auto; overflow-x: hidden;min-height  : 150px; width: 100%; ">
+
+                <div>
+
+                </div>
+
+
+
+            </div>
+            @*<style>
+                .mercadopago-button {
+                    width: 154px;
+                    color: #fff;
+                    background-color: #dc3545 !important;
+                    border-color: #dc3545 !important;
+                    font-size: 14px !important;
+                    display: inline-block;
+                    font-weight: 400;
+                    text-align: center;
+                    white-space: nowrap;
+                    vertical-align: middle;
+                    -webkit-user-select: none;
+                    -moz-user-select: none;
+                    -ms-user-select: none;
+                    user-select: none;
+                    border: 1px solid transparent;
+                    padding: .375rem .75rem;
+                    font-size: 1rem;
+                    line-height: 1.5;
+                    border-radius: .25rem;
+                    font-family: "proximanova-regular";
+                    transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+        }
+                    .mercadopago-button:before {
+                        top: 0;
+                        left: -5px;
+                        padding-right: 10px;
+                        content: "\f09d"; /* this is your text. You can also use UTF-8 character codes as I do here */
+                        font-family: "fontawesome-webfont" !important;
+                    }
+            </style>*@
+
+            <div class="row">
+                <div class="col-4 col-sm-9 col-md-9 col-lg-9">  </div>
+                <div class="col-8 col-sm-3 col-md-3 col-lg-3">
+                    <div class="totalCk" style="background-color: #fddada7d;">
+
+                        SubTotal: $   <span id="tt">0</span>
+
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="well well-sm"> INFORMACIÓN PARA EL ENVIO</div>
+            <div class="row" id="formMenvio">
+
+                <div class="col-9 col-sm-4">
+                    <input type="text" id="txtCalle" class="form-control separador" placeholder="Calle" onkeydown="saltar('txtNro')" required>
+
+                </div>
+
+                <div class="col-md-1 col-3">
+                    <input type="text" id="txtNro" class="form-control separador" placeholder="Nro" onkeypress="return acceptNum(event)" onkeydown="saltar('txtPostal')" required>
+                </div>
+                <div class="col-md-1 col-4">
+                    <input type="text" id="txtPostal" class="form-control  separador" placeholder="C. Postal" onkeypress="return acceptNum(event)" onkeydown="saltar('txtPiso')" onchange="CalcCp()" style="width: 73px;" required>
+                </div>
+
+                <div class="col-md-1 col-4">
+                    <input type="text" id="txtPiso" class="form-control  separador" placeholder="Piso" onkeydown="saltar('txtDpto')">
+                </div>
+
+                <div class="col-md-1  col-4">
+                    <input type="text" id="txtDpto" class="form-control separador" placeholder="Depto" onkeydown="saltar('cmbProv')">
+                </div>
+
+                <div class="col-md-2">
+                    <select id="cmbProv" class="form-control separador" onkeydown="saltar('txtLocalidad')" style="    height: 31px;
+">
+                        <option value="1">Buenos Aires</option>
+                        <option value="2">Catamarca</option>
+                        <option value="3">Chaco</option>
+                        <option value="4">Chubut</option>
+                        <option value="5">Cordoba</option>
+                        <option value="6">Corrientes</option>
+                        <option value="7">Entre Rios</option>
+                        <option value="8">Formosa</option>
+                        <option value="9">Jujuy</option>
+                        <option value="10">La Pampa</option>
+                        <option value="11">La Rioja</option>
+                        <option value="12">Mendoza</option>
+                        <option value="13">Misiones</option>
+                        <option value="14">Neuquen</option>
+                        <option value="15">Rio Negro</option>
+                        <option value="16">Salta</option>
+                        <option value="17">San Juan</option>
+                        <option value="18">San Luis</option>
+                        <option value="19">Santa Cruz</option>
+                        <option value="20">Santa Fe</option>
+                        <option value="21">Sgo. del Estero</option>
+                        <option value="22">Tierra del Fuego</option>
+                        <option value="23">Tucuman</option>
+                        <option value="24">-Ninguna-</option>
+                    </select>
+                </div>
+
+                <div class="col-md-2">
+                    <input type="text" id="txtLocalidad" class="form-control separador" placeholder="Localidad" required>
+                </div>
+
+            </div>
+
+            <br/>
+            <div class="form-horizontal" style="display:block">
+
+
+                <div class="col-md-12 well well-sm  ">
+
+                    <span style="    margin-left: -12px;"> ELIJA UNA DE LAS OPCIONES DE ENVÍO</span>
+                </div>
+
+                <div class="form-group cpEnvioCuerpo">
+                    <div class=" col-2 col-md-1">
+                        <input class="ck_grid" type="radio" name="groupCk" value="OP_pap" id="ckDomicilio" onchange="calcEnvio2()">
+                    </div>
+                    <div class="col-10 col-md-5 tituloenvio"  style="  cursor:pointer;" onclick="ClickDomicilio()">
+
+                        DOMICILIO <span style="color: #0663a5;  font-weight: 800;"> </span>
+                    </div>
+                    <div class="col-12 col-md-6" style="text-align:right">
+                        <span class="otrosdomi">$ 0.00</span> <br />
+                        <span class="otrosdomi1" style="color: #7d7d7d;    font-weight: 500;
+    font-size: 13px;">Plazo de entrega: 0 días.</span>
+
+                    </div>
+
+
+                </div>
+
+
+
+                <div class="col-md-12 well well-sm cpEnvioCuerpo">
+
+                    <span style="    margin-left: -12px;">OPCIONES DE RETIRO</span>
+                </div>
+
+
+                <div class="form-group a_sucursal cpEnvioCuerpo">
+                    <div class="col-md-1">
+
+                        <input class="ck_grid" type="radio" name="groupCk" value="OP_pas" id="ckOtrosPtos" onchange="calcOtrosPtos()">
+                    </div>
+                    <div class="col-md-5 tituloenvio" style="  cursor:pointer;" onclick="BuscarCentros()" >
+
+                        CORREO Y OTROS PUNTOS  <br />  <span style="color: #0663a5;  font-weight: 800;">   </span>
+                    </div>
+                    <div class="col-md-6" style="text-align:right">
+                        <span class="otrospuntos">$ 0.00</span> <br />
+                        <span class="otrospuntos1" style="color: #7d7d7d;    font-weight: 500;
+    font-size: 13px;">Plazo de entrega: 0 días.</span>
+
+                    </div>
+
+
+
+                </div>
+
+                <div id="verLugares" class="a_sucursal cpEnvioCuerpo">
+
+                </div>
+
+
+
+
+
+                <script>
+                    function ClickDomicilio() {
+
+                        $("#ckDomicilio").prop("checked", true);
+                        $("#ckDomicilio").change();
+
+                        $("input:radio[name ='groupCentros']").prop("checked",false);
+
+                    }
+                    function calcOtrosPtos() {
+                      
+                        calcEnvio2();
+                        BuscarCentros();
+                      
+                       // $("#ckOtrosPtos").change();
+                    }
+                    function BuscarCentros() {
+
+                        try {
+                            if ($('#txtCodPostal').val() == "") {
+                                return;
+
+                            }
+
+                            var json = JSON.stringify
+                                ({
+
+                                    "v_cp": parseInt($('#txtCodPostal').val())
+
+                                });
+                            $.ajax({
+                                type: "POST",
+                                url: "/Articulos/verCentros",
+                                data: json,
+                                contentType: "application/json; charset=utf-8",
+                                dataType: "json",
+                                success: resultadoL2,
+                                error: errores
+                            });
+
+                        } catch (e) {
+                            alert(e.message);
+                        }
+                    }
+
+                    function resultadoL2(Resultado) {
+                        var Pacientes = Resultado;
+                        var Tabla_Titulo = "";
+                        var Tabla_Datos = "";
+                        var Tabla_Fin = "";
+                        $("#verLugares").show();
+                        $("#verLugares").empty();
+                        Tabla_Titulo = "<table   id='grilla1' class='table   alert alert-info' style='width: 100%;    font-size: 12px;'> <tbody>";
+                        $.each(Pacientes, function (index, pacientes) {
+                            Tabla_Datos = Tabla_Datos + "<tr ><td style='font-weight: 600;'> " + pacientes.Sucursal + '<br/>' + pacientes.TipoAgencia + " </td> <td>" + pacientes.Calle + ' N° ' + pacientes.Numero + ', ' + pacientes.Localidad + '. ' + pacientes.Provincia + ' ' + pacientes.Telefono + " </td></tr>";
+                        });
+
+                        Tabla_Fin = "</tbody></table>";
+                        $("#verLugares").html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+
+
+                    }
+
+                </script>
+
+
+                <hr />
+                <script>
+                    function clickLOCAL() {
+
+                        $("#ckEnLocal").prop("checked", true);
+                        $("#ckEnLocal").change();
+                    }
+                   
+                </script>
+                <div class="form-group " style="margin-top:20px">
+                    <div class="col-2 col-md-1">
+                        <input class="ck_grid" type="radio" name="groupCk" value="ENLOCAL" id="ckEnLocal" onchange="calcEnvio2()" >
+                    </div>
+                    <div class="col-10 col-md-5 tituloenvio" onclick="clickLOCAL()" style=" cursor:pointer">
+
+                        LO RETIRO EN EL LOCAL DE VENTAS  <span style="color: #7d7d7d;
+    font-weight: 500;
+    font-size: 13px;"><br />Calle 131 Nro:524. Hubson, Berazategui</span>
+                    </div>
+
+                    <div class="col-12 col-md-6" style="text-align:right">
+                        <span class="gratis">GRATIS</span>
+
+                    </div>
+
+
+                </div>
+
+
+                <hr />
+
+
+                <div class="form-group" style="margin-top:5px">
+
+
+                    <div class="col-4 col-sm-9 col-md-9 col-lg-9">  </div>
+                    <div class="col-8 col-sm-3 col-md-3 col-lg-3 tirarDerMov">
+                        <div class="totalCk" style="background-color: #fddada7d;    margin-right: 4px;">
+
+                            Envio: $   <span id="tt2">0</span>
+
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>  @*div envios*@
+            <hr />
+            <div class="row" style=" ">
+                <div class="col-sm-5 col-md-5 hidden-xs">
+
+
+
+                    <img src="https://imgmp.mlstatic.com/org-img/banners/ar/medios/468X60.jpg"
+                         title="Mercado Pago - Medios de pago" alt="Mercado Pago - Medios de pago"
+                         width="468" height="60" />
+
+
+
+
+
+                </div>
+                <div class="col-6  col-sm-4 col-md-4 col-lg-4 botenesCk" style="text-align:center;margin-top: 13px;">
+                    @*<form action="/Articulos/procesarPago" method="POST">
+                    <script src="https://www.mercadopago.com.ar/integrations/v1/web-tokenize-checkout.js"
+                            data-public-key="TEST-6e024c1b-cd44-47d0-9006-8dff34edebc4"
+                            data-transaction-amount="@pesosTotal"
+                            data-summary-shipping="@envio"
+                            data-summary-product-label="Compra web" data-summary-product="@subTotal">
+                    </script>
+                </form>*@
+
+                    <button type="button" class="btn btn-danger  hidden-xs " id="btnSeguir1" onclick="javascript:window.location.href='/'">
+                        Seguir  Comprando
+                        <span class=" fa fa-shopping-cart"></span>
+                    </button>
+
+                    <button type="button" class="btn btn-danger  " id="btnPagar2" onclick="mPagar();" style="width:154px">
+                        Pagar
+                        <span class=" fa fa-credit-card"></span>
+                    </button>
+
+                    <img src="~/img/loadingHF.gif" style="    height: 28px;
+    padding-left: 15px;display:none" id="load" />
+
+                </div>
+                <div class="col-6 col-sm-3 col-md-3 col-lg-3">
+                    <div class="totalCk">
+
+                        Total: $   <span id="tt3">0</span>
+
+                    </div>
+                </div>
+
+
+            </div>
+
+
+
+
+
+        </div>
+
+        </div>
+
+    @{
+
+        string mpPublicoTk = System.Configuration.ConfigurationManager.AppSettings.Get("mpPublicoTk").ToString();
+ 
+         
+    }
+
+
+    <script>
+
+        function BuscarCentros() {
+
+            try {
+                if ($('#txtPostal').val() == "") {
+                    return;
+
+                }
+
+                var json = JSON.stringify
+                    ({
+
+                        "v_cp": parseInt($('#txtPostal').val())
+
+                    });
+                $.ajax({
+                    type: "POST",
+                    url: "/Articulos/verCentros",
+                    data: json,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: resultadoCentro,
+                    error: errores
+                });
+
+            } catch (e) {
+                alert(e.message);
+            }
+        }
+        function CentrosCk(id, nombre) {
+            $("#ckOtrosPtos").prop("checked", true);
+            var json = JSON.stringify
+                ({
+                    v_id: id,
+                    v_nombre: nombre 
+                });
+            $.ajax({
+                type: "POST",
+                url: "/Articulos/Select_Sucursal",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: '',
+                error: errores
+            });
+        }
+
+        function resultadoCentro(Resultado) {
+            var Pacientes = Resultado;
+            var Tabla_Titulo = "";
+            var Tabla_Datos = "";
+            var Tabla_Fin = "";
+            $("#verLugares").show();
+            $("#verLugares").empty();
+            Tabla_Titulo = "<table   id='grilla1' class='table   alert alert-info' style='width: 100%;    font-size: 12px;'> <tbody>";
+            $.each(Pacientes, function (index, pacientes) {
+                var suc = pacientes.Sucursal.trim() + ' (' + pacientes.TipoAgencia.trim() + ') - ' + pacientes.Calle.trim() + ' N° ' + pacientes.Numero + ', ' + pacientes.Localidad.trim() + '. ' + pacientes.Provincia.trim() + ' ' + pacientes.Telefono.trim()   ;
+                 
+                Tabla_Datos = Tabla_Datos + "<tr > <td> <input class='ck_grid2'   type='radio' name='groupCentros' value='" + pacientes.IdCentroImposicion + "'  onchange='CentrosCk(" + pacientes.IdCentroImposicion + ",\"" + suc + "\")' > </td>  <td style='font-weight: 600;'> " + pacientes.Sucursal + '<br/>' + pacientes.TipoAgencia + " </td> <td>" + pacientes.Calle + ' N° ' + pacientes.Numero + ', ' + pacientes.Localidad + '. ' + pacientes.Provincia + ' ' + pacientes.Telefono + " </td></tr>";
+
+            });
+
+            Tabla_Fin = "</tbody></table>";
+            $("#verLugares").html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+
+
+        }
+
+         function crearMp() {
+            $("#divID").remove();
+            $("#formMp").empty();
+            var montoFinalmp = $("#tt3").text().replace('.', '').replace(',', '.');
+            var divElement = document.createElement("Div");
+            divElement.id = "divID";
+
+            let foo = document.createElement('script');
+            let fo = document.getElementById('formMp');
+            foo.setAttribute("src", "https://www.mercadopago.com.ar/integrations/v1/web-tokenize-checkout.js");
+            foo.setAttribute("data-public-key", "@mpPublicoTk");
+            foo.setAttribute("data-transaction-amount",montoFinalmp);
+            foo.setAttribute("data-summary-product-label", "Compra-Best Deporte");
+            foo.setAttribute("data-summary-product", montoFinalmp);
+            //divElement.appendChild(foo);
+            //fo.appendChild(divElement);
+            fo.appendChild(foo);
+           
+         
+          
+             
+           $(".mercadopago-button").click();
+        }
+
+
+        function crearMp2() {
+            $("#divMp").empty();
+            let fo = document.getElementById('divMp');
+            var myform = document.createElement("form");
+            myform.action = "/Articulos/procesarPago";
+            myform.method = "post";
+            myform.id = getRandomArbitrary(1, 10000);
+ 
+         
+
+            var montoFinalmp = $("#tt3").text().replace('.', '').replace(',', '.');
+            var divElement = document.createElement("Div");
+            divElement.id = "divID";
+
+            let foo = document.createElement('script');
+          //  let fo = document.getElementById('formMp');
+            foo.setAttribute("src", "https://www.mercadopago.com.ar/integrations/v1/web-tokenize-checkout.js");
+            foo.setAttribute("data-public-key", "@mpPublicoTk");
+            foo.setAttribute("data-transaction-amount",montoFinalmp);
+            foo.setAttribute("data-summary-product-label", "Compra-Best Deporte");
+            foo.setAttribute("data-summary-product", montoFinalmp);
+            //divElement.appendChild(foo);
+            //fo.appendChild(divElement);
+            myform.appendChild(foo);
+            fo.appendChild(myform);
+         
+          
+             
+            
+        }
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
+        function getRandomArbitrary(min, max) {
+            return Math.floor(Math.random() * (max - min)) + min;
+        }
+        function sleep(milliseconds) {
+            var start = new Date().getTime();
+            for (var i = 0; i < 1e7; i++) {
+                if ((new Date().getTime() - start) > milliseconds) {
+                    break;
+                }
+            }
+        }
+
+        function mPagar() {
+             
+            var varCentros = $("input:radio[name ='groupCentros']:checked").val();
+           
+
+            var ckenvio = $("input:radio[name ='groupCk']:checked").val();
+          
+
+            if (ckenvio == null) { 
+                alert("*** SELECCIONE UNA OPCIÓN DE ENVÍO.");
+                return; 
+            }
+            if (ckenvio == "OP_pas") { 
+                if (varCentros==null) {
+                    alert("*** POR FAVOR SELECCIONE UN PUNTO PARA EL RETIRO DE LA COMPRA.");
+                    return;   
+                }   
+            }
+
+            $.ajax({
+                type: "POST",
+                url: "/Articulos/WsYaInicio",
+                data: '',
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                success: (function (result) {
+                    
+                    if (!result) {
+                        $("#txtOplogin").text('buy');
+                        Login();
+                        return;
+                    }
+
+                }
+                ),
+                error: errores
+            });
+
+
+
+
+            var isValid = true;
+
+            if (ckenvio != "ENLOCAL") {
+
+                $('#formMenvio').find('select, textarea, input').each(function () {
+
+                    if ($(this).prop('required')) {
+
+                        if (!$(this).val()) {
+
+                            $(this).addClass("valid");
+
+                            isValid = false;
+                        } else {
+                            $(this).removeClass("valid");;
+                        }
+
+                    }
+                });
+
+
+            if (!isValid) {
+                
+                alert("*** POR FAVOR COMPLETE SU DIRECCIÓN PARA EL ENVIO.");
+               
+                return;
+                }
+
+       
+                if ($("#tt2").text() == "0,00") {
+                    if (ckenvio != "OP_pap" && $("#otrosdomi").text() !="GRATIS") {
+                        alert("Ingrese un codigo postal valido para el envio.");
+                        return;
+
+                    }
+                    
+                }
+
+
+
+            }
+          
+          $("#load").show();
+          
+           $("#btnPagar2").hide();
+          $("#btnSeguir1").hide();
+
+            var json = JSON.stringify
+                ({
+                    v_calle: $("#txtCalle").val(),
+                    v_nro: $("#txtNro").val(),
+                    v_cp: $("#txtPostal").val(),
+                    v_piso: $("#txtPiso").val(),
+                    v_dpto: $("#txtDpto").val(),
+                    v_provincia: $("#cmbProv option:selected").text(),
+                    v_localidad: $("#txtLocalidad").val()
+
+                });
+            $.ajax({
+                type: "POST",
+                url: "/Articulos/WscarritoSt",
+                data: json,
+                contentType: "application/json; charset=utf-8",
+                dataType: "json",
+                async: false,
+                success: (function (result) {
+                    if (!result) {
+                        alert(" hay articulos agregados sin stock.");
+                        windows.location.href = '/Articulos/Checkout/';
+                    } else {
+                        
+                        
+                       
+                    $(".mercadopago-button").click();
+                    }
+                }
+                ),
+                error: errores
+            });
+
+
+
+
+        }
+
+
+        function vercarrito2() {
+
+            try {
+                //  $("#ModalCarrito").modal();
+                var json = JSON.stringify
+                    ({
+                    });
+                $.ajax({
+                    type: "POST",
+                    url: "/Articulos/Wscarrito",
+                    data: json,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: resultadoL2,
+                    error: errores
+                });
+
+            } catch (e) {
+                alert(e.message);
+            }
+        }
+        function verEnvioTotal() {
+
+            try {
+
+                if ($("#txtPostal").val() == "" || $("#txtPostal").val() == "0" || $("#tt").text() == "0,00" || $("#tt").text() == "0.00") {
+                    
+                    return;
+                }
+                var ckenvio = $("input:radio[name ='groupCk']:checked").val();
+                console.log(ckenvio);
+                var json = JSON.stringify
+                    ({
+                        v_tipoEnvio: ckenvio,
+                        v_cp: $("#txtPostal").val()
+                    });
+                $.ajax({
+                    type: "POST",
+                    url: "/Articulos/CalEnvioTotal",
+                    data: json,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: (function (result) {
+                        $("#tt2").text(parseFloat(result.replace('.', '').replace(',', '.')).format(2, 3, '.', ',')); // es total del envio
+                        var mtt2 = parseFloat($("#tt").text().replace('.', '').replace(',', '.')); // es el total de articulos
+                        var mtt3 = parseFloat($("#tt2").text().replace('.', '').replace(',', '.'));
+                        //  var vprecio = parseFloat(pacientes.precio.replace(',', '.')).toFixed(2);
+                        var vpreciott2 = parseFloat(mtt3) + parseFloat(mtt2);
+                        $("#tt3").text(vpreciott2.format(2, 3, '.', ','));  // es el precio total
+                      //  crearMp();
+                    }
+                    ),
+                    error: errores
+                });
+
+            } catch (e) {
+                alert(e.message);
+            }
+        }
+
+        function CalcCp() {
+            $("#ckDomicilio").prop("checked", true).change();
+            $("input:radio[name ='groupCentros']").prop("checked", false);
+
+        }
+        function calcEnvio2() {
+
+            var ckenvio = $("input:radio[name ='groupCk']:checked").val();
+           
+            $("input:radio[name ='groupCentros']").prop("checked", false);
+            $("#verLugares").empty();
+            if (ckenvio != "ENLOCAL") {
+                $(".cpEnvioCuerpo").show();
+                if ($("#txtPostal").val() == "" || $("#txtPostal").val() == "0" || $("#tt").text() == "0,00" || $("#tt").text() == "0.00") {
+
+                    return;
+                } else {
+                  
+                }
+
+            } else {
+                $(".cpEnvioCuerpo").hide(); 
+                $("#txtCalle").val('');
+                $("#txtNro").val('');
+                $("#txtPostal").val('');
+                $("#txtPiso").val('');
+                $("#txtDpto").val('');
+                $("#txtLocalidad").val('');
+            }
+ 
+            
+            
+            
+            
+
+
+                              var json = JSON.stringify
+                    ({
+                                      v_cp: $("#txtPostal").val(),
+                                      v_envio: ckenvio
+                    });
+                $.ajax({
+                    type: "POST",
+                    url: "/Articulos/CalEnvioCkeckout",
+                    data: json,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                                success: (function (result) {
+                                    console.log(result);
+
+                                    if (result) {
+
+                                        if (result[0].descripcion!=null) { // si lo retira en el local
+
+                                        if (result[0].descripcion.substring(0, 11) == "ENVIO LOCAL") {
+                                            $(".a_sucursal").hide();
+                                            $(".otrosdomi").text(result[0].descripcion);
+                                            $(".otrosdomi").css("color", "blue");
+                                            $(".otrosdomi1").text(result[0].valor);
+                                            if (result[0].descripcion == "ENVIO LOCAL: GRATIS") {
+                                                $(".otrosdomi").text("GRATIS");
+                                                $(".otrosdomi").css("color", "green");
+                                                $(".otrosdomi1").text("Envio local.");
+                                                $(".a_sucursal").hide();
+                                            } 
+                                        } else {
+
+                                           // BuscarCentros();
+
+                                            $(".otrosdomi").css("color", "#454545");
+                                            $(".a_sucursal").show();
+                                        $(".otrosdomi").text(result[0].descripcion);
+                                        $(".otrosdomi1").text(result[0].valor);
+                                       
+                                        $(".otrospuntos").text(result[1].descripcion);
+                                            $(".otrospuntos1").text(result[1].valor);
+                                            }
+
+                                        }
+
+                                        $("#tt2").text(parseFloat(result[2].valor.replace('.', '').replace(',', '.')).format(2, 3, '.', ',')); // es total del envio
+                                        var mtt2 = parseFloat($("#tt").text().replace('.', '').replace(',', '.')); // es el total de articulos
+                                        var mtt3 = parseFloat($("#tt2").text().replace('.', '').replace(',', '.'));
+                                        //  var vprecio = parseFloat(pacientes.precio.replace(',', '.')).toFixed(2);
+                                        var vpreciott2 = parseFloat(mtt3) + parseFloat(mtt2);
+                                        $("#tt3").text(vpreciott2.format(2, 3, '.', ','));  // es el precio total
+
+                                      crearMp2();
+
+                                    }
+                                }),
+                                error: errores
+                            });
+        }
+        function cerrarcarrito2() {
+            javascript: window.history.back(-1);
+            //$("#ModalCarrito").modal('hide');
+        }
+        function resultadoL2(Resultado) {
+            var Pacientes = Resultado;
+            var Tabla_Titulo = "";
+            var Tabla_Datos = "";
+            var Tabla_Fin = "";
+            //$("#ModalCarrito").modal();
+            $("#ResultadoCar").show();
+            $("#ResultadoCar").empty();
+            var vtotalprecio = 0;
+            Tabla_Titulo = "<table   id='grilla1' class='table  ' style='width: 100%;  font-family: proximanova-regular, sans-serif !important;text-transform: uppercase '><thead style=' background-color:#cc0505 ;  color: white'><tr><th></th>   <th>Descripción</th><th>Imagen</th><th>Cantidad</th> <th>Precio</th> </tr></thead><tbody>";
+            $.each(Pacientes, function (index, pacientes) {
+                var vprecio = parseFloat(pacientes.precio.replace(',', '.')).toFixed(2) * parseFloat(pacientes.cant.replace(',', '.')).toFixed(2);
+                vtotalprecio = parseFloat(vtotalprecio) + parseFloat(vprecio);
+                //console.log(vtotalprecio);
+                // var vprecio = parseFloat(pacientes.precio.replace(',', '.')).toFixed(2);
+                Tabla_Datos = Tabla_Datos + "<tr ><td  style='width:30px'> <a class='tooltips' onclick='gvDel2(" + pacientes.Id + ");' > <img src='/img/boton-eliminar.png' style='background-position:50%; background-repeat:no-repeat;cursor:pointer' /> <span>Eliminar</span></a></td><td>" + pacientes.Descripcion + " </td > <td style='width: 120px;'>   <img src='" + pacientes.imagen + "' class='img img-responsive'>  </td><td style=' text-align: center;'>" + pacientes.cant + "</td><td style=' text-align: center;'>$ " + vprecio.format(2, 3, '.', ',') + "</td></tr>";
+            });
+
+            var vpreciott = parseFloat(vtotalprecio);
+            $("#tt").text(vpreciott.format(2, 3, '.', ','));
+
+            Tabla_Fin = "</tbody></table>";
+            $("#ResultadoCar").html(Tabla_Titulo + Tabla_Datos + Tabla_Fin);
+
+            if ($("#grilla1 tbody").find("tr").length < 1) {
+                $("#ResultadoCar").html("<div class='alert alert-info'> NO HAY ITEMS AGREGADOS  </div>");
+            }
+            fn_contador();
+
+        }
+
+        function gvDel2(ids) {
+
+            try {
+
+
+                //$('#btnComprar').prop('disabled', false);
+                //$("#VerstCant").hide();
+
+                var json = JSON.stringify
+                    ({
+                        ids: ids
+                    });
+                $.ajax({
+                    type: "POST",
+
+                    url: "/Articulos/WscarritoDel",
+                    data: json,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: (function (Result) {
+                        window.location.href = '/Articulos/Checkout';
+                    }
+                    ),
+                    error: errores
+                });
+
+            } catch (e) {
+                alert(e.message);
+            }
+        }
+
+
+        $(function () {
+            vercarrito2();
+            if ($("#contador").text() == "0") {
+                $("#btnPagar2").hide();
+            }
+
+            $(".cpEnvioCuerpo").hide();
+            window.addEventListener("message", (event) => {
+                if (event.origin !== 'https://www.mercadopago.com.ar' || !event.data.type) {
+                    return;
+                }
+                // evento close mercado pago
+
+                let dataType = event.data.type; // "close", "submit", etc...
+
+                if (dataType === 'close') {
+                    $("#load").hide();
+                    $("#btnPagar2").show();
+                    $("#btnSeguir1").show();
+                    // const paymentData = event.data.value; // Es un arreglo con la respuesta del pago procesado.
+                    return;
+                }
+            });
+            //$(window).on("close", function () {
+
+            //    alert("Please enter some text!");
+
+            //});
+
+        });
+    </script>
+    
+</div>
+
